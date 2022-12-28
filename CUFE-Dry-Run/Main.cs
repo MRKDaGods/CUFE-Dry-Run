@@ -134,6 +134,12 @@ namespace MRK
 
             InitializeComponent();
 
+            //since this is designed on 2560x1440, scale accordingly
+            var bounds = Screen.FromControl(this).Bounds;
+            Size = new Size((int)(Size.Width * (bounds.Width / 2560f)), (int)(Size.Height * (bounds.Height / 1440f)));
+
+            CenterToScreen();
+
             bExit.Click += (_, _) => Application.Exit();
             bPref.Click += OnPrefsClick;
 
