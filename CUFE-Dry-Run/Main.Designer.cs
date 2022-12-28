@@ -84,7 +84,7 @@
             this.bExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bExit.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bExit.ForeColor = System.Drawing.Color.White;
-            this.bExit.Location = new System.Drawing.Point(1053, 12);
+            this.bExit.Location = new System.Drawing.Point(1224, 12);
             this.bExit.Name = "bExit";
             this.bExit.Size = new System.Drawing.Size(47, 34);
             this.bExit.TabIndex = 3;
@@ -100,7 +100,7 @@
             this.bPref.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bPref.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bPref.ForeColor = System.Drawing.Color.White;
-            this.bPref.Location = new System.Drawing.Point(979, 824);
+            this.bPref.Location = new System.Drawing.Point(1150, 688);
             this.bPref.Name = "bPref";
             this.bPref.Size = new System.Drawing.Size(121, 43);
             this.bPref.TabIndex = 4;
@@ -113,13 +113,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.courseCont.AutoScroll = true;
+            this.courseCont.AutoScrollMargin = new System.Drawing.Size(10, 10);
             this.courseCont.Controls.Add(this.coursePrefab);
             this.courseCont.Controls.Add(this.dayPrefab);
             this.courseCont.Controls.Add(this.timePrefab);
             this.courseCont.ForeColor = System.Drawing.Color.White;
             this.courseCont.Location = new System.Drawing.Point(41, 106);
             this.courseCont.Name = "courseCont";
-            this.courseCont.Size = new System.Drawing.Size(1032, 702);
+            this.courseCont.Size = new System.Drawing.Size(1203, 566);
             this.courseCont.TabIndex = 5;
             // 
             // coursePrefab
@@ -144,7 +145,7 @@
             this.lCourseList.ForeColor = System.Drawing.Color.White;
             this.lCourseList.Location = new System.Drawing.Point(0, 0);
             this.lCourseList.Name = "lCourseList";
-            this.lCourseList.Size = new System.Drawing.Size(929, 43);
+            this.lCourseList.Size = new System.Drawing.Size(1100, 43);
             this.lCourseList.TabIndex = 0;
             this.lCourseList.Text = "-";
             this.lCourseList.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -156,17 +157,17 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoScroll = true;
             this.panel1.Controls.Add(this.lCourseList);
-            this.panel1.Location = new System.Drawing.Point(44, 824);
+            this.panel1.Location = new System.Drawing.Point(44, 688);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(929, 43);
+            this.panel1.Size = new System.Drawing.Size(1100, 43);
             this.panel1.TabIndex = 6;
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(8)))), ((int)(((byte)(8)))));
-            this.ClientSize = new System.Drawing.Size(1112, 879);
+            this.ClientSize = new System.Drawing.Size(1283, 743);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.courseCont);
             this.Controls.Add(this.bPref);

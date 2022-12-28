@@ -106,6 +106,13 @@ namespace MRK
             public T2? Item2 { get; set; }
         }
 
+        class SpanRange
+        {
+            public int CrsIdx;
+            public Point Location;
+            public Size Size;
+        }
+
         public const int GripHeight = 16;
         public const int CaptionHeight = 64;
 
@@ -180,6 +187,12 @@ namespace MRK
             base.WndProc(ref m);
         }
 
+        private bool RectOverlaps(Rectangle rectA, Rectangle rectB)
+        {
+            return Math.Max(rectA.Left, rectB.Left) < Math.Min(rectA.Right, rectB.Right) 
+                && Math.Max(rectA.Top, rectB.Top) < Math.Min(rectA.Bottom, rectB.Bottom);
+        }
+
         private void LayoutTimeTable()
         {
             _courseButtons.Clear();
@@ -232,6 +245,7 @@ namespace MRK
                 //some courses end at others' start time
                 //hour, List<rowIndex>
                 Dictionary<int, HashSet<int>> timeSpanOffsets = new();
+                List<SpanRange> ranges = new();
 
                 int periodCount = pair.Value.GetPeriodCount();
                 int width = periodCount * timePrefab.Size.Width;
@@ -290,19 +304,42 @@ namespace MRK
                             //how many periods does this course span?
                             int periodsSpanned = crs.To.Hours - crs.From.Hours + 1;
 
+                            var initialLoc = new Point(dx + coursePrefab.Size.Width * i, dy + cdy + coursePrefab.Location.Y);
+                            var size = new Size(coursePrefab.Size.Width * periodsSpanned, coursePrefab.Size.Height);
+
+                            while (true)
+                            {
+                                //find intersecting range if applicable
+                                var range = ranges.Find(r => r.CrsIdx == crsIdx && RectOverlaps(new Rectangle(r.Location, r.Size), new Rectangle(initialLoc, size)));
+
+                                if (range == null) break;
+
+                                cdy += coursePrefab.Size.Height;
+                                crsIdx++;
+
+                                initialLoc = new Point(dx + coursePrefab.Size.Width * i, dy + cdy + coursePrefab.Location.Y);
+                            }
+
                             var button = new Button
                             {
                                 BackColor = crs.CourseType == CourseType.Lecture ? LectureColor : TutorialColor,
                                 ForeColor = coursePrefab.ForeColor,
                                 FlatStyle = coursePrefab.FlatStyle,
                                 Font = coursePrefab.Font,
-                                Size = new Size(coursePrefab.Size.Width * periodsSpanned, coursePrefab.Size.Height),
+                                Size = size,
                                 Anchor = coursePrefab.Anchor,
                                 Text = $"{crs.CourseDefinition.Name}\n{crs.CourseType.ToString()[..3].ToUpper()} G{crs.Group}",
                                 Location = new Point(dx + coursePrefab.Size.Width * i, dy + cdy + coursePrefab.Location.Y),
                                 AutoSize = coursePrefab.AutoSize,
                                 TextAlign = coursePrefab.TextAlign,
                             };
+
+                            ranges.Add(new SpanRange
+                            {
+                                CrsIdx = crsIdx,
+                                Location = button.Location,
+                                Size = button.Size
+                            });
 
                             button.FlatAppearance.BorderSize = coursePrefab.FlatAppearance.BorderSize;
                             button.FlatAppearance.BorderColor = coursePrefab.FlatAppearance.BorderColor;
