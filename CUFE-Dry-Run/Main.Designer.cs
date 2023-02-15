@@ -36,9 +36,11 @@
             this.bPref = new System.Windows.Forms.Button();
             this.courseCont = new System.Windows.Forms.Panel();
             this.coursePrefab = new System.Windows.Forms.Button();
+            this.lLoading = new System.Windows.Forms.Label();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.lCourseList = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbOpen = new System.Windows.Forms.CheckBox();
             this.courseCont.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -137,6 +139,20 @@
             this.coursePrefab.Text = "MTHN102\r\nLEC G5";
             this.coursePrefab.UseVisualStyleBackColor = false;
             // 
+            // lLoading
+            // 
+            this.lLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lLoading.Font = new System.Drawing.Font("Yu Gothic UI Light", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lLoading.ForeColor = System.Drawing.Color.White;
+            this.lLoading.Location = new System.Drawing.Point(41, 106);
+            this.lLoading.Name = "lLoading";
+            this.lLoading.Size = new System.Drawing.Size(1200, 566);
+            this.lLoading.TabIndex = 0;
+            this.lLoading.Text = "Loading courses...";
+            this.lLoading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lCourseList
             // 
             this.lCourseList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(8)))), ((int)(((byte)(8)))));
@@ -162,12 +178,26 @@
             this.panel1.Size = new System.Drawing.Size(1100, 43);
             this.panel1.TabIndex = 6;
             // 
+            // cbOpen
+            // 
+            this.cbOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbOpen.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cbOpen.ForeColor = System.Drawing.Color.White;
+            this.cbOpen.Location = new System.Drawing.Point(1085, 77);
+            this.cbOpen.Name = "cbOpen";
+            this.cbOpen.Size = new System.Drawing.Size(150, 23);
+            this.cbOpen.TabIndex = 7;
+            this.cbOpen.Text = "SHOW OPEN ONLY";
+            this.cbOpen.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(8)))), ((int)(((byte)(8)))));
             this.ClientSize = new System.Drawing.Size(1283, 743);
+            this.Controls.Add(this.cbOpen);
+            this.Controls.Add(this.lLoading);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.courseCont);
             this.Controls.Add(this.bPref);
@@ -195,5 +225,7 @@
         private ToolTip tooltip;
         private Label lCourseList;
         private Panel panel1;
+        private CheckBox cbOpen;
+        private Label lLoading;
     }
 }

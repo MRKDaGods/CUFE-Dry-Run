@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace MRK
 {
@@ -69,8 +64,12 @@ namespace MRK
         public TimeSpan From { get; init; }
         public TimeSpan To { get; init; }
         public bool Selected { get; set; }
+        public int ClassSize { get; set; }
+        public int Enrolled { get; set; }
 
-        public CourseRecord(CourseDefinition courseDefinition, int group, CourseType courseType, CourseDay day, TimeSpan from, TimeSpan to)
+        public bool IsOpen => ClassSize > Enrolled;
+
+        public CourseRecord(CourseDefinition courseDefinition, int group, CourseType courseType, CourseDay day, TimeSpan from, TimeSpan to, int classSize, int enrolled)
         {
             CourseDefinition = courseDefinition;
             Group = group;
@@ -78,6 +77,8 @@ namespace MRK
             Day = day;
             From = from;
             To = to;
+            ClassSize = classSize;
+            Enrolled = enrolled;
 
             Selected = false;
         }
@@ -114,7 +115,7 @@ namespace MRK
 
                 int len = codeEnd - codeBegin - 2;
                 string potentialCode = len > 0 ? cur.Substring(codeBegin + 2, len) : "";
-                
+
                 //all codes are of 7 chars
                 if (potentialCode.Length == 7 && !potentialCode.StartsWith('_'))
                 {
@@ -151,6 +152,16 @@ namespace MRK
                     int toEnd = cur.Substring(toBegin).IndexOf("</td>") + toBegin;
                     string to = cur.Substring(toBegin, toEnd - toBegin).Replace("_", ""); //remove padding _
 
+                    //class size
+                    int csBegin = toEnd + 9;
+                    int csEnd = cur.Substring(csBegin).IndexOf("</td>") + csBegin;
+                    string classSize = cur.Substring(csBegin, csEnd - csBegin).Replace("_", ""); //remove padding _
+
+                    //enrolled
+                    int enrBegin = csEnd + 9;
+                    int enrEnd = cur.Substring(enrBegin).IndexOf("</td>") + enrBegin;
+                    string enrolled = cur.Substring(enrBegin, enrEnd - enrBegin);
+
                     var courseGroup = int.Parse(group);
 
                     var courseType = Enum.GetValues<CourseType>()
@@ -159,15 +170,18 @@ namespace MRK
                     var courseDay = Enum.GetValues<CourseDay>()
                                                 .FirstOrDefault(x => x.ToString() == day);
 
+                    var courseClassSize = int.Parse(classSize);
+                    var courseEnrolled = int.Parse(enrolled);
+
                     var timeFrom = TimeSpan.Parse(from); //hour:min
                     ValidateTimeSpan(ref timeFrom);
 
                     var timeTo = TimeSpan.Parse(to); //hour:min
                     ValidateTimeSpan(ref timeTo);
 
-                    CourseRecords.Add(new CourseRecord(definition, courseGroup, courseType, courseDay, timeFrom, timeTo));
+                    CourseRecords.Add(new CourseRecord(definition, courseGroup, courseType, courseDay, timeFrom, timeTo, courseClassSize, courseEnrolled));
 
-                    cur = cur.Substring(toEnd);
+                    cur = cur.Substring(enrEnd);
                 }
                 else
                 {
@@ -199,9 +213,9 @@ namespace MRK
             }
         }
 
-        public List<CourseRecord> GetAvailableCourseRecords()
+        public List<CourseRecord> GetAvailableCourseRecords(bool openOnly)
         {
-            return CourseRecords.Where(x => x.CourseDefinition.Checked).ToList();
+            return CourseRecords.Where(x => x.CourseDefinition.Checked && (!openOnly || x.IsOpen)).ToList();
         }
 
         public List<CourseRecord> GetSelectedCourseRecords()
@@ -212,7 +226,7 @@ namespace MRK
         public void SelectCourseRecord(CourseRecord record, out CourseRecord? deselected)
         {
             deselected = null;
-            
+
             //course toggled
             if (record.Selected)
             {

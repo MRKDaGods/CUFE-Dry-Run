@@ -143,13 +143,46 @@ namespace MRK
             bExit.Click += (_, _) => Application.Exit();
             bPref.Click += OnPrefsClick;
 
+            cbOpen.CheckedChanged += OnOpenToggled;
+
             _courseManager = new CourseManager();
             _prefabs = new HashSet<Control> { dayPrefab, timePrefab, coursePrefab };
             _courseButtons = new List<CourseButton>();
+        }
 
-            _courseManager.ParseCourses(CourseResources.EmbeddedList);
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
 
+            foreach (Control control in courseCont.Controls)
+            {
+                if (_prefabs.Contains(control))
+                {
+                    control.Hide();
+                }
+            }
+
+            lLoading.Visible = true;
+
+            Task.Delay(500).ContinueWith(_ =>
+            {
+                Invoke(() =>
+                {
+                    _courseManager.ParseCourses(CourseResources.EmbeddedList);
+
+                    lLoading.Visible = false;
+
+                    LayoutTimeTable();
+
+                    lCourseList.Text = "Courses loaded";
+                });
+            });
+        }
+
+        private void OnOpenToggled(object? sender, EventArgs e)
+        {
             LayoutTimeTable();
+            CheckClashes();
         }
 
         private void OnPrefsClick(object? sender, EventArgs e)
@@ -226,7 +259,7 @@ namespace MRK
                 control.Dispose();
             }
 
-            var availableRecs = _courseManager.GetAvailableCourseRecords();
+            var availableRecs = _courseManager.GetAvailableCourseRecords(cbOpen.Checked);
             //calc min max, etc
 
             SortedDictionary<CourseDay, CourseSpan> recs = new(new CourseDayComparer());
@@ -334,7 +367,9 @@ namespace MRK
                                 Font = coursePrefab.Font,
                                 Size = size,
                                 Anchor = coursePrefab.Anchor,
-                                Text = $"{crs.CourseDefinition.Name}\n{crs.CourseType.ToString()[..3].ToUpper()} G{crs.Group}",
+                                Text = $"{crs.CourseDefinition.Name}\n{crs.CourseType.ToString()[..3].ToUpper()} " +
+                                $"G{crs.Group} " +
+                                $"({crs.Enrolled}/{crs.ClassSize})",
                                 Location = new Point(dx + coursePrefab.Size.Width * i, dy + cdy + coursePrefab.Location.Y),
                                 AutoSize = coursePrefab.AutoSize,
                                 TextAlign = coursePrefab.TextAlign,

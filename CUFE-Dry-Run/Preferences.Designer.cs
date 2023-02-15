@@ -44,6 +44,7 @@
             this.bMth = new System.Windows.Forms.Button();
             this.bGen = new System.Windows.Forms.Button();
             this.bClr = new System.Windows.Forms.Button();
+            this.bUpdateList = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.courseCont.SuspendLayout();
             this.coursePrefab.SuspendLayout();
@@ -201,14 +202,14 @@
             // 
             // bCmp
             // 
-            this.bCmp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bCmp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bCmp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.bCmp.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.bCmp.FlatAppearance.BorderSize = 0;
             this.bCmp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bCmp.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bCmp.ForeColor = System.Drawing.Color.White;
-            this.bCmp.Location = new System.Drawing.Point(598, 826);
+            this.bCmp.Location = new System.Drawing.Point(245, 826);
             this.bCmp.Name = "bCmp";
             this.bCmp.Size = new System.Drawing.Size(62, 23);
             this.bCmp.TabIndex = 7;
@@ -217,14 +218,14 @@
             // 
             // bMth
             // 
-            this.bMth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bMth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bMth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.bMth.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.bMth.FlatAppearance.BorderSize = 0;
             this.bMth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bMth.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bMth.ForeColor = System.Drawing.Color.White;
-            this.bMth.Location = new System.Drawing.Point(530, 826);
+            this.bMth.Location = new System.Drawing.Point(177, 826);
             this.bMth.Name = "bMth";
             this.bMth.Size = new System.Drawing.Size(62, 23);
             this.bMth.TabIndex = 7;
@@ -233,14 +234,14 @@
             // 
             // bGen
             // 
-            this.bGen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bGen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bGen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.bGen.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.bGen.FlatAppearance.BorderSize = 0;
             this.bGen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bGen.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bGen.ForeColor = System.Drawing.Color.White;
-            this.bGen.Location = new System.Drawing.Point(462, 826);
+            this.bGen.Location = new System.Drawing.Point(109, 826);
             this.bGen.Name = "bGen";
             this.bGen.Size = new System.Drawing.Size(62, 23);
             this.bGen.TabIndex = 7;
@@ -249,7 +250,7 @@
             // 
             // bClr
             // 
-            this.bClr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bClr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bClr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.bClr.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.bClr.FlatAppearance.BorderSize = 0;
@@ -263,6 +264,22 @@
             this.bClr.Text = "Clear";
             this.bClr.UseVisualStyleBackColor = false;
             // 
+            // bUpdateList
+            // 
+            this.bUpdateList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bUpdateList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.bUpdateList.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.bUpdateList.FlatAppearance.BorderSize = 0;
+            this.bUpdateList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bUpdateList.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bUpdateList.ForeColor = System.Drawing.Color.White;
+            this.bUpdateList.Location = new System.Drawing.Point(510, 826);
+            this.bUpdateList.Name = "bUpdateList";
+            this.bUpdateList.Size = new System.Drawing.Size(150, 23);
+            this.bUpdateList.TabIndex = 7;
+            this.bUpdateList.Text = "Update Course List";
+            this.bUpdateList.UseVisualStyleBackColor = false;
+            // 
             // Preferences
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -273,6 +290,7 @@
             this.Controls.Add(this.bGen);
             this.Controls.Add(this.bMth);
             this.Controls.Add(this.bCmp);
+            this.Controls.Add(this.bUpdateList);
             this.Controls.Add(this.bSearch);
             this.Controls.Add(this.tbSearch);
             this.Controls.Add(this.courseCont);
@@ -308,5 +326,6 @@
         private Button bMth;
         private Button bGen;
         private Button bClr;
+        private Button bUpdateList;
     }
 }
