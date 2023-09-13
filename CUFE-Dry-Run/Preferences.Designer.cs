@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lTitle = new System.Windows.Forms.Label();
             this.bExit = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,22 +44,22 @@
             this.bMth = new System.Windows.Forms.Button();
             this.bGen = new System.Windows.Forms.Button();
             this.bClr = new System.Windows.Forms.Button();
-            this.bUpdateList = new System.Windows.Forms.Button();
+            this.bEecs = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.courseCont.SuspendLayout();
             this.coursePrefab.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // lTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Yu Gothic UI Light", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(41, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(208, 32);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Course Preferences";
+            this.lTitle.AutoSize = true;
+            this.lTitle.Font = new System.Drawing.Font("Yu Gothic UI Light", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lTitle.ForeColor = System.Drawing.Color.White;
+            this.lTitle.Location = new System.Drawing.Point(41, 41);
+            this.lTitle.Name = "lTitle";
+            this.lTitle.Size = new System.Drawing.Size(208, 32);
+            this.lTitle.TabIndex = 0;
+            this.lTitle.Text = "Course Preferences";
             // 
             // bExit
             // 
@@ -213,7 +213,7 @@
             this.bCmp.Name = "bCmp";
             this.bCmp.Size = new System.Drawing.Size(62, 23);
             this.bCmp.TabIndex = 7;
-            this.bCmp.Text = "CMPN";
+            this.bCmp.Text = "CMPS";
             this.bCmp.UseVisualStyleBackColor = false;
             // 
             // bMth
@@ -229,7 +229,7 @@
             this.bMth.Name = "bMth";
             this.bMth.Size = new System.Drawing.Size(62, 23);
             this.bMth.TabIndex = 7;
-            this.bMth.Text = "MTHN";
+            this.bMth.Text = "MTHS";
             this.bMth.UseVisualStyleBackColor = false;
             // 
             // bGen
@@ -245,7 +245,7 @@
             this.bGen.Name = "bGen";
             this.bGen.Size = new System.Drawing.Size(62, 23);
             this.bGen.TabIndex = 7;
-            this.bGen.Text = "GENN";
+            this.bGen.Text = "GENS";
             this.bGen.UseVisualStyleBackColor = false;
             // 
             // bClr
@@ -264,21 +264,21 @@
             this.bClr.Text = "Clear";
             this.bClr.UseVisualStyleBackColor = false;
             // 
-            // bUpdateList
+            // bEecs
             // 
-            this.bUpdateList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bUpdateList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.bUpdateList.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.bUpdateList.FlatAppearance.BorderSize = 0;
-            this.bUpdateList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bUpdateList.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bUpdateList.ForeColor = System.Drawing.Color.White;
-            this.bUpdateList.Location = new System.Drawing.Point(510, 826);
-            this.bUpdateList.Name = "bUpdateList";
-            this.bUpdateList.Size = new System.Drawing.Size(150, 23);
-            this.bUpdateList.TabIndex = 7;
-            this.bUpdateList.Text = "Update Course List";
-            this.bUpdateList.UseVisualStyleBackColor = false;
+            this.bEecs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.bEecs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.bEecs.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.bEecs.FlatAppearance.BorderSize = 0;
+            this.bEecs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bEecs.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bEecs.ForeColor = System.Drawing.Color.White;
+            this.bEecs.Location = new System.Drawing.Point(313, 826);
+            this.bEecs.Name = "bEecs";
+            this.bEecs.Size = new System.Drawing.Size(62, 23);
+            this.bEecs.TabIndex = 8;
+            this.bEecs.Text = "EECS";
+            this.bEecs.UseVisualStyleBackColor = false;
             // 
             // Preferences
             // 
@@ -286,17 +286,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(8)))), ((int)(((byte)(8)))));
             this.ClientSize = new System.Drawing.Size(695, 869);
+            this.Controls.Add(this.bEecs);
             this.Controls.Add(this.bClr);
             this.Controls.Add(this.bGen);
             this.Controls.Add(this.bMth);
             this.Controls.Add(this.bCmp);
-            this.Controls.Add(this.bUpdateList);
             this.Controls.Add(this.bSearch);
             this.Controls.Add(this.tbSearch);
             this.Controls.Add(this.courseCont);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.bExit);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Preferences";
             this.Text = "CUFE Dry Run";
@@ -310,7 +310,7 @@
 
         #endregion
 
-        private Label label1;
+        private Label lTitle;
         private Button bExit;
         private Panel panel1;
         private Label label2;
@@ -326,6 +326,6 @@
         private Button bMth;
         private Button bGen;
         private Button bClr;
-        private Button bUpdateList;
+        private Button bEecs;
     }
 }

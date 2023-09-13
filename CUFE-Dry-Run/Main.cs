@@ -1,3 +1,6 @@
+using System.Security.Policy;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
+
 namespace MRK
 {
     public partial class Main : Form
@@ -41,14 +44,23 @@ namespace MRK
         {
             private readonly Button _button;
             private bool _clashing;
+            private readonly Color _backColor;
+            private bool _selected;
 
             public CourseRecord Record { get; init; }
             public bool IsClashing => _clashing && Record.Selected;
+            public Button Button => _button;
+            public Color BackColor => _selected ? Color.OrangeRed : _backColor;
 
             public CourseButton(Button button, CourseRecord record)
             {
                 _button = button;
                 Record = record;
+
+                _button.MouseEnter += (_, _) => Instance!.SetHoveredRecord(this, true);
+                _button.MouseLeave += (_, _) => Instance!.SetHoveredRecord(this, false);
+
+                _backColor = _button.BackColor;
 
                 _button.Click += (_, _) => OnClick();
             }
@@ -58,9 +70,12 @@ namespace MRK
             /// </summary>
             private void SetSelected(bool selected)
             {
+                _selected = selected;
+
                 _button.FlatAppearance.BorderColor = selected ? Color.GreenYellow : Color.White;
                 _button.Font = new Font(_button.Font, selected ? FontStyle.Bold : FontStyle.Regular);
 
+                _button.BackColor = BackColor;
                 _button.ForeColor = Color.White;
             }
 
@@ -98,6 +113,11 @@ namespace MRK
                     SetSelected(Record.Selected);
                 }
             }
+
+            public void SetHoveredStatus(bool hovered)
+            {
+                _button.BackColor = hovered ? Color.FromArgb(123, 220, 93) : BackColor;
+            }
         }
 
         class BoxedTuple<T1, T2>
@@ -119,8 +139,8 @@ namespace MRK
         private const int HorizontalSpacing = 5;
         private const int VerticalSpacing = 10;
 
-        private readonly static Color LectureColor = Color.FromArgb(255, 64, 64, 64);
-        private readonly static Color TutorialColor = Color.DarkCyan;
+        private readonly static Color LectureColor = Color.FromArgb(0, 0, 128);
+        private readonly static Color TutorialColor = Color.FromArgb(0, 128, 128);
 
         private readonly CourseManager _courseManager;
         private readonly HashSet<Control> _prefabs;
@@ -144,10 +164,13 @@ namespace MRK
             bPref.Click += OnPrefsClick;
 
             cbOpen.CheckedChanged += OnOpenToggled;
+            cbCode.CheckedChanged += OnOpenToggled;
 
             _courseManager = new CourseManager();
             _prefabs = new HashSet<Control> { dayPrefab, timePrefab, coursePrefab };
             _courseButtons = new List<CourseButton>();
+
+            lHoveredCourse.Location = new Point(Size.Width / 2 - lHoveredCourse.Width / 2, lHoveredCourse.Location.Y);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -203,6 +226,24 @@ namespace MRK
             }, _courseManager).Show();
         }
 
+        private void SetHoveredRecord(CourseButton sender, bool value)
+        {
+            if (value && !cbHighlight.Checked)
+            {
+                return;
+            }
+
+            var record = sender.Record;
+
+            lHoveredCourse.Text = sender.Button.Text.Replace("\n", " ");
+
+            _courseButtons.ForEach(button =>
+            {
+                button.SetHoveredStatus(value && button.Record.CourseDefinition == record.CourseDefinition && 
+                    button.Record.Group == record.Group);
+            });
+        }
+
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == 0x84)
@@ -226,7 +267,7 @@ namespace MRK
             base.WndProc(ref m);
         }
 
-        private bool RectOverlaps(Rectangle rectA, Rectangle rectB)
+        private static bool RectOverlaps(Rectangle rectA, Rectangle rectB)
         {
             return Math.Max(rectA.Left, rectB.Left) < Math.Min(rectA.Right, rectB.Right) 
                 && Math.Max(rectA.Top, rectB.Top) < Math.Min(rectA.Bottom, rectB.Bottom);
@@ -367,9 +408,10 @@ namespace MRK
                                 Font = coursePrefab.Font,
                                 Size = size,
                                 Anchor = coursePrefab.Anchor,
-                                Text = $"{crs.CourseDefinition.Name}\n{crs.CourseType.ToString()[..3].ToUpper()} " +
+                                Text = $"{(cbCode.Checked ? crs.CourseDefinition.Code : crs.CourseDefinition.Name)}\n{crs.CourseType.ToString()[..3].ToUpper()} " +
                                 $"G{crs.Group} " +
-                                $"({crs.Enrolled}/{crs.ClassSize})",
+                                $"({crs.Enrolled}/{crs.ClassSize}) " +
+                                (crs.CourseDefinition.IsNewSystem ? "[NEW]" : ""),
                                 Location = new Point(dx + coursePrefab.Size.Width * i, dy + cdy + coursePrefab.Location.Y),
                                 AutoSize = coursePrefab.AutoSize,
                                 TextAlign = coursePrefab.TextAlign,

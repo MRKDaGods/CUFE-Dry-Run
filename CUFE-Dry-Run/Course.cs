@@ -7,11 +7,14 @@ namespace MRK
         public string Code { get; init; }
         public string Name { get; init; }
         public bool Checked { get; set; }
+        public bool IsNewSystem { get; init; }
 
         public CourseDefinition(string code, string name)
         {
             Code = code;
             Name = name;
+
+            IsNewSystem = Code.Where(x => char.IsLetter(x)).Last() == 'S';
 
             Checked = false;
         }

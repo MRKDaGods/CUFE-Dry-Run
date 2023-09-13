@@ -41,6 +41,10 @@
             this.lCourseList = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbOpen = new System.Windows.Forms.CheckBox();
+            this.lHoveredCourse = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cbHighlight = new System.Windows.Forms.CheckBox();
+            this.cbCode = new System.Windows.Forms.CheckBox();
             this.courseCont.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -190,12 +194,63 @@
             this.cbOpen.Text = "SHOW OPEN ONLY";
             this.cbOpen.UseVisualStyleBackColor = true;
             // 
+            // lHoveredCourse
+            // 
+            this.lHoveredCourse.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lHoveredCourse.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lHoveredCourse.ForeColor = System.Drawing.Color.White;
+            this.lHoveredCourse.Location = new System.Drawing.Point(208, 57);
+            this.lHoveredCourse.Name = "lHoveredCourse";
+            this.lHoveredCourse.Size = new System.Drawing.Size(871, 32);
+            this.lHoveredCourse.TabIndex = 8;
+            this.lHoveredCourse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(12, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(181, 15);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Last Updated 13/09/2023 12:52 PM\r\n";
+            // 
+            // cbHighlight
+            // 
+            this.cbHighlight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbHighlight.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cbHighlight.ForeColor = System.Drawing.Color.White;
+            this.cbHighlight.Location = new System.Drawing.Point(1085, 50);
+            this.cbHighlight.Name = "cbHighlight";
+            this.cbHighlight.Size = new System.Drawing.Size(150, 23);
+            this.cbHighlight.TabIndex = 10;
+            this.cbHighlight.Text = "HIGHLIGHT";
+            this.cbHighlight.UseVisualStyleBackColor = true;
+            // 
+            // cbCode
+            // 
+            this.cbCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbCode.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cbCode.ForeColor = System.Drawing.Color.White;
+            this.cbCode.Location = new System.Drawing.Point(1085, 23);
+            this.cbCode.Name = "cbCode";
+            this.cbCode.Size = new System.Drawing.Size(101, 23);
+            this.cbCode.TabIndex = 11;
+            this.cbCode.Text = "SHOW CODE";
+            this.cbCode.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(8)))), ((int)(((byte)(8)))));
             this.ClientSize = new System.Drawing.Size(1283, 743);
+            this.Controls.Add(this.cbCode);
+            this.Controls.Add(this.cbHighlight);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lHoveredCourse);
             this.Controls.Add(this.cbOpen);
             this.Controls.Add(this.lLoading);
             this.Controls.Add(this.panel1);
@@ -227,5 +282,9 @@
         private Panel panel1;
         private CheckBox cbOpen;
         private Label lLoading;
+        private Label lHoveredCourse;
+        private Label label2;
+        private CheckBox cbHighlight;
+        private CheckBox cbCode;
     }
 }

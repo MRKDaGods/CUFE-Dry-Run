@@ -28,9 +28,10 @@
             bSearch.Click += OnSeachClick;
 
             bClr.Click += (_, _) => Search("");
-            bCmp.Click += (_, _) => Search("CMPN");
-            bMth.Click += (_, _) => Search("MTHN");
-            bGen.Click += (_, _) => Search("GENN");
+            bCmp.Click += (_, _) => Search("CMPS");
+            bMth.Click += (_, _) => Search("MTHS");
+            bGen.Click += (_, _) => Search("GENS");
+            bEecs.Click += (_, _) => Search("EECS");
 
             RenderCourseList(manager.CourseDefs);
         }
@@ -79,6 +80,8 @@
 
         private void RenderCourseList(List<CourseDefinition> defs)
         {
+            lTitle.Text = $"Course Preferences ({defs.Count})";
+
             courseCont.SuspendLayout();
 
             //remove if exists
@@ -94,7 +97,7 @@
 
             int dy = coursePrefab.Location.Y;
             
-            foreach (var course in defs)
+            foreach (var course in defs.OrderBy(x => !x.Checked).ThenBy(x => x.Code))
             {
                 var p = new Panel
                 {
