@@ -1,6 +1,13 @@
-﻿namespace MRK
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace MRK
 {
-    public partial class Preferences : Form
+    public partial class Preferences : MRKForm
     {
         private readonly CourseManager _manager;
         private bool _dirty;
@@ -9,9 +16,8 @@
         {
             InitializeComponent();
 
-            //since this is designed on 2560x1440, scale accordingly
-            var bounds = Screen.FromControl(this).Bounds;
-            Size = new Size((int)(Size.Width * (bounds.Width / 2560f)), (int)(Size.Height * (bounds.Height / 1440f)));
+            //scale
+            ScaleForm();
 
             CenterToScreen();
 
@@ -33,7 +39,23 @@
             bGen.Click += (_, _) => Search("GENS");
             bEecs.Click += (_, _) => Search("EECS");
 
+            bUpdate.Click += OnUpdateClick;
+
             RenderCourseList(manager.CourseDefs);
+        }
+
+        private void OnUpdateClick(object? sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new()
+            {
+                Filter = "DryRun update file|*.dryupd"
+            };
+
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+
+            var result = UpdateManager.Instance.LoadUpdate(ofd.FileName, true);
+
+            MessageBox.Show(result ? "Update successful, restarting..." : "Invalid update file");
         }
 
         private void OnSeachClick(object? sender, EventArgs e)
@@ -53,29 +75,6 @@
         {
             tbSearch.Text = q;
             OnSeachClick(null, EventArgs.Empty);
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == 0x84)
-            {
-                Point pos = new Point(m.LParam.ToInt32());
-                pos = PointToClient(pos);
-
-                if (pos.Y < Main.CaptionHeight)
-                {
-                    m.Result = (IntPtr)2;  // HTCAPTION
-                    return;
-                }
-
-                if (pos.X >= ClientSize.Width - Main.GripHeight && pos.Y >= ClientSize.Height - Main.GripHeight)
-                {
-                    m.Result = (IntPtr)17; // HTBOTTOMRIGHT
-                    return;
-                }
-            }
-
-            base.WndProc(ref m);
         }
 
         private void RenderCourseList(List<CourseDefinition> defs)
@@ -147,9 +146,22 @@
                     AutoSize = namePrefab.AutoSize
                 };
 
+                var extra = new Label
+                {
+                    BackColor = extraPrefab.BackColor,
+                    ForeColor = extraPrefab.ForeColor,
+                    Font = extraPrefab.Font,
+                    Size = extraPrefab.Size,
+                    Anchor = extraPrefab.Anchor,
+                    Text = $"LEC ({course.LectureCount}) TUT ({course.TutorialCount})",
+                    Location = extraPrefab.Location,
+                    AutoSize = extraPrefab.AutoSize
+                };
+
                 p.Controls.Add(cb);
                 p.Controls.Add(code);
                 p.Controls.Add(name);
+                p.Controls.Add(extra);
 
                 courseCont.Controls.Add(p);
 

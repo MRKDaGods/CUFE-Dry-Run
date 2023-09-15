@@ -1,4 +1,6 @@
-﻿namespace MRK
+﻿using System.Windows.Forms;
+
+namespace MRK
 {
     partial class Preferences
     {
@@ -35,6 +37,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.courseCont = new System.Windows.Forms.Panel();
             this.coursePrefab = new System.Windows.Forms.Panel();
+            this.extraPrefab = new System.Windows.Forms.Label();
             this.namePrefab = new System.Windows.Forms.Label();
             this.codePrefab = new System.Windows.Forms.Label();
             this.cbPrefab = new System.Windows.Forms.CheckBox();
@@ -45,6 +48,7 @@
             this.bGen = new System.Windows.Forms.Button();
             this.bClr = new System.Windows.Forms.Button();
             this.bEecs = new System.Windows.Forms.Button();
+            this.bUpdate = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.courseCont.SuspendLayout();
             this.coursePrefab.SuspendLayout();
@@ -129,13 +133,28 @@
             this.coursePrefab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.coursePrefab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.coursePrefab.Controls.Add(this.extraPrefab);
             this.coursePrefab.Controls.Add(this.namePrefab);
             this.coursePrefab.Controls.Add(this.codePrefab);
             this.coursePrefab.Controls.Add(this.cbPrefab);
             this.coursePrefab.Location = new System.Drawing.Point(0, 3);
             this.coursePrefab.Name = "coursePrefab";
-            this.coursePrefab.Size = new System.Drawing.Size(618, 40);
+            this.coursePrefab.Size = new System.Drawing.Size(618, 58);
             this.coursePrefab.TabIndex = 0;
+            // 
+            // extraPrefab
+            // 
+            this.extraPrefab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.extraPrefab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.extraPrefab.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.extraPrefab.ForeColor = System.Drawing.Color.White;
+            this.extraPrefab.Location = new System.Drawing.Point(168, 35);
+            this.extraPrefab.Name = "extraPrefab";
+            this.extraPrefab.Size = new System.Drawing.Size(447, 23);
+            this.extraPrefab.TabIndex = 6;
+            this.extraPrefab.Text = "LEC (3)";
+            this.extraPrefab.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // namePrefab
             // 
@@ -280,12 +299,29 @@
             this.bEecs.Text = "EECS";
             this.bEecs.UseVisualStyleBackColor = false;
             // 
+            // bUpdate
+            // 
+            this.bUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bUpdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.bUpdate.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.bUpdate.FlatAppearance.BorderSize = 0;
+            this.bUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bUpdate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bUpdate.ForeColor = System.Drawing.Color.White;
+            this.bUpdate.Location = new System.Drawing.Point(584, 826);
+            this.bUpdate.Name = "bUpdate";
+            this.bUpdate.Size = new System.Drawing.Size(76, 23);
+            this.bUpdate.TabIndex = 9;
+            this.bUpdate.Text = "Update";
+            this.bUpdate.UseVisualStyleBackColor = false;
+            // 
             // Preferences
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(8)))), ((int)(((byte)(8)))));
             this.ClientSize = new System.Drawing.Size(695, 869);
+            this.Controls.Add(this.bUpdate);
             this.Controls.Add(this.bEecs);
             this.Controls.Add(this.bClr);
             this.Controls.Add(this.bGen);
@@ -327,5 +363,7 @@
         private Button bGen;
         private Button bClr;
         private Button bEecs;
+        private Label extraPrefab;
+        private Button bUpdate;
     }
 }

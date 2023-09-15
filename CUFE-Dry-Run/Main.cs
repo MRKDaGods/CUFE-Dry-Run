@@ -1,11 +1,16 @@
-using System.Security.Policy;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MRK
 {
-    public partial class Main : Form
+    public partial class Main : MRKForm
     {
-        class CourseSpan : Dictionary<TimeSpan, List<CourseRecord>>
+        private class CourseSpan : Dictionary<TimeSpan, List<CourseRecord>>
         {
             public TimeSpan? MinFrom { get; private set; }
             public TimeSpan? MaxTo { get; private set; }
@@ -40,7 +45,7 @@ namespace MRK
             }
         }
 
-        class CourseButton
+        private class CourseButton
         {
             private readonly Button _button;
             private bool _clashing;
@@ -114,27 +119,24 @@ namespace MRK
                 }
             }
 
-            public void SetHoveredStatus(bool hovered)
+            public void SetHoveredStatus(bool hovered, bool sameGroup)
             {
-                _button.BackColor = hovered ? Color.FromArgb(123, 220, 93) : BackColor;
+                _button.BackColor = hovered ? Color.FromArgb(sameGroup ? 255 : 128, 123, 220, 93) : BackColor;
             }
         }
 
-        class BoxedTuple<T1, T2>
+        private class BoxedTuple<T1, T2>
         {
             public T1? Item1 { get; set; }
             public T2? Item2 { get; set; }
         }
 
-        class SpanRange
+        private class SpanRange
         {
             public int CrsIdx;
             public Point Location;
             public Size Size;
         }
-
-        public const int GripHeight = 16;
-        public const int CaptionHeight = 64;
 
         private const int HorizontalSpacing = 5;
         private const int VerticalSpacing = 10;
@@ -145,6 +147,7 @@ namespace MRK
         private readonly CourseManager _courseManager;
         private readonly HashSet<Control> _prefabs;
         private readonly List<CourseButton> _courseButtons;
+        private readonly Config _config;
 
         private static Main? Instance { get; set; }
 
@@ -154,14 +157,41 @@ namespace MRK
 
             InitializeComponent();
 
-            //since this is designed on 2560x1440, scale accordingly
-            var bounds = Screen.FromControl(this).Bounds;
-            Size = new Size((int)(Size.Width * (bounds.Width / 2560f)), (int)(Size.Height * (bounds.Height / 1440f)));
+            //scale
+            ScaleForm();
 
+            //center
             CenterToScreen();
+
+            //load config
+            try
+            {
+                using (var fstream = new FileStream("config", FileMode.Open))
+                using (var reader = new BinaryReader(fstream))
+                {
+                    _config = Config.Deserialize(reader);
+                }
+            }
+            catch
+            {
+                _config = new Config
+                {
+                    //by default
+                    Highlight = true
+                };
+            }
+
+            //load update if exists
+            UpdateManager.Instance.LoadUpdate(null);
+
+            //config entries
+            cbHighlight.Checked = _config.Highlight;
+            cbCode.Checked = _config.ShowCode;
+            cbOpen.Checked = _config.ShowOpenOnly;
 
             bExit.Click += (_, _) => Application.Exit();
             bPref.Click += OnPrefsClick;
+            bScreenshot.Click += OnScreenshotClick;
 
             cbOpen.CheckedChanged += OnOpenToggled;
             cbCode.CheckedChanged += OnOpenToggled;
@@ -170,7 +200,33 @@ namespace MRK
             _prefabs = new HashSet<Control> { dayPrefab, timePrefab, coursePrefab };
             _courseButtons = new List<CourseButton>();
 
-            lHoveredCourse.Location = new Point(Size.Width / 2 - lHoveredCourse.Width / 2, lHoveredCourse.Location.Y);
+            CenterControl(lHoveredCourse);
+            CenterControl(panelToolbar);
+            CenterControl(bScreenshot);
+        }
+
+        private void OnScreenshotClick(object? sender, EventArgs e)
+        {
+            var oldSz = courseCont.Size;
+            courseCont.Size = courseCont.DisplayRectangle.Size;
+
+            Bitmap bmp = new Bitmap(courseCont.Width, courseCont.Height);
+
+            courseCont.DrawToBitmap(bmp, new Rectangle(0, 0, courseCont.Width, courseCont.Height));
+
+            var imgName = string.Join("_", $"Timetable-{DateTime.Now:G}.png".Split(Path.GetInvalidFileNameChars()));
+
+            bmp.Save(imgName, ImageFormat.Png);
+            bmp.Dispose();
+
+            courseCont.Size = oldSz;
+
+            MessageBox.Show($"Saved timetable to {imgName}");
+        }
+
+        private static void CenterControl(Control c)
+        {
+            c.Location = new Point(c.Parent.Size.Width / 2 - c.Width / 2, c.Location.Y);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -186,26 +242,64 @@ namespace MRK
             }
 
             lLoading.Visible = true;
+            bPref.Enabled = false;
 
             Task.Delay(500).ContinueWith(_ =>
             {
+                //parse in another thread
+                var updateData = UpdateManager.Instance.UpdateData;
+                _courseManager.ParseCourses(updateData?.Resource ?? CourseResources.EmbeddedList);
+
                 Invoke(() =>
                 {
-                    _courseManager.ParseCourses(CourseResources.EmbeddedList);
+                    if (updateData != null)
+                    {
+                        lLastUpdated.Text = "FALL 2023 " + updateData.Value.LastUpdated.ToString("G");
+                    }
 
+                    bPref.Enabled = true;
                     lLoading.Visible = false;
 
                     LayoutTimeTable();
 
                     lCourseList.Text = "Courses loaded";
+
+                    CheckEmptyCoursesLabel();
                 });
             });
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            using (var fstream = new FileStream("config", FileMode.Create))
+            using (var writer = new BinaryWriter(fstream))
+            {
+                _config.Highlight = cbHighlight.Checked;
+                _config.ShowCode = cbCode.Checked;
+                _config.ShowOpenOnly = cbOpen.Checked;
+
+                _config.Serialize(writer);
+            }
+
+            base.OnFormClosed(e);
         }
 
         private void OnOpenToggled(object? sender, EventArgs e)
         {
             LayoutTimeTable();
             CheckClashes();
+        }
+
+        private void CheckEmptyCoursesLabel()
+        {
+            var any = _courseManager.HasAvailableCourseRecords(cbOpen.Checked);
+
+            if (!any)
+            {
+                lLoading.Text = "Select atleast one course to continue";
+            }
+
+            lLoading.Visible = !any;
         }
 
         private void OnPrefsClick(object? sender, EventArgs e)
@@ -221,6 +315,8 @@ namespace MRK
 
                     CheckClashes();
                     UpdateCourseList();
+
+                    CheckEmptyCoursesLabel();
                 }
 
             }, _courseManager).Show();
@@ -235,46 +331,25 @@ namespace MRK
 
             var record = sender.Record;
 
-            lHoveredCourse.Text = sender.Button.Text.Replace("\n", " ");
+            lHoveredCourse.Text = $"[{sender.Record.CourseDefinition.Code}] " + sender.Button.Text.Replace("\n", " ");
 
             _courseButtons.ForEach(button =>
             {
-                button.SetHoveredStatus(value && button.Record.CourseDefinition == record.CourseDefinition && 
+                button.SetHoveredStatus(value && button.Record.CourseDefinition == record.CourseDefinition,
                     button.Record.Group == record.Group);
             });
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == 0x84)
-            {
-                Point pos = new Point(m.LParam.ToInt32());
-                pos = PointToClient(pos);
-
-                if (pos.Y < CaptionHeight)
-                {
-                    m.Result = (IntPtr)2;  // HTCAPTION
-                    return;
-                }
-
-                if (pos.X >= ClientSize.Width - GripHeight && pos.Y >= ClientSize.Height - GripHeight)
-                {
-                    m.Result = (IntPtr)17; // HTBOTTOMRIGHT
-                    return;
-                }
-            }
-
-            base.WndProc(ref m);
-        }
-
         private static bool RectOverlaps(Rectangle rectA, Rectangle rectB)
         {
-            return Math.Max(rectA.Left, rectB.Left) < Math.Min(rectA.Right, rectB.Right) 
+            return Math.Max(rectA.Left, rectB.Left) < Math.Min(rectA.Right, rectB.Right)
                 && Math.Max(rectA.Top, rectB.Top) < Math.Min(rectA.Bottom, rectB.Bottom);
         }
 
         private void LayoutTimeTable()
         {
+            courseCont.AutoScrollPosition = Point.Empty;
+
             _courseButtons.Clear();
 
             courseCont.SuspendLayout();
@@ -523,7 +598,8 @@ namespace MRK
 
                 string lec = pair.Value.Item1?.Group.ToString() ?? "NA";
                 string tut = pair.Value.Item2?.Group.ToString() ?? "NA";
-                str += $"{pair.Key.Name} ({lec}/{tut})";
+
+                str += $"{pair.Key.Name} ({lec}{(pair.Value.Item1?.CourseDefinition.IsGen ?? false ? "" : $"/{tut}")})";
 
                 flag = true;
             }

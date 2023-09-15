@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MRK
 {
-    public partial class UpdateCourseList : Form
+    public class MRKForm : Form
     {
-        public UpdateCourseList()
-        {
-            InitializeComponent();
+        private const int GripHeight = 16;
+        private const int CaptionHeight = 64;
 
+        protected void ScaleForm()
+        {
             //since this is designed on 2560x1440, scale accordingly
             var bounds = Screen.FromControl(this).Bounds;
             Size = new Size((int)(Size.Width * (bounds.Width / 2560f)), (int)(Size.Height * (bounds.Height / 1440f)));
@@ -28,13 +23,13 @@ namespace MRK
                 Point pos = new Point(m.LParam.ToInt32());
                 pos = PointToClient(pos);
 
-                if (pos.Y < Main.CaptionHeight)
+                if (pos.Y < CaptionHeight)
                 {
                     m.Result = (IntPtr)2;  // HTCAPTION
                     return;
                 }
 
-                if (pos.X >= ClientSize.Width - Main.GripHeight && pos.Y >= ClientSize.Height - Main.GripHeight)
+                if (pos.X >= ClientSize.Width - GripHeight && pos.Y >= ClientSize.Height - GripHeight)
                 {
                     m.Result = (IntPtr)17; // HTBOTTOMRIGHT
                     return;

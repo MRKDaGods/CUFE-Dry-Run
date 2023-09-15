@@ -1,4 +1,6 @@
-﻿namespace MRK
+﻿using System.Windows.Forms;
+
+namespace MRK
 {
     partial class Main
     {
@@ -42,11 +44,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbOpen = new System.Windows.Forms.CheckBox();
             this.lHoveredCourse = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lLastUpdated = new System.Windows.Forms.Label();
             this.cbHighlight = new System.Windows.Forms.CheckBox();
             this.cbCode = new System.Windows.Forms.CheckBox();
+            this.bScreenshot = new System.Windows.Forms.Button();
+            this.panelToolbar = new System.Windows.Forms.Panel();
             this.courseCont.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panelToolbar.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -110,7 +115,7 @@
             this.bPref.Name = "bPref";
             this.bPref.Size = new System.Drawing.Size(121, 43);
             this.bPref.TabIndex = 4;
-            this.bPref.Text = "Preferences";
+            this.bPref.Text = "Courses";
             this.bPref.UseVisualStyleBackColor = false;
             // 
             // courseCont
@@ -206,16 +211,16 @@
             this.lHoveredCourse.TabIndex = 8;
             this.lHoveredCourse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // lLastUpdated
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(12, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(181, 15);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Last Updated 13/09/2023 12:52 PM\r\n";
+            this.lLastUpdated.AutoSize = true;
+            this.lLastUpdated.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lLastUpdated.ForeColor = System.Drawing.Color.White;
+            this.lLastUpdated.Location = new System.Drawing.Point(12, 12);
+            this.lLastUpdated.Name = "lLastUpdated";
+            this.lLastUpdated.Size = new System.Drawing.Size(163, 15);
+            this.lLastUpdated.TabIndex = 9;
+            this.lLastUpdated.Text = "FALL 2023 14/09/2023 10:21 PM\r\n";
             // 
             // cbHighlight
             // 
@@ -241,15 +246,42 @@
             this.cbCode.Text = "SHOW CODE";
             this.cbCode.UseVisualStyleBackColor = true;
             // 
+            // bScreenshot
+            // 
+            this.bScreenshot.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bScreenshot.AutoSize = true;
+            this.bScreenshot.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bScreenshot.FlatAppearance.BorderSize = 0;
+            this.bScreenshot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bScreenshot.ForeColor = System.Drawing.Color.White;
+            this.bScreenshot.Location = new System.Drawing.Point(0, 0);
+            this.bScreenshot.Name = "bScreenshot";
+            this.bScreenshot.Size = new System.Drawing.Size(75, 25);
+            this.bScreenshot.TabIndex = 12;
+            this.bScreenshot.Text = "Screenshot";
+            this.bScreenshot.UseVisualStyleBackColor = true;
+            // 
+            // panelToolbar
+            // 
+            this.panelToolbar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panelToolbar.AutoSize = true;
+            this.panelToolbar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
+            this.panelToolbar.Controls.Add(this.bScreenshot);
+            this.panelToolbar.Location = new System.Drawing.Point(462, 0);
+            this.panelToolbar.Name = "panelToolbar";
+            this.panelToolbar.Size = new System.Drawing.Size(102, 28);
+            this.panelToolbar.TabIndex = 13;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(8)))), ((int)(((byte)(8)))));
             this.ClientSize = new System.Drawing.Size(1283, 743);
+            this.Controls.Add(this.panelToolbar);
             this.Controls.Add(this.cbCode);
             this.Controls.Add(this.cbHighlight);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lLastUpdated);
             this.Controls.Add(this.lHoveredCourse);
             this.Controls.Add(this.cbOpen);
             this.Controls.Add(this.lLoading);
@@ -263,6 +295,8 @@
             this.Text = "CUFE Dry Run";
             this.courseCont.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panelToolbar.ResumeLayout(false);
+            this.panelToolbar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -283,8 +317,10 @@
         private CheckBox cbOpen;
         private Label lLoading;
         private Label lHoveredCourse;
-        private Label label2;
+        private Label lLastUpdated;
         private CheckBox cbHighlight;
         private CheckBox cbCode;
+        private Button bScreenshot;
+        private Panel panelToolbar;
     }
 }

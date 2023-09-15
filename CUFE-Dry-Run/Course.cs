@@ -1,4 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace MRK
 {
@@ -8,6 +11,15 @@ namespace MRK
         public string Name { get; init; }
         public bool Checked { get; set; }
         public bool IsNewSystem { get; init; }
+        public int LectureCount { get; set; }
+        public int TutorialCount { get; set; }
+        public bool IsGen
+        {
+            get
+            {
+                return Code.StartsWith("GEN");
+            }
+        }
 
         public CourseDefinition(string code, string name)
         {
@@ -100,7 +112,7 @@ namespace MRK
             CourseRecords = new List<CourseRecord>();
         }
 
-        public void ParseCourses([NotNull] string raw)
+        public void ParseCourses(string raw)
         {
             CourseDefs.Clear();
             CourseRecords.Clear();
@@ -125,7 +137,7 @@ namespace MRK
                     //name
                     int nameBegin = codeEnd + 11; //2 + 9
                     int nameEnd = cur.Substring(nameBegin).IndexOf("</td>") + nameBegin;
-                    string name = cur.Substring(nameBegin, nameEnd - nameBegin);
+                    string name = cur.Substring(nameBegin, nameEnd - nameBegin).Replace("amp;", "&");
 
                     //register definition if needed
                     var definition = GetOrRegisterDefinition(potentialCode, name);
@@ -182,6 +194,20 @@ namespace MRK
                     var timeTo = TimeSpan.Parse(to); //hour:min
                     ValidateTimeSpan(ref timeTo);
 
+                    switch (courseType)
+                    {
+                        case CourseType.Lecture:
+                            definition.LectureCount++;
+                            break;
+
+                        case CourseType.Tutorial:
+                            definition.TutorialCount++;
+                            break;
+
+                        default:
+                            throw new Exception("Course Record has none course type");
+                    }
+
                     CourseRecords.Add(new CourseRecord(definition, courseGroup, courseType, courseDay, timeFrom, timeTo, courseClassSize, courseEnrolled));
 
                     cur = cur.Substring(enrEnd);
@@ -219,6 +245,11 @@ namespace MRK
         public List<CourseRecord> GetAvailableCourseRecords(bool openOnly)
         {
             return CourseRecords.Where(x => x.CourseDefinition.Checked && (!openOnly || x.IsOpen)).ToList();
+        }
+
+        public bool HasAvailableCourseRecords(bool openOnly)
+        {
+            return CourseRecords.Any(x => x.CourseDefinition.Checked && (!openOnly || x.IsOpen));
         }
 
         public List<CourseRecord> GetSelectedCourseRecords()
