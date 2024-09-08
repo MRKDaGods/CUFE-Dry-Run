@@ -30,276 +30,284 @@ namespace MRK
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dayPrefab = new System.Windows.Forms.Label();
-            this.timePrefab = new System.Windows.Forms.Label();
-            this.bExit = new System.Windows.Forms.Button();
-            this.bPref = new System.Windows.Forms.Button();
-            this.courseCont = new System.Windows.Forms.Panel();
-            this.coursePrefab = new System.Windows.Forms.Button();
-            this.lLoading = new System.Windows.Forms.Label();
-            this.tooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.lCourseList = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.cbOpen = new System.Windows.Forms.CheckBox();
-            this.lHoveredCourse = new System.Windows.Forms.Label();
-            this.lLastUpdated = new System.Windows.Forms.Label();
-            this.cbHighlight = new System.Windows.Forms.CheckBox();
-            this.cbCode = new System.Windows.Forms.CheckBox();
-            this.bScreenshot = new System.Windows.Forms.Button();
-            this.panelToolbar = new System.Windows.Forms.Panel();
-            this.courseCont.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panelToolbar.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            label1 = new Label();
+            dayPrefab = new Label();
+            timePrefab = new Label();
+            bExit = new Button();
+            bPref = new Button();
+            courseCont = new Panel();
+            coursePrefab = new Button();
+            lLoading = new Label();
+            tooltip = new ToolTip(components);
+            lCourseList = new Label();
+            panel1 = new Panel();
+            cbOpen = new CheckBox();
+            lHoveredCourse = new Label();
+            lLastUpdated = new Label();
+            cbHighlight = new CheckBox();
+            cbCode = new CheckBox();
+            bScreenshot = new Button();
+            panelToolbar = new Panel();
+            label2 = new Label();
+            courseCont.SuspendLayout();
+            panel1.SuspendLayout();
+            panelToolbar.SuspendLayout();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Yu Gothic UI Light", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(41, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(156, 32);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "CUFE Dry Run";
+            label1.AutoSize = true;
+            label1.Font = new System.Drawing.Font("Yu Gothic UI Light", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label1.ForeColor = System.Drawing.Color.White;
+            label1.Location = new System.Drawing.Point(41, 41);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(156, 32);
+            label1.TabIndex = 0;
+            label1.Text = "CUFE Dry Run";
             // 
             // dayPrefab
             // 
-            this.dayPrefab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dayPrefab.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.dayPrefab.ForeColor = System.Drawing.Color.White;
-            this.dayPrefab.Location = new System.Drawing.Point(3, 0);
-            this.dayPrefab.Name = "dayPrefab";
-            this.dayPrefab.Size = new System.Drawing.Size(158, 23);
-            this.dayPrefab.TabIndex = 1;
-            this.dayPrefab.Text = "Saturday";
-            this.dayPrefab.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            dayPrefab.BorderStyle = BorderStyle.FixedSingle;
+            dayPrefab.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dayPrefab.ForeColor = System.Drawing.Color.White;
+            dayPrefab.Location = new System.Drawing.Point(3, 0);
+            dayPrefab.Name = "dayPrefab";
+            dayPrefab.Size = new System.Drawing.Size(158, 23);
+            dayPrefab.TabIndex = 1;
+            dayPrefab.Text = "Saturday";
+            dayPrefab.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // timePrefab
             // 
-            this.timePrefab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.timePrefab.ForeColor = System.Drawing.Color.White;
-            this.timePrefab.Location = new System.Drawing.Point(3, 23);
-            this.timePrefab.Name = "timePrefab";
-            this.timePrefab.Size = new System.Drawing.Size(95, 43);
-            this.timePrefab.TabIndex = 2;
-            this.timePrefab.Text = "8:00\r\n8:50";
-            this.timePrefab.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            timePrefab.BorderStyle = BorderStyle.FixedSingle;
+            timePrefab.ForeColor = System.Drawing.Color.White;
+            timePrefab.Location = new System.Drawing.Point(3, 23);
+            timePrefab.Name = "timePrefab";
+            timePrefab.Size = new System.Drawing.Size(95, 43);
+            timePrefab.TabIndex = 2;
+            timePrefab.Text = "8:00\r\n8:50";
+            timePrefab.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // bExit
             // 
-            this.bExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bExit.FlatAppearance.BorderSize = 0;
-            this.bExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bExit.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.bExit.ForeColor = System.Drawing.Color.White;
-            this.bExit.Location = new System.Drawing.Point(1224, 12);
-            this.bExit.Name = "bExit";
-            this.bExit.Size = new System.Drawing.Size(47, 34);
-            this.bExit.TabIndex = 3;
-            this.bExit.Text = "X";
-            this.bExit.UseVisualStyleBackColor = true;
+            bExit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            bExit.FlatAppearance.BorderSize = 0;
+            bExit.FlatStyle = FlatStyle.Flat;
+            bExit.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            bExit.ForeColor = System.Drawing.Color.White;
+            bExit.Location = new System.Drawing.Point(1224, 12);
+            bExit.Name = "bExit";
+            bExit.Size = new System.Drawing.Size(47, 34);
+            bExit.TabIndex = 3;
+            bExit.Text = "X";
+            bExit.UseVisualStyleBackColor = true;
             // 
             // bPref
             // 
-            this.bPref.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bPref.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.bPref.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.bPref.FlatAppearance.BorderSize = 0;
-            this.bPref.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bPref.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bPref.ForeColor = System.Drawing.Color.White;
-            this.bPref.Location = new System.Drawing.Point(1150, 688);
-            this.bPref.Name = "bPref";
-            this.bPref.Size = new System.Drawing.Size(121, 43);
-            this.bPref.TabIndex = 4;
-            this.bPref.Text = "Courses";
-            this.bPref.UseVisualStyleBackColor = false;
+            bPref.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            bPref.BackColor = System.Drawing.Color.FromArgb(32, 32, 32);
+            bPref.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            bPref.FlatAppearance.BorderSize = 0;
+            bPref.FlatStyle = FlatStyle.Flat;
+            bPref.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            bPref.ForeColor = System.Drawing.Color.White;
+            bPref.Location = new System.Drawing.Point(1150, 688);
+            bPref.Name = "bPref";
+            bPref.Size = new System.Drawing.Size(121, 43);
+            bPref.TabIndex = 4;
+            bPref.Text = "Courses";
+            bPref.UseVisualStyleBackColor = false;
             // 
             // courseCont
             // 
-            this.courseCont.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.courseCont.AutoScroll = true;
-            this.courseCont.AutoScrollMargin = new System.Drawing.Size(10, 10);
-            this.courseCont.Controls.Add(this.coursePrefab);
-            this.courseCont.Controls.Add(this.dayPrefab);
-            this.courseCont.Controls.Add(this.timePrefab);
-            this.courseCont.ForeColor = System.Drawing.Color.White;
-            this.courseCont.Location = new System.Drawing.Point(41, 106);
-            this.courseCont.Name = "courseCont";
-            this.courseCont.Size = new System.Drawing.Size(1203, 566);
-            this.courseCont.TabIndex = 5;
+            courseCont.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            courseCont.AutoScroll = true;
+            courseCont.AutoScrollMargin = new System.Drawing.Size(10, 10);
+            courseCont.Controls.Add(coursePrefab);
+            courseCont.Controls.Add(dayPrefab);
+            courseCont.Controls.Add(timePrefab);
+            courseCont.ForeColor = System.Drawing.Color.White;
+            courseCont.Location = new System.Drawing.Point(41, 106);
+            courseCont.Name = "courseCont";
+            courseCont.Size = new System.Drawing.Size(1203, 566);
+            courseCont.TabIndex = 5;
             // 
             // coursePrefab
             // 
-            this.coursePrefab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.coursePrefab.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.coursePrefab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.coursePrefab.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.coursePrefab.ForeColor = System.Drawing.Color.White;
-            this.coursePrefab.Location = new System.Drawing.Point(3, 69);
-            this.coursePrefab.Name = "coursePrefab";
-            this.coursePrefab.Size = new System.Drawing.Size(95, 57);
-            this.coursePrefab.TabIndex = 3;
-            this.coursePrefab.Text = "MTHN102\r\nLEC G5";
-            this.coursePrefab.UseVisualStyleBackColor = false;
+            coursePrefab.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            coursePrefab.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            coursePrefab.FlatStyle = FlatStyle.Flat;
+            coursePrefab.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            coursePrefab.ForeColor = System.Drawing.Color.White;
+            coursePrefab.Location = new System.Drawing.Point(3, 69);
+            coursePrefab.Name = "coursePrefab";
+            coursePrefab.Size = new System.Drawing.Size(95, 57);
+            coursePrefab.TabIndex = 3;
+            coursePrefab.Text = "MTHN102\r\nLEC G5";
+            coursePrefab.UseVisualStyleBackColor = false;
             // 
             // lLoading
             // 
-            this.lLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lLoading.Font = new System.Drawing.Font("Yu Gothic UI Light", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lLoading.ForeColor = System.Drawing.Color.White;
-            this.lLoading.Location = new System.Drawing.Point(41, 106);
-            this.lLoading.Name = "lLoading";
-            this.lLoading.Size = new System.Drawing.Size(1200, 566);
-            this.lLoading.TabIndex = 0;
-            this.lLoading.Text = "Loading courses...";
-            this.lLoading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lLoading.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lLoading.Font = new System.Drawing.Font("Yu Gothic UI Light", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lLoading.ForeColor = System.Drawing.Color.White;
+            lLoading.Location = new System.Drawing.Point(41, 106);
+            lLoading.Name = "lLoading";
+            lLoading.Size = new System.Drawing.Size(1200, 566);
+            lLoading.TabIndex = 0;
+            lLoading.Text = "Loading courses...";
+            lLoading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lCourseList
             // 
-            this.lCourseList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(8)))), ((int)(((byte)(8)))));
-            this.lCourseList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lCourseList.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lCourseList.ForeColor = System.Drawing.Color.White;
-            this.lCourseList.Location = new System.Drawing.Point(0, 0);
-            this.lCourseList.Name = "lCourseList";
-            this.lCourseList.Size = new System.Drawing.Size(1100, 43);
-            this.lCourseList.TabIndex = 0;
-            this.lCourseList.Text = "-";
-            this.lCourseList.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.tooltip.SetToolTip(this.lCourseList, "Selected courses");
+            lCourseList.BackColor = System.Drawing.Color.FromArgb(8, 8, 8);
+            lCourseList.Dock = DockStyle.Fill;
+            lCourseList.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lCourseList.ForeColor = System.Drawing.Color.White;
+            lCourseList.Location = new System.Drawing.Point(0, 0);
+            lCourseList.Name = "lCourseList";
+            lCourseList.Size = new System.Drawing.Size(1100, 43);
+            lCourseList.TabIndex = 0;
+            lCourseList.Text = "-";
+            lCourseList.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            tooltip.SetToolTip(lCourseList, "Selected courses");
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.lCourseList);
-            this.panel1.Location = new System.Drawing.Point(44, 688);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1100, 43);
-            this.panel1.TabIndex = 6;
+            panel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.AutoScroll = true;
+            panel1.Controls.Add(lCourseList);
+            panel1.Location = new System.Drawing.Point(44, 688);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(1100, 43);
+            panel1.TabIndex = 6;
             // 
             // cbOpen
             // 
-            this.cbOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbOpen.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cbOpen.ForeColor = System.Drawing.Color.White;
-            this.cbOpen.Location = new System.Drawing.Point(1085, 77);
-            this.cbOpen.Name = "cbOpen";
-            this.cbOpen.Size = new System.Drawing.Size(150, 23);
-            this.cbOpen.TabIndex = 7;
-            this.cbOpen.Text = "SHOW OPEN ONLY";
-            this.cbOpen.UseVisualStyleBackColor = true;
+            cbOpen.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cbOpen.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            cbOpen.ForeColor = System.Drawing.Color.White;
+            cbOpen.Location = new System.Drawing.Point(1085, 77);
+            cbOpen.Name = "cbOpen";
+            cbOpen.Size = new System.Drawing.Size(150, 23);
+            cbOpen.TabIndex = 7;
+            cbOpen.Text = "SHOW OPEN ONLY";
+            cbOpen.UseVisualStyleBackColor = true;
             // 
             // lHoveredCourse
             // 
-            this.lHoveredCourse.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lHoveredCourse.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lHoveredCourse.ForeColor = System.Drawing.Color.White;
-            this.lHoveredCourse.Location = new System.Drawing.Point(208, 57);
-            this.lHoveredCourse.Name = "lHoveredCourse";
-            this.lHoveredCourse.Size = new System.Drawing.Size(871, 32);
-            this.lHoveredCourse.TabIndex = 8;
-            this.lHoveredCourse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lHoveredCourse.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lHoveredCourse.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lHoveredCourse.ForeColor = System.Drawing.Color.White;
+            lHoveredCourse.Location = new System.Drawing.Point(208, 57);
+            lHoveredCourse.Name = "lHoveredCourse";
+            lHoveredCourse.Size = new System.Drawing.Size(871, 32);
+            lHoveredCourse.TabIndex = 8;
+            lHoveredCourse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lLastUpdated
             // 
-            this.lLastUpdated.AutoSize = true;
-            this.lLastUpdated.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lLastUpdated.ForeColor = System.Drawing.Color.White;
-            this.lLastUpdated.Location = new System.Drawing.Point(12, 12);
-            this.lLastUpdated.Name = "lLastUpdated";
-            this.lLastUpdated.Size = new System.Drawing.Size(163, 15);
-            this.lLastUpdated.TabIndex = 9;
-            this.lLastUpdated.Text = "FALL 2023 14/09/2023 10:21 PM\r\n";
+            lLastUpdated.AutoSize = true;
+            lLastUpdated.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lLastUpdated.ForeColor = System.Drawing.Color.White;
+            lLastUpdated.Location = new System.Drawing.Point(12, 12);
+            lLastUpdated.Name = "lLastUpdated";
+            lLastUpdated.Size = new System.Drawing.Size(36, 15);
+            lLastUpdated.TabIndex = 9;
+            lLastUpdated.Text = "TERM";
             // 
             // cbHighlight
             // 
-            this.cbHighlight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbHighlight.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cbHighlight.ForeColor = System.Drawing.Color.White;
-            this.cbHighlight.Location = new System.Drawing.Point(1085, 50);
-            this.cbHighlight.Name = "cbHighlight";
-            this.cbHighlight.Size = new System.Drawing.Size(150, 23);
-            this.cbHighlight.TabIndex = 10;
-            this.cbHighlight.Text = "HIGHLIGHT";
-            this.cbHighlight.UseVisualStyleBackColor = true;
+            cbHighlight.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cbHighlight.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            cbHighlight.ForeColor = System.Drawing.Color.White;
+            cbHighlight.Location = new System.Drawing.Point(1085, 50);
+            cbHighlight.Name = "cbHighlight";
+            cbHighlight.Size = new System.Drawing.Size(150, 23);
+            cbHighlight.TabIndex = 10;
+            cbHighlight.Text = "HIGHLIGHT";
+            cbHighlight.UseVisualStyleBackColor = true;
             // 
             // cbCode
             // 
-            this.cbCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCode.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cbCode.ForeColor = System.Drawing.Color.White;
-            this.cbCode.Location = new System.Drawing.Point(1085, 23);
-            this.cbCode.Name = "cbCode";
-            this.cbCode.Size = new System.Drawing.Size(101, 23);
-            this.cbCode.TabIndex = 11;
-            this.cbCode.Text = "SHOW CODE";
-            this.cbCode.UseVisualStyleBackColor = true;
+            cbCode.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cbCode.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            cbCode.ForeColor = System.Drawing.Color.White;
+            cbCode.Location = new System.Drawing.Point(1085, 23);
+            cbCode.Name = "cbCode";
+            cbCode.Size = new System.Drawing.Size(101, 23);
+            cbCode.TabIndex = 11;
+            cbCode.Text = "SHOW CODE";
+            cbCode.UseVisualStyleBackColor = true;
             // 
             // bScreenshot
             // 
-            this.bScreenshot.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.bScreenshot.AutoSize = true;
-            this.bScreenshot.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.bScreenshot.FlatAppearance.BorderSize = 0;
-            this.bScreenshot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bScreenshot.ForeColor = System.Drawing.Color.White;
-            this.bScreenshot.Location = new System.Drawing.Point(0, 0);
-            this.bScreenshot.Name = "bScreenshot";
-            this.bScreenshot.Size = new System.Drawing.Size(75, 25);
-            this.bScreenshot.TabIndex = 12;
-            this.bScreenshot.Text = "Screenshot";
-            this.bScreenshot.UseVisualStyleBackColor = true;
+            bScreenshot.Anchor = AnchorStyles.None;
+            bScreenshot.AutoSize = true;
+            bScreenshot.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            bScreenshot.FlatAppearance.BorderSize = 0;
+            bScreenshot.FlatStyle = FlatStyle.Flat;
+            bScreenshot.ForeColor = System.Drawing.Color.White;
+            bScreenshot.Location = new System.Drawing.Point(0, 0);
+            bScreenshot.Name = "bScreenshot";
+            bScreenshot.Size = new System.Drawing.Size(75, 25);
+            bScreenshot.TabIndex = 12;
+            bScreenshot.Text = "Screenshot";
+            bScreenshot.UseVisualStyleBackColor = true;
             // 
             // panelToolbar
             // 
-            this.panelToolbar.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.panelToolbar.AutoSize = true;
-            this.panelToolbar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.panelToolbar.Controls.Add(this.bScreenshot);
-            this.panelToolbar.Location = new System.Drawing.Point(462, 0);
-            this.panelToolbar.Name = "panelToolbar";
-            this.panelToolbar.Size = new System.Drawing.Size(102, 28);
-            this.panelToolbar.TabIndex = 13;
+            panelToolbar.Anchor = AnchorStyles.Top;
+            panelToolbar.AutoSize = true;
+            panelToolbar.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
+            panelToolbar.Controls.Add(bScreenshot);
+            panelToolbar.Location = new System.Drawing.Point(462, 0);
+            panelToolbar.Name = "panelToolbar";
+            panelToolbar.Size = new System.Drawing.Size(102, 28);
+            panelToolbar.TabIndex = 13;
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label2.ForeColor = System.Drawing.Color.White;
+            label2.Location = new System.Drawing.Point(933, 13);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(104, 15);
+            label2.TabIndex = 9;
+            label2.Text = "BETA - NewFormat";
+            label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(8)))), ((int)(((byte)(8)))));
-            this.ClientSize = new System.Drawing.Size(1283, 743);
-            this.Controls.Add(this.panelToolbar);
-            this.Controls.Add(this.cbCode);
-            this.Controls.Add(this.cbHighlight);
-            this.Controls.Add(this.lLastUpdated);
-            this.Controls.Add(this.lHoveredCourse);
-            this.Controls.Add(this.cbOpen);
-            this.Controls.Add(this.lLoading);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.courseCont);
-            this.Controls.Add(this.bPref);
-            this.Controls.Add(this.bExit);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Main";
-            this.Text = "CUFE Dry Run";
-            this.courseCont.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panelToolbar.ResumeLayout(false);
-            this.panelToolbar.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            BackColor = System.Drawing.Color.FromArgb(8, 8, 8);
+            ClientSize = new System.Drawing.Size(1283, 743);
+            Controls.Add(panelToolbar);
+            Controls.Add(cbCode);
+            Controls.Add(cbHighlight);
+            Controls.Add(label2);
+            Controls.Add(lLastUpdated);
+            Controls.Add(lHoveredCourse);
+            Controls.Add(cbOpen);
+            Controls.Add(lLoading);
+            Controls.Add(panel1);
+            Controls.Add(courseCont);
+            Controls.Add(bPref);
+            Controls.Add(bExit);
+            Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "Main";
+            Text = "CUFE Dry Run";
+            courseCont.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panelToolbar.ResumeLayout(false);
+            panelToolbar.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -322,5 +330,6 @@ namespace MRK
         private CheckBox cbCode;
         private Button bScreenshot;
         private Panel panelToolbar;
+        private Label label2;
     }
 }

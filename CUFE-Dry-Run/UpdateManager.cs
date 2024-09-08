@@ -53,7 +53,7 @@ namespace MRK
 
                     if (save)
                     {
-                        File.Copy(filename, UpdateFileName);
+                        File.Copy(filename, UpdateFileName, true);
 
                         Task.Delay(3000)
                             .ContinueWith(_ => Application.Restart());

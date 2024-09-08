@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MRK.Models;
 
 namespace MRK
 {
@@ -151,9 +153,15 @@ namespace MRK
 
         private static Main? Instance { get; set; }
 
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool AllocConsole();
+
         public Main()
         {
             Instance = this;
+
+            AllocConsole();
 
             InitializeComponent();
 
@@ -196,6 +204,8 @@ namespace MRK
             cbOpen.CheckedChanged += OnOpenToggled;
             cbCode.CheckedChanged += OnOpenToggled;
 
+            lCourseList.DoubleClick += OnCourseListDoubleClick;
+
             _courseManager = new CourseManager();
             _prefabs = new HashSet<Control> { dayPrefab, timePrefab, coursePrefab };
             _courseButtons = new List<CourseButton>();
@@ -203,6 +213,11 @@ namespace MRK
             CenterControl(lHoveredCourse);
             CenterControl(panelToolbar);
             CenterControl(bScreenshot);
+        }
+
+        private void OnCourseListDoubleClick(object? sender, EventArgs e)
+        {
+            MessageBox.Show("Copied to clipboard");
         }
 
         private void OnScreenshotClick(object? sender, EventArgs e)
@@ -244,17 +259,27 @@ namespace MRK
             lLoading.Visible = true;
             bPref.Enabled = false;
 
+            //var updateData = UpdateManager.Instance.UpdateData;
+            //_courseManager.ParseCourses(updateData?.Resource ?? CourseResources.EmbeddedList);
+
             Task.Delay(500).ContinueWith(_ =>
             {
                 //parse in another thread
                 var updateData = UpdateManager.Instance.UpdateData;
-                _courseManager.ParseCourses(updateData?.Resource ?? CourseResources.EmbeddedList);
+                try
+                {
+                    _courseManager.ParseCourses(updateData?.Resource ?? CourseResources.EmbeddedList);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"New format exception? {ex}");
+                }
 
                 Invoke(() =>
                 {
                     if (updateData != null)
                     {
-                        lLastUpdated.Text = "FALL 2023 " + updateData.Value.LastUpdated.ToString("G");
+                        lLastUpdated.Text = "FALL 2024 " + updateData.Value.LastUpdated.ToString("G");
                     }
 
                     bPref.Enabled = true;
@@ -331,7 +356,7 @@ namespace MRK
 
             var record = sender.Record;
 
-            lHoveredCourse.Text = $"[{sender.Record.CourseDefinition.Code}] " + sender.Button.Text.Replace("\n", " ");
+            lHoveredCourse.Text = $"[{sender.Record.ParseFormat}] [{sender.Record.CourseDefinition.Code}] " + sender.Button.Text.Replace("\n", " ");
 
             _courseButtons.ForEach(button =>
             {
@@ -486,7 +511,8 @@ namespace MRK
                                 Text = $"{(cbCode.Checked ? crs.CourseDefinition.Code : crs.CourseDefinition.Name)}\n{crs.CourseType.ToString()[..3].ToUpper()} " +
                                 $"G{crs.Group} " +
                                 $"({crs.Enrolled}/{crs.ClassSize}) " +
-                                (crs.CourseDefinition.IsNewSystem ? "[NEW]" : ""),
+                                //(crs.CourseDefinition.IsNewSystem ? "[NEW] " : "") +
+                                ((crs.CourseDefinition.Flags & CourseFlags.MultipleLectures) != 0 ? "[M]" : ""),
                                 Location = new Point(dx + coursePrefab.Size.Width * i, dy + cdy + coursePrefab.Location.Y),
                                 AutoSize = coursePrefab.AutoSize,
                                 TextAlign = coursePrefab.TextAlign,
@@ -570,7 +596,7 @@ namespace MRK
 
         private void UpdateCourseList()
         {
-            Dictionary<CourseDefinition, BoxedTuple<CourseRecord?, CourseRecord?>> list = new();
+            Dictionary<Course, BoxedTuple<CourseRecord?, CourseRecord?>> list = new();
 
             var selectedRecs = _courseManager.GetSelectedCourseRecords();
             foreach (var rec in selectedRecs)
