@@ -1,16 +1,13 @@
-﻿using System;
+﻿using MRK.Models;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using MRK.Models;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskBand;
 
 namespace MRK
 {
-    public partial class Preferences : MRKForm
+    public partial class Preferences : ScaledForm
     {
         private readonly CourseManager _manager;
         private bool _dirty;
@@ -19,13 +16,7 @@ namespace MRK
         {
             InitializeComponent();
 
-            //scale
-            ScaleForm();
-
-            CenterToScreen();
-
             _dirty = false;
-
             _manager = manager;
 
             bExit.Click += (_, _) =>
@@ -86,6 +77,8 @@ namespace MRK
 
             courseCont.SuspendLayout();
 
+            courseCont.AutoScrollPosition = Point.Empty;
+
             //remove if exists
             courseCont.Controls.Remove(coursePrefab);
 
@@ -98,7 +91,7 @@ namespace MRK
             courseCont.Controls.Clear();
 
             int dy = coursePrefab.Location.Y;
-            
+
             foreach (var course in defs.OrderBy(x => !x.Checked).ThenBy(x => x.Code))
             {
                 var p = new Panel
@@ -106,6 +99,7 @@ namespace MRK
                     BackColor = coursePrefab.BackColor,
                     ForeColor = coursePrefab.ForeColor,
                     Size = coursePrefab.Size,
+                    Width = courseCont.Width,
                     AutoScroll = coursePrefab.AutoScroll,
                     Anchor = coursePrefab.Anchor,
                     Location = new Point(coursePrefab.Location.X, dy)

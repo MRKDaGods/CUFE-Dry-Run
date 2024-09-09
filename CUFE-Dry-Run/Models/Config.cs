@@ -1,6 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
-namespace MRK
+namespace MRK.Models
 {
     public class Config
     {
@@ -21,7 +22,7 @@ namespace MRK
             {
                 Highlight = reader.ReadBoolean(),
                 ShowCode = reader.ReadBoolean(),
-                ShowOpenOnly = reader.ReadBoolean()
+                ShowOpenOnly = reader.ReadBoolean(),
             };
         }
     }

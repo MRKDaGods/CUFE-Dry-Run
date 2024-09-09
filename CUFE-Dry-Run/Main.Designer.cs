@@ -31,77 +31,56 @@ namespace MRK
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            label1 = new Label();
-            dayPrefab = new Label();
-            timePrefab = new Label();
+            lViewTitle = new Label();
             bExit = new Button();
             bPref = new Button();
-            courseCont = new Panel();
-            coursePrefab = new Button();
-            lLoading = new Label();
             tooltip = new ToolTip(components);
             lCourseList = new Label();
-            panel1 = new Panel();
             cbOpen = new CheckBox();
             lHoveredCourse = new Label();
-            lLastUpdated = new Label();
+            lTitle = new Label();
             cbHighlight = new CheckBox();
             cbCode = new CheckBox();
+            panelMenuItems = new FlowLayoutPanel();
+            bNavTimeTable = new Button();
+            bNavCourses = new Button();
+            panelFooterItems = new FlowLayoutPanel();
+            button3 = new Button();
             bScreenshot = new Button();
-            panelToolbar = new Panel();
-            label2 = new Label();
-            courseCont.SuspendLayout();
-            panel1.SuspendLayout();
-            panelToolbar.SuspendLayout();
+            panelViewContainer = new Panel();
+            panelMenuItems.SuspendLayout();
+            panelFooterItems.SuspendLayout();
             SuspendLayout();
             // 
-            // label1
+            // lViewTitle
             // 
-            label1.AutoSize = true;
-            label1.Font = new System.Drawing.Font("Yu Gothic UI Light", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label1.ForeColor = System.Drawing.Color.White;
-            label1.Location = new System.Drawing.Point(41, 41);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(156, 32);
-            label1.TabIndex = 0;
-            label1.Text = "CUFE Dry Run";
-            // 
-            // dayPrefab
-            // 
-            dayPrefab.BorderStyle = BorderStyle.FixedSingle;
-            dayPrefab.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            dayPrefab.ForeColor = System.Drawing.Color.White;
-            dayPrefab.Location = new System.Drawing.Point(3, 0);
-            dayPrefab.Name = "dayPrefab";
-            dayPrefab.Size = new System.Drawing.Size(158, 23);
-            dayPrefab.TabIndex = 1;
-            dayPrefab.Text = "Saturday";
-            dayPrefab.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // timePrefab
-            // 
-            timePrefab.BorderStyle = BorderStyle.FixedSingle;
-            timePrefab.ForeColor = System.Drawing.Color.White;
-            timePrefab.Location = new System.Drawing.Point(3, 23);
-            timePrefab.Name = "timePrefab";
-            timePrefab.Size = new System.Drawing.Size(95, 43);
-            timePrefab.TabIndex = 2;
-            timePrefab.Text = "8:00\r\n8:50";
-            timePrefab.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lViewTitle.AutoSize = true;
+            lViewTitle.BackColor = System.Drawing.Color.Transparent;
+            lViewTitle.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 21F);
+            lViewTitle.ForeColor = System.Drawing.Color.White;
+            lViewTitle.Location = new System.Drawing.Point(40, 50);
+            lViewTitle.Name = "lViewTitle";
+            lViewTitle.Size = new System.Drawing.Size(151, 37);
+            lViewTitle.TabIndex = 0;
+            lViewTitle.Text = "Time Table";
             // 
             // bExit
             // 
             bExit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            bExit.BackColor = System.Drawing.Color.Transparent;
             bExit.FlatAppearance.BorderSize = 0;
+            bExit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Red;
+            bExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             bExit.FlatStyle = FlatStyle.Flat;
-            bExit.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            bExit.Font = new System.Drawing.Font("Segoe MDL2 Assets", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             bExit.ForeColor = System.Drawing.Color.White;
-            bExit.Location = new System.Drawing.Point(1224, 12);
+            bExit.Location = new System.Drawing.Point(1247, 0);
             bExit.Name = "bExit";
-            bExit.Size = new System.Drawing.Size(47, 34);
+            bExit.Padding = new Padding(8, 0, 0, 0);
+            bExit.Size = new System.Drawing.Size(53, 32);
             bExit.TabIndex = 3;
-            bExit.Text = "X";
-            bExit.UseVisualStyleBackColor = true;
+            bExit.Text = "";
+            bExit.UseVisualStyleBackColor = false;
             // 
             // bPref
             // 
@@ -110,226 +89,247 @@ namespace MRK
             bPref.FlatAppearance.BorderColor = System.Drawing.Color.White;
             bPref.FlatAppearance.BorderSize = 0;
             bPref.FlatStyle = FlatStyle.Flat;
-            bPref.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            bPref.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
             bPref.ForeColor = System.Drawing.Color.White;
-            bPref.Location = new System.Drawing.Point(1150, 688);
+            bPref.Location = new System.Drawing.Point(802, 716);
             bPref.Name = "bPref";
             bPref.Size = new System.Drawing.Size(121, 43);
             bPref.TabIndex = 4;
             bPref.Text = "Courses";
             bPref.UseVisualStyleBackColor = false;
             // 
-            // courseCont
-            // 
-            courseCont.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            courseCont.AutoScroll = true;
-            courseCont.AutoScrollMargin = new System.Drawing.Size(10, 10);
-            courseCont.Controls.Add(coursePrefab);
-            courseCont.Controls.Add(dayPrefab);
-            courseCont.Controls.Add(timePrefab);
-            courseCont.ForeColor = System.Drawing.Color.White;
-            courseCont.Location = new System.Drawing.Point(41, 106);
-            courseCont.Name = "courseCont";
-            courseCont.Size = new System.Drawing.Size(1203, 566);
-            courseCont.TabIndex = 5;
-            // 
-            // coursePrefab
-            // 
-            coursePrefab.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            coursePrefab.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            coursePrefab.FlatStyle = FlatStyle.Flat;
-            coursePrefab.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            coursePrefab.ForeColor = System.Drawing.Color.White;
-            coursePrefab.Location = new System.Drawing.Point(3, 69);
-            coursePrefab.Name = "coursePrefab";
-            coursePrefab.Size = new System.Drawing.Size(95, 57);
-            coursePrefab.TabIndex = 3;
-            coursePrefab.Text = "MTHN102\r\nLEC G5";
-            coursePrefab.UseVisualStyleBackColor = false;
-            // 
-            // lLoading
-            // 
-            lLoading.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            lLoading.Font = new System.Drawing.Font("Yu Gothic UI Light", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            lLoading.ForeColor = System.Drawing.Color.White;
-            lLoading.Location = new System.Drawing.Point(41, 106);
-            lLoading.Name = "lLoading";
-            lLoading.Size = new System.Drawing.Size(1200, 566);
-            lLoading.TabIndex = 0;
-            lLoading.Text = "Loading courses...";
-            lLoading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // lCourseList
             // 
-            lCourseList.BackColor = System.Drawing.Color.FromArgb(8, 8, 8);
-            lCourseList.Dock = DockStyle.Fill;
-            lCourseList.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lCourseList.AutoSize = true;
+            lCourseList.BackColor = System.Drawing.Color.Transparent;
+            lCourseList.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
             lCourseList.ForeColor = System.Drawing.Color.White;
-            lCourseList.Location = new System.Drawing.Point(0, 0);
+            lCourseList.Location = new System.Drawing.Point(991, 688);
             lCourseList.Name = "lCourseList";
-            lCourseList.Size = new System.Drawing.Size(1100, 43);
+            lCourseList.Size = new System.Drawing.Size(142, 19);
             lCourseList.TabIndex = 0;
-            lCourseList.Text = "-";
+            lCourseList.Text = "xyzzzzzzzzzzzzzzzzz";
             lCourseList.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             tooltip.SetToolTip(lCourseList, "Selected courses");
-            // 
-            // panel1
-            // 
-            panel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel1.AutoScroll = true;
-            panel1.Controls.Add(lCourseList);
-            panel1.Location = new System.Drawing.Point(44, 688);
-            panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(1100, 43);
-            panel1.TabIndex = 6;
             // 
             // cbOpen
             // 
             cbOpen.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            cbOpen.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            cbOpen.BackColor = System.Drawing.Color.Transparent;
+            cbOpen.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
             cbOpen.ForeColor = System.Drawing.Color.White;
-            cbOpen.Location = new System.Drawing.Point(1085, 77);
+            cbOpen.Location = new System.Drawing.Point(1102, 77);
             cbOpen.Name = "cbOpen";
             cbOpen.Size = new System.Drawing.Size(150, 23);
             cbOpen.TabIndex = 7;
             cbOpen.Text = "SHOW OPEN ONLY";
-            cbOpen.UseVisualStyleBackColor = true;
+            cbOpen.UseVisualStyleBackColor = false;
             // 
             // lHoveredCourse
             // 
             lHoveredCourse.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            lHoveredCourse.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lHoveredCourse.BackColor = System.Drawing.Color.Transparent;
+            lHoveredCourse.Font = new System.Drawing.Font("Segoe UI", 9F);
             lHoveredCourse.ForeColor = System.Drawing.Color.White;
-            lHoveredCourse.Location = new System.Drawing.Point(208, 57);
+            lHoveredCourse.Location = new System.Drawing.Point(240, 57);
             lHoveredCourse.Name = "lHoveredCourse";
-            lHoveredCourse.Size = new System.Drawing.Size(871, 32);
+            lHoveredCourse.Size = new System.Drawing.Size(839, 32);
             lHoveredCourse.TabIndex = 8;
             lHoveredCourse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lLastUpdated
+            // lTitle
             // 
-            lLastUpdated.AutoSize = true;
-            lLastUpdated.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            lLastUpdated.ForeColor = System.Drawing.Color.White;
-            lLastUpdated.Location = new System.Drawing.Point(12, 12);
-            lLastUpdated.Name = "lLastUpdated";
-            lLastUpdated.Size = new System.Drawing.Size(36, 15);
-            lLastUpdated.TabIndex = 9;
-            lLastUpdated.Text = "TERM";
+            lTitle.AutoSize = true;
+            lTitle.BackColor = System.Drawing.Color.Transparent;
+            lTitle.Font = new System.Drawing.Font("Segoe UI", 9F);
+            lTitle.ForeColor = System.Drawing.Color.White;
+            lTitle.Location = new System.Drawing.Point(12, 16);
+            lTitle.Name = "lTitle";
+            lTitle.Size = new System.Drawing.Size(32, 15);
+            lTitle.TabIndex = 9;
+            lTitle.Text = "Cryn";
             // 
             // cbHighlight
             // 
             cbHighlight.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            cbHighlight.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            cbHighlight.BackColor = System.Drawing.Color.Transparent;
+            cbHighlight.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
             cbHighlight.ForeColor = System.Drawing.Color.White;
-            cbHighlight.Location = new System.Drawing.Point(1085, 50);
+            cbHighlight.Location = new System.Drawing.Point(1102, 50);
             cbHighlight.Name = "cbHighlight";
             cbHighlight.Size = new System.Drawing.Size(150, 23);
             cbHighlight.TabIndex = 10;
             cbHighlight.Text = "HIGHLIGHT";
-            cbHighlight.UseVisualStyleBackColor = true;
+            cbHighlight.UseVisualStyleBackColor = false;
             // 
             // cbCode
             // 
             cbCode.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            cbCode.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            cbCode.BackColor = System.Drawing.Color.Transparent;
+            cbCode.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
             cbCode.ForeColor = System.Drawing.Color.White;
-            cbCode.Location = new System.Drawing.Point(1085, 23);
+            cbCode.Location = new System.Drawing.Point(1102, 23);
             cbCode.Name = "cbCode";
             cbCode.Size = new System.Drawing.Size(101, 23);
             cbCode.TabIndex = 11;
             cbCode.Text = "SHOW CODE";
-            cbCode.UseVisualStyleBackColor = true;
+            cbCode.UseVisualStyleBackColor = false;
+            // 
+            // panelMenuItems
+            // 
+            panelMenuItems.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            panelMenuItems.AutoSize = true;
+            panelMenuItems.BackColor = System.Drawing.Color.Transparent;
+            panelMenuItems.Controls.Add(bNavTimeTable);
+            panelMenuItems.Controls.Add(bNavCourses);
+            panelMenuItems.Location = new System.Drawing.Point(12, 719);
+            panelMenuItems.Name = "panelMenuItems";
+            panelMenuItems.Size = new System.Drawing.Size(233, 38);
+            panelMenuItems.TabIndex = 14;
+            // 
+            // bNavTimeTable
+            // 
+            bNavTimeTable.AutoEllipsis = true;
+            bNavTimeTable.BackColor = System.Drawing.Color.Transparent;
+            bNavTimeTable.Cursor = Cursors.Hand;
+            bNavTimeTable.FlatAppearance.BorderSize = 0;
+            bNavTimeTable.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            bNavTimeTable.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            bNavTimeTable.FlatStyle = FlatStyle.Flat;
+            bNavTimeTable.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            bNavTimeTable.ForeColor = System.Drawing.Color.White;
+            bNavTimeTable.Location = new System.Drawing.Point(0, 0);
+            bNavTimeTable.Margin = new Padding(0);
+            bNavTimeTable.Name = "bNavTimeTable";
+            bNavTimeTable.Size = new System.Drawing.Size(110, 35);
+            bNavTimeTable.TabIndex = 0;
+            bNavTimeTable.Text = "  Time Table";
+            bNavTimeTable.UseVisualStyleBackColor = false;
+            // 
+            // bNavCourses
+            // 
+            bNavCourses.BackColor = System.Drawing.Color.Transparent;
+            bNavCourses.Cursor = Cursors.Hand;
+            bNavCourses.FlatAppearance.BorderSize = 0;
+            bNavCourses.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            bNavCourses.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            bNavCourses.FlatStyle = FlatStyle.Flat;
+            bNavCourses.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            bNavCourses.ForeColor = System.Drawing.Color.White;
+            bNavCourses.Location = new System.Drawing.Point(110, 0);
+            bNavCourses.Margin = new Padding(0);
+            bNavCourses.Name = "bNavCourses";
+            bNavCourses.Size = new System.Drawing.Size(110, 35);
+            bNavCourses.TabIndex = 1;
+            bNavCourses.Text = "  Courses";
+            bNavCourses.UseVisualStyleBackColor = false;
+            // 
+            // panelFooterItems
+            // 
+            panelFooterItems.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            panelFooterItems.AutoSize = true;
+            panelFooterItems.BackColor = System.Drawing.Color.Transparent;
+            panelFooterItems.Controls.Add(button3);
+            panelFooterItems.Controls.Add(bScreenshot);
+            panelFooterItems.FlowDirection = FlowDirection.RightToLeft;
+            panelFooterItems.Location = new System.Drawing.Point(1067, 719);
+            panelFooterItems.Name = "panelFooterItems";
+            panelFooterItems.Size = new System.Drawing.Size(233, 38);
+            panelFooterItems.TabIndex = 15;
+            // 
+            // button3
+            // 
+            button3.AutoEllipsis = true;
+            button3.BackColor = System.Drawing.Color.Transparent;
+            button3.Cursor = Cursors.Hand;
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            button3.ForeColor = System.Drawing.Color.White;
+            button3.Location = new System.Drawing.Point(123, 0);
+            button3.Margin = new Padding(0);
+            button3.Name = "button3";
+            button3.Size = new System.Drawing.Size(110, 35);
+            button3.TabIndex = 0;
+            button3.Text = "  Settings";
+            button3.UseVisualStyleBackColor = false;
             // 
             // bScreenshot
             // 
-            bScreenshot.Anchor = AnchorStyles.None;
-            bScreenshot.AutoSize = true;
-            bScreenshot.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            bScreenshot.BackColor = System.Drawing.Color.Transparent;
+            bScreenshot.Cursor = Cursors.Hand;
             bScreenshot.FlatAppearance.BorderSize = 0;
+            bScreenshot.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            bScreenshot.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             bScreenshot.FlatStyle = FlatStyle.Flat;
+            bScreenshot.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             bScreenshot.ForeColor = System.Drawing.Color.White;
-            bScreenshot.Location = new System.Drawing.Point(0, 0);
+            bScreenshot.Location = new System.Drawing.Point(13, 0);
+            bScreenshot.Margin = new Padding(0);
             bScreenshot.Name = "bScreenshot";
-            bScreenshot.Size = new System.Drawing.Size(75, 25);
-            bScreenshot.TabIndex = 12;
-            bScreenshot.Text = "Screenshot";
-            bScreenshot.UseVisualStyleBackColor = true;
+            bScreenshot.Size = new System.Drawing.Size(110, 35);
+            bScreenshot.TabIndex = 1;
+            bScreenshot.Text = "  Screenshot";
+            bScreenshot.UseVisualStyleBackColor = false;
             // 
-            // panelToolbar
+            // panelViewContainer
             // 
-            panelToolbar.Anchor = AnchorStyles.Top;
-            panelToolbar.AutoSize = true;
-            panelToolbar.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
-            panelToolbar.Controls.Add(bScreenshot);
-            panelToolbar.Location = new System.Drawing.Point(462, 0);
-            panelToolbar.Name = "panelToolbar";
-            panelToolbar.Size = new System.Drawing.Size(102, 28);
-            panelToolbar.TabIndex = 13;
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label2.AutoSize = true;
-            label2.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label2.ForeColor = System.Drawing.Color.White;
-            label2.Location = new System.Drawing.Point(933, 13);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(104, 15);
-            label2.TabIndex = 9;
-            label2.Text = "BETA - NewFormat";
-            label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            panelViewContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelViewContainer.AutoScroll = true;
+            panelViewContainer.BackColor = System.Drawing.Color.Transparent;
+            panelViewContainer.Location = new System.Drawing.Point(40, 110);
+            panelViewContainer.Name = "panelViewContainer";
+            panelViewContainer.Size = new System.Drawing.Size(1220, 603);
+            panelViewContainer.TabIndex = 16;
             // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            BackColor = System.Drawing.Color.FromArgb(8, 8, 8);
-            ClientSize = new System.Drawing.Size(1283, 743);
-            Controls.Add(panelToolbar);
+            BackColor = System.Drawing.Color.Black;
+            ClientSize = new System.Drawing.Size(1300, 760);
+            Controls.Add(panelViewContainer);
+            Controls.Add(panelFooterItems);
+            Controls.Add(panelMenuItems);
+            Controls.Add(lCourseList);
             Controls.Add(cbCode);
             Controls.Add(cbHighlight);
-            Controls.Add(label2);
-            Controls.Add(lLastUpdated);
+            Controls.Add(lTitle);
             Controls.Add(lHoveredCourse);
             Controls.Add(cbOpen);
-            Controls.Add(lLoading);
-            Controls.Add(panel1);
-            Controls.Add(courseCont);
             Controls.Add(bPref);
             Controls.Add(bExit);
-            Controls.Add(label1);
+            Controls.Add(lViewTitle);
             FormBorderStyle = FormBorderStyle.None;
+            Location = new System.Drawing.Point(0, 0);
             Name = "Main";
             Text = "CUFE Dry Run";
-            courseCont.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panelToolbar.ResumeLayout(false);
-            panelToolbar.PerformLayout();
+            panelMenuItems.ResumeLayout(false);
+            panelFooterItems.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
-        private Label dayPrefab;
-        private Label timePrefab;
+        private Label lViewTitle;
         private Button bExit;
         private Button bPref;
-        private Panel courseCont;
-        private Button coursePrefab;
         private ToolTip tooltip;
         private Label lCourseList;
-        private Panel panel1;
         private CheckBox cbOpen;
-        private Label lLoading;
         private Label lHoveredCourse;
-        private Label lLastUpdated;
+        private Label lTitle;
         private CheckBox cbHighlight;
         private CheckBox cbCode;
+        private FlowLayoutPanel panelMenuItems;
+        private Button bNavTimeTable;
+        private Button bNavCourses;
+        private FlowLayoutPanel panelFooterItems;
+        private Button button3;
         private Button bScreenshot;
-        private Panel panelToolbar;
-        private Label label2;
+        private Panel panelViewContainer;
     }
 }

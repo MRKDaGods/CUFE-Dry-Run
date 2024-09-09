@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MRK.Models;
+using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -6,12 +7,6 @@ using System.Windows.Forms;
 
 namespace MRK
 {
-    public struct UpdateData
-    {
-        public DateTime LastUpdated { get; set; }
-        public string Resource { get; set; }
-    }
-
     public class UpdateManager
     {
         private const string UpdateFileName = "updatedata.dryupd";
@@ -35,35 +30,41 @@ namespace MRK
                 filename = UpdateFileName;
             }
 
+            Console.WriteLine($"Loading update data from {filename}");
+
             try
             {
                 using (var fs = new FileStream(filename, FileMode.Open))
                 using (var reader = new BinaryReader(fs))
                 {
                     var lastUpdated = reader.ReadInt64();
-                    var data = reader.ReadString();
 
+                    var data = reader.ReadString();
                     var resource = Encoding.UTF8.GetString(Convert.FromBase64String(data));
+
+                    var semester = reader.ReadString() ?? string.Empty;
 
                     UpdateData = new()
                     {
                         LastUpdated = new DateTime(lastUpdated),
-                        Resource = resource
+                        Resource = resource,
+                        Semester = semester,
                     };
 
                     if (save)
                     {
                         File.Copy(filename, UpdateFileName, true);
-
                         Task.Delay(3000)
                             .ContinueWith(_ => Application.Restart());
                     }
 
+                    Console.WriteLine($"Update data loaded successfully {semester} at {UpdateData.Value.LastUpdated:G}");
                     return true;
                 }
             }
             catch
             {
+                Console.WriteLine("Cannot load update data");
                 return false;
             }
         }
