@@ -7,5 +7,7 @@
         void OnViewHide();
 
         void OnViewShow();
+
+        bool CanHideView();
     }
 }

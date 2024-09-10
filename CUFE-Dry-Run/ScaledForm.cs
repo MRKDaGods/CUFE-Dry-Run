@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -42,6 +43,7 @@ namespace MRK
         private const int CaptionHeight = 64;
 
         private readonly bool _useTransparency;
+        private bool _blurEnabled;
 
         public ScaledForm() : this(false)
         {
@@ -66,7 +68,37 @@ namespace MRK
             ScaleForm();
             CenterToScreen();
 
+            //RegisterForTransparency(this);
+
             base.OnLoad(e);
+        }
+
+        protected void RegisterForTransparency(Control container)
+        {
+            foreach (Control c in container.Controls)
+            {
+                if (c is Panel)
+                {
+                    RegisterForTransparency(c);
+                    continue;
+                }
+
+                if (c.BackColor == Color.Transparent)
+                {
+                    c.Paint += (o, e) =>
+                    {
+                        if (_useTransparency && _blurEnabled)
+                        {
+                            c.BackColor = Color.Black;
+                            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(128, 0, 0, 0)), e.ClipRectangle);
+                        }
+                        else
+                        {
+                            c.BackColor = Color.Transparent;
+                        }
+                    };
+                }
+            }
         }
 
         protected override void WndProc(ref Message m)
@@ -97,40 +129,63 @@ namespace MRK
             var intSize = Marshal.SizeOf(typeof(int));
 
             // rounded corners
-            DwmSetWindowAttribute(Handle, 33, [2], intSize);
+            int roundedCorners = 2;
+            DwmSetWindowAttribute(Handle, 33, ref roundedCorners, intSize);
 
             if (_useTransparency)
             {
-                var accent = new AccentPolicy { AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND };
+                EnableBlur();
 
-                var accentStructSize = Marshal.SizeOf(accent);
-                var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-                Marshal.StructureToPtr(accent, accentPtr, false);
+                // Enable immersive dark mode (DWMWA_USE_IMMERSIVE_DARK_MODE: 20)
+                int darkMode = 1; // 1 for dark mode enabled
+                DwmSetWindowAttribute(Handle, 20, ref darkMode, intSize);
 
-                var data = new WindowCompositionAttributeData
-                {
-                    Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
-                    SizeOfData = accentStructSize,
-                    Data = accentPtr
-                };
+                // Enable Mica material for below Windows build 22523 (DWMWA_MICA_EFFECT: 1029)
+                int micaEnabledBelow22523 = 1; // 1 to enable
+                DwmSetWindowAttribute(Handle, 1029, ref micaEnabledBelow22523, intSize);
 
-                SetWindowCompositionAttribute(Handle, ref data);
-                Marshal.FreeHGlobal(accentPtr);
-
-                // immersive dark mode
-                DwmSetWindowAttribute(Handle, 20, [1], intSize);
-
-                // Mica for below 22523
-                DwmSetWindowAttribute(Handle, 1029, [1], intSize);
-
-                // Mica for 22523 and up
-                DwmSetWindowAttribute(Handle, 38, [2], intSize);
+                // Enable Mica material for Windows 22523 and up (DWMWA_SYSTEMBACKDROP_TYPE: 38)
+                int micaEnabled = 2; // 2 for Mica effect
+                DwmSetWindowAttribute(Handle, 38, ref micaEnabled, intSize);
             }
+        }
+
+        protected void EnableBlur()
+        {
+            _blurEnabled = true;
+
+            var accent = new AccentPolicy { AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND };
+            ApplyAccentPolicy(accent);
+        }
+
+        protected void DisableBlur()
+        {
+            _blurEnabled = false;
+
+            var accent = new AccentPolicy { AccentState = AccentState.ACCENT_DISABLED };
+            ApplyAccentPolicy(accent);
+        }
+
+        private void ApplyAccentPolicy(AccentPolicy accent)
+        {
+            var accentStructSize = Marshal.SizeOf(accent);
+            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
+            Marshal.StructureToPtr(accent, accentPtr, false);
+
+            var data = new WindowCompositionAttributeData
+            {
+                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
+                SizeOfData = accentStructSize,
+                Data = accentPtr
+            };
+
+            SetWindowCompositionAttribute(Handle, ref data);
+            Marshal.FreeHGlobal(accentPtr);
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (_useTransparency)
+            if (_useTransparency && _blurEnabled)
             {
                 e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(128, 0, 0, 0)), e.ClipRectangle);
             }
@@ -142,6 +197,6 @@ namespace MRK
         private static partial int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
 
         [LibraryImport("DwmApi")]
-        private static partial int DwmSetWindowAttribute(IntPtr hwnd, uint attr, [In] int[] attrValue, int attrSize);
+        private static partial int DwmSetWindowAttribute(IntPtr hwnd, uint attr, ref int attrValue, int attrSize);
     }
 }

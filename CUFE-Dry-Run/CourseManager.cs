@@ -14,6 +14,10 @@ namespace MRK
         public List<Course> Courses { get; init; }
         public List<CourseRecord> CourseRecords { get; set; }
 
+        private static CourseManager? _instance;
+
+        public static CourseManager Instance => _instance ??= new();
+
         public CourseManager()
         {
             Courses = [];
@@ -36,7 +40,7 @@ namespace MRK
                 // irregular format detection
                 var hasIrregularFormat = code is "LECS000" or "TUTS000";
 
-                var name = m.Groups[2].Value;
+                var name = m.Groups[2].Value.Trim();
 
                 // group
                 var groupString = m.Groups[3].Value;
@@ -120,6 +124,22 @@ namespace MRK
                 ValidateTimeSpan(ref to);
 
                 var course = GetOrCreateCourse(code, name);
+
+                // update lec/tut count
+                switch (type)
+                {
+                    case CourseRecordType.Lecture:
+                        course.LectureCount++;
+                        break;
+
+                    case CourseRecordType.Tutorial:
+                        course.TutorialCount++;
+                        break;
+
+                    default:
+                        throw new Exception($"Invalid course type {course}");
+                }
+
                 var record = new CourseRecord(
                     course,
                     group,
@@ -141,9 +161,7 @@ namespace MRK
             //sort courses
             Courses.Sort((x, y) => x.Code.CompareTo(y.Code));
 
-            CourseRecords = CourseRecords.OrderBy(x => x.Day)
-                                         .ThenBy(x => x.From)
-                                         .ToList();
+            CourseRecords = [..CourseRecords.OrderBy(x => x.Day).ThenBy(x => x.From)];
 
             //set some flags for Courses Defs
             foreach (var def in Courses)
