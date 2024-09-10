@@ -1,13 +1,13 @@
-﻿using System;
+﻿using MRK.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace MRK
 {
-    public partial class Preferences : MRKForm
+    public partial class Preferences : ScaledForm
     {
         private readonly CourseManager _manager;
         private bool _dirty;
@@ -16,13 +16,7 @@ namespace MRK
         {
             InitializeComponent();
 
-            //scale
-            ScaleForm();
-
-            CenterToScreen();
-
             _dirty = false;
-
             _manager = manager;
 
             bExit.Click += (_, _) =>
@@ -41,7 +35,7 @@ namespace MRK
 
             bUpdate.Click += OnUpdateClick;
 
-            RenderCourseList(manager.CourseDefs);
+            RenderCourseList(manager.Courses);
         }
 
         private void OnUpdateClick(object? sender, EventArgs e)
@@ -61,7 +55,7 @@ namespace MRK
         private void OnSeachClick(object? sender, EventArgs e)
         {
             var q = tbSearch.Text.Trim().ToLower();
-            var list = _manager.CourseDefs.Where(x => x.Code.ToLower().Contains(q)).ToList();
+            var list = _manager.Courses.Where(x => x.Code.ToLower().Contains(q)).ToList();
             if (list.Count == 0)
             {
                 MessageBox.Show("No courses found!");
@@ -77,11 +71,13 @@ namespace MRK
             OnSeachClick(null, EventArgs.Empty);
         }
 
-        private void RenderCourseList(List<CourseDefinition> defs)
+        private void RenderCourseList(List<Course> defs)
         {
             lTitle.Text = $"Course Preferences ({defs.Count})";
 
             courseCont.SuspendLayout();
+
+            courseCont.AutoScrollPosition = Point.Empty;
 
             //remove if exists
             courseCont.Controls.Remove(coursePrefab);
@@ -95,7 +91,7 @@ namespace MRK
             courseCont.Controls.Clear();
 
             int dy = coursePrefab.Location.Y;
-            
+
             foreach (var course in defs.OrderBy(x => !x.Checked).ThenBy(x => x.Code))
             {
                 var p = new Panel
@@ -103,6 +99,7 @@ namespace MRK
                     BackColor = coursePrefab.BackColor,
                     ForeColor = coursePrefab.ForeColor,
                     Size = coursePrefab.Size,
+                    Width = courseCont.Width,
                     AutoScroll = coursePrefab.AutoScroll,
                     Anchor = coursePrefab.Anchor,
                     Location = new Point(coursePrefab.Location.X, dy)
@@ -146,6 +143,19 @@ namespace MRK
                     AutoSize = namePrefab.AutoSize
                 };
 
+                var flagStr = "";
+                var flagsMax = (int)Enum.GetValues<CourseFlags>().Max();
+
+                int flag;
+
+                for (int i = 0; (flag = (int)Math.Pow(2, i)) <= flagsMax; i++)
+                {
+                    if ((course.Flags & (CourseFlags)flag) != 0)
+                    {
+                        flagStr += $" [{(CourseFlags)flag}] ";
+                    }
+                }
+
                 var extra = new Label
                 {
                     BackColor = extraPrefab.BackColor,
@@ -153,7 +163,7 @@ namespace MRK
                     Font = extraPrefab.Font,
                     Size = extraPrefab.Size,
                     Anchor = extraPrefab.Anchor,
-                    Text = $"LEC ({course.LectureCount}) TUT ({course.TutorialCount})",
+                    Text = $"LEC ({course.LectureCount}) TUT ({course.TutorialCount}) {flagStr}",
                     Location = extraPrefab.Location,
                     AutoSize = extraPrefab.AutoSize
                 };

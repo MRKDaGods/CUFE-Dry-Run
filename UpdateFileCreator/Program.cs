@@ -2,6 +2,9 @@
 
 try
 {
+    Console.Write("Semester: ");
+    var semester = Console.ReadLine()!;
+
     var resource = File.ReadAllText("payload.txt");
 
     var date = DateTime.Now;
@@ -12,6 +15,13 @@ try
 
     writer.Write(date.Ticks);
     writer.Write(Convert.ToBase64String(Encoding.UTF8.GetBytes(resource)));
+    writer.Write(semester);
+
+    // write version
+    using var versionFs = new FileStream("version", FileMode.Create);
+    using var versionWriter = new BinaryWriter(versionFs);
+    versionWriter.Write(date.Ticks);
+    versionWriter.Write(semester);
 
     Console.WriteLine($"done written to {filename}");
 }

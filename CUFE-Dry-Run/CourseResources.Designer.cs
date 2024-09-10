@@ -61,7 +61,7 @@ namespace MRK {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {script:&quot;Ext.net.replaceContent(win_17,\&quot;win_17_Content\&quot;,[\&quot;&lt;div id=\\\&quot;win_17_Content\\\&quot; class=\\\&quot;x-hidden\\\&quot;&gt;\&quot;,\&quot;&lt;div&gt;\&quot;,\&quot;&lt;table cellspacing=\\\&quot;0\\\&quot; cellpadding=\\\&quot;3\\\&quot; rules=\\\&quot;cols\\\&quot; id=\\\&quot;cont_win_17_GridView1\\\&quot; style=\\\&quot;color:Black;background-color:White;border-color:#999999;border-width:1px;border-style:Solid;border-collapse:collapse;\\\&quot;&gt;\&quot;,\&quot;&lt;tr style=\\\&quot;color:White;background-color:Black;font-weight:bold;\\\&quot;&gt;\&quot;,\&quot;&lt;th scope=\\\&quot;col\\\&quot;&gt;id&lt;/th&gt;&lt;th scope=\\\&quot;col\\\&quot;&gt;Code&lt;/th&gt;&lt;th sc [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string EmbeddedList {
             get {

@@ -15,7 +15,7 @@ namespace MRK
                 SetProcessDPIAware();
 
             ApplicationConfiguration.Initialize();
-            Application.Run(new Main());
+            Application.Run(new MainWindow());
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
