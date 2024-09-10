@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MRK
@@ -50,6 +51,8 @@ namespace MRK
             Instance = this;
             InitializeComponent();
 
+            CheckForIllegalCrossThreadCalls = false;
+
             //load config
             try
             {
@@ -67,7 +70,7 @@ namespace MRK
             UpdateTransparency();
 
             //load update if exists
-            UpdateManager.Instance.LoadUpdate(null);
+            UpdateManager.Instance.LoadUpdate(string.Empty);
 
             bExit.Click += (_, _) => Application.Exit();
             bScreenshot.Click += OnScreenshotClick;
@@ -109,6 +112,15 @@ namespace MRK
             // scale to 80% of screen
             var bounds = Screen.FromControl(this).Bounds;
             Size = new Size((int)(0.8 * bounds.Width), (int)(0.8 * bounds.Height));
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            // check for updates
+            Task.Run(() => UpdateManager.Instance.CheckForUpdates("main"))
+                .ContinueWith(res => OnUpdateFound(res.Result));
         }
 
         #endregion
@@ -167,6 +179,34 @@ namespace MRK
         private void OnScreenshotClick(object? sender, EventArgs e)
         {
             _screenshotHandler?.Invoke();
+        }
+
+        private async void OnUpdateFound(UpdateData? update)
+        {
+            if (update == null) return;
+
+            var res = MessageBox.Show(this,
+                $"A new update ({update.Value.Semester} {update.Value.LastUpdated:G}) was found!\nDownload it?",
+                "New Update Available",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (res == DialogResult.Yes)
+            {
+                // go to settings
+
+                // wait till we can hide current view
+                while (!(_currentView?.CanHideView() ?? true))
+                {
+                    await Task.Delay(100);
+                }
+
+                Invoke(() => {
+                    var settings = GetView<SettingsView>()!;
+                    settings.CheckForUpdates(update);
+                    SwitchToView(settings);
+                });
+            }
         }
 
         private void UpdateTransparency(bool? newValue = null)

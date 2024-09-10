@@ -8,7 +8,7 @@ namespace MRK.Models
         public bool Highlight { get; set; } = true;
         public bool ShowCode { get; set; } = false;
         public bool ShowOpenOnly { get; set; } = false;
-        public bool TransparencyEnabled { get; set; } = true;
+        public bool TransparencyEnabled { get; set; } = false;
 
         public void Serialize(BinaryWriter writer)
         {
