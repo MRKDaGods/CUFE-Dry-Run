@@ -134,6 +134,10 @@ namespace MRK
             {
                 var client = new HttpClient();
                 var filename = string.Join("_", $"updatedata-{updateData.LastUpdated.Ticks}.dryupd".Split(Path.GetInvalidFileNameChars()));
+                
+                var url = string.Format(UpdateUrl, channel, filename);
+                Console.WriteLine($"GET {url}");
+
                 var content = await client.GetStreamAsync(string.Format(UpdateUrl, channel, filename));
                 return LoadUpdate(content, true);
             }
