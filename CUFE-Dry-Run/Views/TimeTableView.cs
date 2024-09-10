@@ -346,7 +346,13 @@ namespace MRK.Views
 
             var record = sender.Record;
 
-            MainWindow.SetStatusBarText($"[{sender.Record.Course.Code}] {sender.Button.Text.Replace("\n", " ")}");
+            var statusBarText = sender.Button.Text.Replace("\n", " ");
+            if (!Config.ShowCode)
+            {
+                statusBarText = string.Join("", $"[{sender.Record.Course.Code}]", statusBarText);
+            }
+
+            MainWindow.SetStatusBarText(statusBarText);
 
             _courseButtons.ForEach(button =>
             {
