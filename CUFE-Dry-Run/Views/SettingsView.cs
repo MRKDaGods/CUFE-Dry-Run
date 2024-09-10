@@ -139,7 +139,7 @@ namespace MRK.Views
             if (res)
             {
                 MessageBox.Show(this,
-                    "Updated has been installed, restarting...",
+                    "Update has been installed, restarting...",
                     "Updated Installed",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
