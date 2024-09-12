@@ -18,25 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="CourseResources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>CourseResources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="CourseResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>CourseResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controls\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="ObjectListView.Official" Version="2.9.1" />
   </ItemGroup>
 

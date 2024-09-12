@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -27,9 +28,11 @@ namespace MRK.Views
         private CoursesInitializationState _initializationState;
         private bool _rebuildRequested;
 
-        private readonly HashSet<Control> _prefabs;
+        private readonly Control[] _prefabs;
         private readonly List<CourseButton> _courseButtons;
         private bool _legendState;
+
+        private Panel? _courseContainer;
 
         public string ViewName => "Time Table";
 
@@ -43,7 +46,7 @@ namespace MRK.Views
         {
             InitializeComponent();
 
-            _prefabs = [dayPrefab, timePrefab, coursePrefab, containerPrefab, lLoading];
+            _prefabs = [dayPrefab, timePrefab, coursePrefab, containerPrefab, courseContPrefab];
             _courseButtons = [];
         }
 
@@ -94,7 +97,7 @@ namespace MRK.Views
 
             try
             {
-                CourseManager.Instance.ParseCourses(updateData?.Resource ?? CourseResources.EmbeddedList);
+                CourseManager.Instance.ParseCourses(updateData?.Resource ?? string.Empty);
             }
             catch (Exception ex)
             {
@@ -137,42 +140,46 @@ namespace MRK.Views
 
         private void LayoutTimeTable()
         {
-            var parent = courseCont.Parent;
-            parent!.Controls.Remove(courseCont);
+            SuspendLayout();
 
-            courseCont.AutoScrollPosition = Point.Empty;
+            if (_courseContainer != null)
+            {
+                // remove old container
+                Controls.Remove(_courseContainer);
+                _courseContainer.Dispose();
+            }
 
+            var wrapEnabled = Config.WrapTimeTable;
+            _courseContainer = wrapEnabled ? new FlowLayoutPanel
+            {
+                WrapContents = true,
+                FlowDirection = FlowDirection.LeftToRight,
+            } : new Panel();
+
+            _courseContainer.AutoScroll = courseContPrefab.AutoScroll;
+            _courseContainer.BackColor = courseContPrefab.BackColor;
+            _courseContainer.Dock = courseContPrefab.Dock;
+
+            // hide prefabs
+            foreach (var prefab in _prefabs)
+            {
+                if (prefab.Visible)
+                {
+                    prefab.Hide();
+                }
+            }
+
+            // clear old buttons
             _courseButtons.Clear();
-
-            //dispose old list
-            var removeBuffer = new List<Control>();
-            foreach (Control control in courseCont.Controls)
-            {
-                if (_prefabs.Contains(control))
-                {
-                    control.Hide();
-                }
-                else
-                {
-                    removeBuffer.Add(control);
-                }
-            }
-
-            //remove disposed 
-            foreach (Control control in removeBuffer)
-            {
-                courseCont.Controls.Remove(control);
-                control.Dispose();
-            }
 
             //calc min max, etc
             var availableRecords = CourseManager.GetAvailableCourseRecords(Config.ShowOpenOnly);
             var records = new SortedDictionary<CourseRecordDay, CourseSpan>(new CourseDayComparer());
             foreach (var record in availableRecords)
             {
-                if (!records.TryGetValue(record.Day, out CourseSpan? value))
+                if (!records.TryGetValue(record.Day, out var value))
                 {
-                    value = new CourseSpan();
+                    value = [];
                     records[record.Day] = value;
                 }
 
@@ -198,7 +205,6 @@ namespace MRK.Views
                 int periodCount = pair.Value.GetPeriodCount();
                 int width = periodCount * timePrefab.Size.Width;
                 int absHeight = dayPrefab.Size.Height + timePrefab.Size.Height;
-                int maxCHeight = 0;
 
                 var day = new Label
                 {
@@ -236,6 +242,7 @@ namespace MRK.Views
 
                     container.Controls.Add(time);
 
+                    // do we have courses that start at hr?
                     if (pair.Value.TryGetValue(new TimeSpan(hr, 0, 0), out var courses))
                     {
                         int cdy = 0;
@@ -297,6 +304,7 @@ namespace MRK.Views
 
                             container.Controls.Add(button);
 
+                            // set tooltip
                             var tooltipText = $"[{crs.Course.Code}]\n{button.Text}\n{crs.Location}";
                             tooltip.SetToolTip(button, tooltipText);
 
@@ -305,20 +313,14 @@ namespace MRK.Views
                             _courseButtons.Add(new CourseButton(this, button, crs));
 
                             int finishHr = crs.To.Hours;
-                            if (!timeSpanOffsets.TryGetValue(finishHr, out HashSet<int>? value))
+                            if (!timeSpanOffsets.TryGetValue(finishHr, out var value))
                             {
                                 value = [];
                                 timeSpanOffsets[finishHr] = value;
                             }
 
                             value.Add(crsIdx);
-
                             crsIdx++;
-                        }
-
-                        if (cdy > maxCHeight)
-                        {
-                            maxCHeight = cdy;
                         }
                     }
                 }
@@ -327,10 +329,49 @@ namespace MRK.Views
                 container.Size = container.DisplayRectangle.Size + new Size(HorizontalSpacing, VerticalSpacing);
 
                 // add container
-                courseCont.Controls.Add(container);
+                _courseContainer.Controls.Add(container);
             }
 
-            parent!.Controls.Add(courseCont);
+            // wrapping
+            if (_courseContainer.Controls.Count > 0 && !wrapEnabled)
+            {
+                // position panels based on days per row
+                int dx = containerPrefab.Location.X;
+                int dy = containerPrefab.Location.Y;
+                int maxHeight = 0;
+
+                for (int i = 0; i < _courseContainer.Controls.Count; i++)
+                {
+                    var panel = _courseContainer.Controls[i] as Panel;
+                    if (panel == null)
+                    {
+                        Console.WriteLine("Courses container contains non panel control !!!");
+                        continue;
+                    }
+
+                    panel.Location = new Point(dx, dy);
+
+                    dx += panel.Width + coursePrefab.Margin.Horizontal;
+                    maxHeight = Math.Max(maxHeight, panel.Height);
+
+                    if ((i + 1) % Config.DaysPerRow == 0)
+                    {
+                        // break
+                        dx = containerPrefab.Location.X;
+                        dy += maxHeight;
+                        maxHeight = 0;
+                    }
+                }
+            }
+
+            // add courses container to main view
+            Controls.Add(_courseContainer);
+
+            // bring loading labe to front regardless
+            lLoading.BringToFront();
+
+            // resume layout
+            ResumeLayout(true);
 
             // update legend vis
             _legendState = availableRecords.Count > 0;
@@ -344,16 +385,15 @@ namespace MRK.Views
                 return;
             }
 
-            var record = sender.Record;
-
             var statusBarText = sender.Button.Text.Replace("\n", " ");
             if (!Config.ShowCode)
             {
-                statusBarText = string.Join("", $"[{sender.Record.Course.Code}]", statusBarText);
+                statusBarText = string.Join(' ', $"[{sender.Record.Course.Code}]", statusBarText);
             }
 
             MainWindow.SetStatusBarText(statusBarText);
 
+            var record = sender.Record;
             _courseButtons.ForEach(button =>
             {
                 button.SetHoveredStatus(value && button.Record.Course == record.Course,
@@ -421,15 +461,15 @@ namespace MRK.Views
 
         private async void OnScreenshotClick()
         {
-            courseCont.BackColor = Color.FromArgb(31, 31, 31);
-            courseCont.Dock = DockStyle.None;
-            courseCont.Size = courseCont.DisplayRectangle.Size;
+            courseContPrefab.BackColor = Color.FromArgb(31, 31, 31);
+            courseContPrefab.Dock = DockStyle.None;
+            courseContPrefab.Size = courseContPrefab.DisplayRectangle.Size;
 
-            var bmp = new Bitmap(courseCont.Width, courseCont.Height);
+            var bmp = new Bitmap(courseContPrefab.Width, courseContPrefab.Height);
 
-            courseCont.DrawToBitmap(bmp, new Rectangle(0, 0, courseCont.Width, courseCont.Height));
+            courseContPrefab.DrawToBitmap(bmp, new Rectangle(0, 0, courseContPrefab.Width, courseContPrefab.Height));
 
-            var imgName = string.Join("_", 
+            var imgName = string.Join("_",
                 $"TimeTable-{UpdateManager.Instance.UpdateData?.Semester}-{DateTime.Now:g}.png"
                 .Split(Path.GetInvalidFileNameChars()));
 
@@ -439,8 +479,8 @@ namespace MRK.Views
             Clipboard.SetImage(bmp);
             bmp.Dispose();
 
-            courseCont.BackColor = Color.Transparent;
-            courseCont.Dock = DockStyle.Fill;
+            courseContPrefab.BackColor = Color.Transparent;
+            courseContPrefab.Dock = DockStyle.Fill;
 
             MainWindow.SetFooterBarText($"Saved timetable to {imgName}");
 

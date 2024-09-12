@@ -51,6 +51,7 @@ namespace MRK.Views
             InitializeComponent();
 
             bUpdateAction.Click += OnUpdateActionClick;
+            cbWrap.CheckedChanged += OnWrapCheckedChanged;
 
             cbChannel.SelectedIndex = 0;
         }
@@ -61,8 +62,11 @@ namespace MRK.Views
             cbHighlight.Checked = config.Highlight;
             cbCodes.Checked = config.ShowCode;
             cbOpen.Checked = config.ShowOpenOnly;
+            cbWrap.Checked = config.WrapTimeTable;
+            cbDaysPerRow.SelectedIndex = config.DaysPerRow - 1;
 
             RefreshUpdateState();
+            UpdateDaysPerRowState();
         }
 
         public void OnViewHide()
@@ -70,7 +74,10 @@ namespace MRK.Views
             var config = MainWindow.Config;
 
             // check dirty
-            if (config.ShowCode != cbCodes.Checked || config.ShowOpenOnly != cbOpen.Checked)
+            if (config.ShowCode != cbCodes.Checked
+                || config.ShowOpenOnly != cbOpen.Checked
+                || config.WrapTimeTable != cbWrap.Checked
+                || (!cbWrap.Checked && config.DaysPerRow != cbDaysPerRow.SelectedIndex + 1))
             {
                 Console.WriteLine("SettingsView dirty, requesting timetable rebuild");
                 MainWindow.GetView<TimeTableView>()!.RequestRebuild();
@@ -79,6 +86,8 @@ namespace MRK.Views
             config.Highlight = cbHighlight.Checked;
             config.ShowCode = cbCodes.Checked;
             config.ShowOpenOnly = cbOpen.Checked;
+            config.WrapTimeTable = cbWrap.Checked;
+            config.DaysPerRow = cbDaysPerRow.SelectedIndex + 1;
         }
 
         public bool CanHideView()
@@ -109,6 +118,11 @@ namespace MRK.Views
                 case UpdateState.Downloading:
                     break;
             }
+        }
+
+        private void OnWrapCheckedChanged(object? sender, EventArgs e)
+        {
+            UpdateDaysPerRowState();
         }
 
         public async void CheckForUpdates(UpdateData? updateData = null)
@@ -173,6 +187,11 @@ namespace MRK.Views
                 UpdateState.NoAvailableUpdates => "No updates available",
                 _ => "",
             };
+        }
+
+        private void UpdateDaysPerRowState()
+        {
+            cbDaysPerRow.Enabled = !cbWrap.Checked;
         }
     }
 }
