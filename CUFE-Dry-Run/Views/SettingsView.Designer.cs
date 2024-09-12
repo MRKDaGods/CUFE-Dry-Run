@@ -59,6 +59,7 @@
             // 
             // panelMainLayout
             // 
+            panelMainLayout.AutoScroll = true;
             panelMainLayout.Controls.Add(label1);
             panelMainLayout.Controls.Add(cbHighlight);
             panelMainLayout.Controls.Add(cbCodes);

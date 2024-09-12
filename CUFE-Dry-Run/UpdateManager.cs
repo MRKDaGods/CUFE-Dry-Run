@@ -136,29 +136,21 @@ namespace MRK
         {
             Console.WriteLine($"Checking for updates on channel {channel}");
 
-            try
-            {
-                string[] urls = 
-                [
-                    string.Format(UpdateAppVersionUrl, channel),
+            string[] urls =
+            [
+                string.Format(UpdateAppVersionUrl, channel),
                     string.Format(UpdateVersionUrl, channel)
-                ];
+            ];
 
-                var client = new HttpClient();
+            using var client = new HttpClient();
 
-                foreach (var url in urls)
+            foreach (var url in urls)
+            {
+                Stream content;
+                try
                 {
-                    Stream content;
-                    try
-                    {
-                        Console.WriteLine($"GET {url}");
-                        content = await client.GetStreamAsync(string.Format(UpdateVersionUrl, channel));
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Checking for update failed ({ex.GetType().Name})");
-                        continue;
-                    }
+                    Console.WriteLine($"GET {url}");
+                    content = await client.GetStreamAsync(url);
 
                     using var reader = new BinaryReader(content);
                     var isAppUpdate = reader.ReadBoolean();
@@ -181,10 +173,11 @@ namespace MRK
                         return newData;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Checking for update failed ({ex.GetType().Name})");
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Checking for update failed ({ex.GetType().Name})");
+                    continue;
+                }
             }
 
             return null;

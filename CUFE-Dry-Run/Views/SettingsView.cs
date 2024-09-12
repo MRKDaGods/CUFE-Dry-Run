@@ -18,6 +18,7 @@ namespace MRK.Views
 
         private UpdateState _updateState;
         private UpdateState _prevState;
+        private int _lastChannel;
 
         private UpdateState CurrentUpdateState
         {
@@ -52,7 +53,9 @@ namespace MRK.Views
 
             bUpdateAction.Click += OnUpdateActionClick;
             cbWrap.CheckedChanged += OnWrapCheckedChanged;
+            cbChannel.SelectedIndexChanged += OnChannelSelectedIndexChanged;
 
+            _lastChannel = -1;
             cbChannel.SelectedIndex = 0;
         }
 
@@ -67,6 +70,8 @@ namespace MRK.Views
 
             RefreshUpdateState();
             UpdateDaysPerRowState();
+
+            MainWindow.SetStatusBarText($"v{Constants.Version}");
         }
 
         public void OnViewHide()
@@ -88,6 +93,8 @@ namespace MRK.Views
             config.ShowOpenOnly = cbOpen.Checked;
             config.WrapTimeTable = cbWrap.Checked;
             config.DaysPerRow = cbDaysPerRow.SelectedIndex + 1;
+
+            MainWindow.SetStatusBarText(string.Empty);
         }
 
         public bool CanHideView()
@@ -123,6 +130,17 @@ namespace MRK.Views
         private void OnWrapCheckedChanged(object? sender, EventArgs e)
         {
             UpdateDaysPerRowState();
+        }
+
+        private void OnChannelSelectedIndexChanged(object? sender, EventArgs e)
+        {
+            if (_lastChannel != cbChannel.SelectedIndex)
+            {
+                _lastChannel = cbChannel.SelectedIndex;
+
+                NewUpdateData = null;
+                CurrentUpdateState = UpdateState.CheckForUpdates;
+            }
         }
 
         public async void CheckForUpdates(UpdateData? updateData = null)
@@ -180,7 +198,7 @@ namespace MRK.Views
             lUpdateStatus.Visible = CurrentUpdateState != UpdateState.CheckForUpdates;
             lUpdateStatus.Text = CurrentUpdateState switch
             {
-                UpdateState.UpdateAvailable => $"A new update ({NewUpdateData?.Semester} {NewUpdateData?.LastUpdated:G}) was found!\nDownload it?",
+                UpdateState.UpdateAvailable => $"A new update ({NewUpdateData}) was found!\nDownload it?",
                 UpdateState.Downloading => "Download in progress",
                 UpdateState.CheckingForUpdates => "Checking for updates...",
                 UpdateState.Error => $"An error has occured while {_prevState}",
