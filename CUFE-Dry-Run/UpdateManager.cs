@@ -102,14 +102,16 @@ namespace MRK
                     {
                         FileName = "Updater.exe",
                         Arguments = updaterArgs,
+                        UseShellExecute = true,
+                        Verb = "runas"
                     });
                 }
 
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine("Cannot load update data");
+                Console.WriteLine($"Cannot load update data ({ex})");
                 return false;
             }
         }
