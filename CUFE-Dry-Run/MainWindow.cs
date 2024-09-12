@@ -173,6 +173,15 @@ namespace MRK
 
         private void OnToggleTransparencyClick(object? sender, EventArgs e)
         {
+            if (!_config.TransparencyEnabled && _config.DisplayTransparencyWarning)
+            {
+                MessageBox.Show(this, "This project is built using winforms.\n" +
+                    "Tearing and lag may occur due to winform limitations supporting the background acrylic effect!\n\n" +
+                    "Should be fixed by Fall/Spring25 isa", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                _config.DisplayTransparencyWarning = false;
+            }
+
             UpdateTransparency(!_config.TransparencyEnabled);
         }
 
@@ -196,13 +205,17 @@ namespace MRK
                 // go to settings
 
                 // wait till we can hide current view
-                while (!(_currentView?.CanHideView() ?? true))
+                var settings = GetView<SettingsView>()!;
+                if (_currentView != settings)
                 {
-                    await Task.Delay(100);
+                    while (!(_currentView?.CanHideView() ?? true))
+                    {
+                        await Task.Delay(100);
+                    }
                 }
 
-                Invoke(() => {
-                    var settings = GetView<SettingsView>()!;
+                Invoke(() =>
+                {
                     settings.CheckForUpdates(update);
                     SwitchToView(settings);
                 });

@@ -126,27 +126,13 @@ namespace MRK
 
         private void SetupWindow()
         {
-            var intSize = Marshal.SizeOf(typeof(int));
-
             // rounded corners
             int roundedCorners = 2;
-            DwmSetWindowAttribute(Handle, 33, ref roundedCorners, intSize);
+            DwmSetWindowAttribute(Handle, 33, ref roundedCorners, Marshal.SizeOf(typeof(int)));
 
             if (_useTransparency)
             {
                 EnableBlur();
-
-                // Enable immersive dark mode (DWMWA_USE_IMMERSIVE_DARK_MODE: 20)
-                int darkMode = 1; // 1 for dark mode enabled
-                DwmSetWindowAttribute(Handle, 20, ref darkMode, intSize);
-
-                // Enable Mica material for below Windows build 22523 (DWMWA_MICA_EFFECT: 1029)
-                int micaEnabledBelow22523 = 1; // 1 to enable
-                DwmSetWindowAttribute(Handle, 1029, ref micaEnabledBelow22523, intSize);
-
-                // Enable Mica material for Windows 22523 and up (DWMWA_SYSTEMBACKDROP_TYPE: 38)
-                int micaEnabled = 2; // 2 for Mica effect
-                DwmSetWindowAttribute(Handle, 38, ref micaEnabled, intSize);
             }
         }
 
@@ -156,6 +142,20 @@ namespace MRK
 
             var accent = new AccentPolicy { AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND };
             ApplyAccentPolicy(accent);
+
+            var intSize = Marshal.SizeOf(typeof(int));
+
+            // Enable immersive dark mode (DWMWA_USE_IMMERSIVE_DARK_MODE: 20)
+            int darkMode = 1; // 1 for dark mode enabled
+            DwmSetWindowAttribute(Handle, 20, ref darkMode, intSize);
+
+            // Enable Mica material for below Windows build 22523 (DWMWA_MICA_EFFECT: 1029)
+            int micaEnabledBelow22523 = 1; // 1 to enable
+            DwmSetWindowAttribute(Handle, 1029, ref micaEnabledBelow22523, intSize);
+
+            // Enable Mica material for Windows 22523 and up (DWMWA_SYSTEMBACKDROP_TYPE: 38)
+            int micaEnabled = 2; // 2 for Mica effect
+            DwmSetWindowAttribute(Handle, 38, ref micaEnabled, intSize);
         }
 
         protected void DisableBlur()

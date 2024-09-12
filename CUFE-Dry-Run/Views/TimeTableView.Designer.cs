@@ -30,13 +30,13 @@
         {
             components = new System.ComponentModel.Container();
             lLoading = new System.Windows.Forms.Label();
-            courseCont = new System.Windows.Forms.FlowLayoutPanel();
+            courseContPrefab = new System.Windows.Forms.FlowLayoutPanel();
             containerPrefab = new System.Windows.Forms.Panel();
             dayPrefab = new System.Windows.Forms.Label();
             timePrefab = new System.Windows.Forms.Label();
             coursePrefab = new System.Windows.Forms.Button();
             tooltip = new System.Windows.Forms.ToolTip(components);
-            courseCont.SuspendLayout();
+            courseContPrefab.SuspendLayout();
             containerPrefab.SuspendLayout();
             SuspendLayout();
             // 
@@ -53,18 +53,18 @@
             lLoading.Text = "Loading courses...";
             lLoading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // courseCont
+            // courseContPrefab
             // 
-            courseCont.AutoScroll = true;
-            courseCont.AutoScrollMargin = new System.Drawing.Size(10, 10);
-            courseCont.BackColor = System.Drawing.Color.Transparent;
-            courseCont.Controls.Add(containerPrefab);
-            courseCont.Dock = System.Windows.Forms.DockStyle.Fill;
-            courseCont.ForeColor = System.Drawing.Color.White;
-            courseCont.Location = new System.Drawing.Point(0, 0);
-            courseCont.Name = "courseCont";
-            courseCont.Size = new System.Drawing.Size(1275, 684);
-            courseCont.TabIndex = 10;
+            courseContPrefab.AutoScroll = true;
+            courseContPrefab.AutoScrollMargin = new System.Drawing.Size(10, 10);
+            courseContPrefab.BackColor = System.Drawing.Color.Transparent;
+            courseContPrefab.Controls.Add(containerPrefab);
+            courseContPrefab.Dock = System.Windows.Forms.DockStyle.Fill;
+            courseContPrefab.ForeColor = System.Drawing.Color.White;
+            courseContPrefab.Location = new System.Drawing.Point(0, 0);
+            courseContPrefab.Name = "courseContPrefab";
+            courseContPrefab.Size = new System.Drawing.Size(1275, 684);
+            courseContPrefab.TabIndex = 10;
             // 
             // containerPrefab
             // 
@@ -121,10 +121,10 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Transparent;
             Controls.Add(lLoading);
-            Controls.Add(courseCont);
+            Controls.Add(courseContPrefab);
             Name = "TimeTableView";
             Size = new System.Drawing.Size(1275, 684);
-            courseCont.ResumeLayout(false);
+            courseContPrefab.ResumeLayout(false);
             containerPrefab.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -132,7 +132,7 @@
         #endregion
 
         private System.Windows.Forms.Label lLoading;
-        private System.Windows.Forms.FlowLayoutPanel courseCont;
+        private System.Windows.Forms.FlowLayoutPanel courseContPrefab;
         private System.Windows.Forms.Button coursePrefab;
         private System.Windows.Forms.Label dayPrefab;
         private System.Windows.Forms.Label timePrefab;

@@ -18,6 +18,7 @@ namespace MRK.Views
 
         private UpdateState _updateState;
         private UpdateState _prevState;
+        private int _lastChannel;
 
         private UpdateState CurrentUpdateState
         {
@@ -51,7 +52,10 @@ namespace MRK.Views
             InitializeComponent();
 
             bUpdateAction.Click += OnUpdateActionClick;
+            cbWrap.CheckedChanged += OnWrapCheckedChanged;
+            cbChannel.SelectedIndexChanged += OnChannelSelectedIndexChanged;
 
+            _lastChannel = -1;
             cbChannel.SelectedIndex = 0;
         }
 
@@ -61,8 +65,13 @@ namespace MRK.Views
             cbHighlight.Checked = config.Highlight;
             cbCodes.Checked = config.ShowCode;
             cbOpen.Checked = config.ShowOpenOnly;
+            cbWrap.Checked = config.WrapTimeTable;
+            cbDaysPerRow.SelectedIndex = config.DaysPerRow - 1;
 
             RefreshUpdateState();
+            UpdateDaysPerRowState();
+
+            MainWindow.SetStatusBarText($"v{Constants.Version}");
         }
 
         public void OnViewHide()
@@ -70,7 +79,10 @@ namespace MRK.Views
             var config = MainWindow.Config;
 
             // check dirty
-            if (config.ShowCode != cbCodes.Checked || config.ShowOpenOnly != cbOpen.Checked)
+            if (config.ShowCode != cbCodes.Checked
+                || config.ShowOpenOnly != cbOpen.Checked
+                || config.WrapTimeTable != cbWrap.Checked
+                || (!cbWrap.Checked && config.DaysPerRow != cbDaysPerRow.SelectedIndex + 1))
             {
                 Console.WriteLine("SettingsView dirty, requesting timetable rebuild");
                 MainWindow.GetView<TimeTableView>()!.RequestRebuild();
@@ -79,6 +91,10 @@ namespace MRK.Views
             config.Highlight = cbHighlight.Checked;
             config.ShowCode = cbCodes.Checked;
             config.ShowOpenOnly = cbOpen.Checked;
+            config.WrapTimeTable = cbWrap.Checked;
+            config.DaysPerRow = cbDaysPerRow.SelectedIndex + 1;
+
+            MainWindow.SetStatusBarText(string.Empty);
         }
 
         public bool CanHideView()
@@ -108,6 +124,22 @@ namespace MRK.Views
 
                 case UpdateState.Downloading:
                     break;
+            }
+        }
+
+        private void OnWrapCheckedChanged(object? sender, EventArgs e)
+        {
+            UpdateDaysPerRowState();
+        }
+
+        private void OnChannelSelectedIndexChanged(object? sender, EventArgs e)
+        {
+            if (_lastChannel != cbChannel.SelectedIndex)
+            {
+                _lastChannel = cbChannel.SelectedIndex;
+
+                NewUpdateData = null;
+                CurrentUpdateState = UpdateState.CheckForUpdates;
             }
         }
 
@@ -166,13 +198,18 @@ namespace MRK.Views
             lUpdateStatus.Visible = CurrentUpdateState != UpdateState.CheckForUpdates;
             lUpdateStatus.Text = CurrentUpdateState switch
             {
-                UpdateState.UpdateAvailable => $"A new update ({NewUpdateData?.Semester} {NewUpdateData?.LastUpdated:G}) was found!\nDownload it?",
+                UpdateState.UpdateAvailable => $"A new update ({NewUpdateData}) was found!\nDownload it?",
                 UpdateState.Downloading => "Download in progress",
                 UpdateState.CheckingForUpdates => "Checking for updates...",
                 UpdateState.Error => $"An error has occured while {_prevState}",
                 UpdateState.NoAvailableUpdates => "No updates available",
                 _ => "",
             };
+        }
+
+        private void UpdateDaysPerRowState()
+        {
+            cbDaysPerRow.Enabled = !cbWrap.Checked;
         }
     }
 }

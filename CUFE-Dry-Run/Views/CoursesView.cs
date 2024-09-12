@@ -57,6 +57,7 @@ namespace MRK.Views
             InitializeListViewMetadata();
 
             bSearch.Click += OnSearchClick;
+            tbSearch.KeyDown += OnSearchKeyDown;
 
             InitializeSearchShortcuts();
             AdjustLastColumnWidth();
@@ -167,6 +168,17 @@ namespace MRK.Views
         private void OnSearchClick(object? sender, EventArgs e)
         {
             SearchListView(tbSearch.Text.Trim());
+        }
+
+        private void OnSearchKeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+
+                // search
+                OnSearchClick(null, EventArgs.Empty);
+            }
         }
 
         private void AdjustForTransparency()

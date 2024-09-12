@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CUFE-Dry-Run", "CUFE-Dry-Run\CUFE-Dry-Run.csproj", "{69BDDAEF-3360-498A-8F29-ABB3035ABB1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateFileCreator", "UpdateFileCreator\UpdateFileCreator.csproj", "{6EAFA870-714C-462B-AB1C-3CEFDEFD22CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateFileCreator", "UpdateFileCreator\UpdateFileCreator.csproj", "{6EAFA870-714C-462B-AB1C-3CEFDEFD22CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{EC46F5A0-0478-41EC-BEA4-ECCA820B6F59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{6EAFA870-714C-462B-AB1C-3CEFDEFD22CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EAFA870-714C-462B-AB1C-3CEFDEFD22CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EAFA870-714C-462B-AB1C-3CEFDEFD22CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC46F5A0-0478-41EC-BEA4-ECCA820B6F59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC46F5A0-0478-41EC-BEA4-ECCA820B6F59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC46F5A0-0478-41EC-BEA4-ECCA820B6F59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC46F5A0-0478-41EC-BEA4-ECCA820B6F59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

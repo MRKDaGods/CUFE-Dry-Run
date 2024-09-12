@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace MRK.Models
 {
@@ -9,6 +8,9 @@ namespace MRK.Models
         public bool ShowCode { get; set; } = false;
         public bool ShowOpenOnly { get; set; } = false;
         public bool TransparencyEnabled { get; set; } = false;
+        public bool WrapTimeTable { get; set; } = true;
+        public int DaysPerRow { get; set; } = 2;
+        public bool DisplayTransparencyWarning { get; set; } = true;
 
         public void Serialize(BinaryWriter writer)
         {
@@ -16,6 +18,9 @@ namespace MRK.Models
             writer.Write(ShowCode);
             writer.Write(ShowOpenOnly);
             writer.Write(TransparencyEnabled);
+            writer.Write(WrapTimeTable);
+            writer.Write(DaysPerRow);
+            writer.Write(DisplayTransparencyWarning);
         }
 
         public static Config Deserialize(BinaryReader reader)
@@ -26,6 +31,9 @@ namespace MRK.Models
                 ShowCode = reader.ReadBoolean(),
                 ShowOpenOnly = reader.ReadBoolean(),
                 TransparencyEnabled = reader.ReadBoolean(),
+                WrapTimeTable = reader.ReadBoolean(),
+                DaysPerRow = reader.ReadInt32(),
+                DisplayTransparencyWarning = reader.ReadBoolean(),
             };
         }
     }
