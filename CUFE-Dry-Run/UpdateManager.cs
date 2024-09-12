@@ -91,14 +91,17 @@ namespace MRK
                         return false;
                     }
 
-                    var asmName = Assembly.GetExecutingAssembly().GetName();
-                    var dir = Path.GetDirectoryName(asmName.FullName);
-                    var exeName = asmName.Name;
+                    var asm = Assembly.GetExecutingAssembly();
+                    var dir = Path.GetDirectoryName(asm.Location);
+                    var exeName = asm.GetName().Name;
+
+                    var updaterArgs = $"--updateZipFilename=\"{updateZipFilename}\" --targetDirectory=\"{dir}\" --executableName=\"{exeName}\"";
+                    Console.WriteLine($"Running Updater.exe as admin\nArgs: {updaterArgs}");
 
                     Process.Start(new ProcessStartInfo
                     {
                         FileName = "Updater.exe",
-                        Arguments = $"--updateZipFilename=\"{updateZipFilename}\" --targetDirectory=\"{dir}\" --executableName=\"{exeName}\""
+                        Arguments = updaterArgs,
                     });
                 }
 
@@ -158,7 +161,10 @@ namespace MRK
                     var semester = reader.ReadString();
                     var version = reader.ReadString();
 
-                    if (UpdateData == null || lastUpdated > UpdateData.Value.LastUpdated.Ticks)
+                    var needsUpdate = isAppUpdate ? (Version.TryParse(version, out var v) && v > Constants.Version) 
+                        : (UpdateData == null || lastUpdated > UpdateData.Value.LastUpdated.Ticks);
+
+                    if (needsUpdate)
                     {
                         var date = new DateTime(lastUpdated);
                         var newData = new UpdateData

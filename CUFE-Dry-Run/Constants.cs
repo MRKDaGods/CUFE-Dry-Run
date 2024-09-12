@@ -1,7 +1,9 @@
-﻿namespace MRK
+﻿using System;
+
+namespace MRK
 {
-    public class Constants
+    public static class Constants
     {
-        public const string Version = "2.4.5";
+        public static readonly Version Version = new("2.4.5.8");
     }
 }
