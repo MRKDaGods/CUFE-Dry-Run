@@ -27,6 +27,8 @@ namespace MRK.Models
             }
         }
 
+        public bool HasNoTutorial => IsGen || Code == "CMPS425"; // consultation
+
         public Course(string code, string name)
         {
             Code = code;

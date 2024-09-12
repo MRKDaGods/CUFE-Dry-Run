@@ -78,6 +78,7 @@ namespace MRK
             bExit.Click += (_, _) => Application.Exit();
             bScreenshot.Click += OnScreenshotClick;
             bToggleTransparency.Click += OnToggleTransparencyClick;
+            lFooterBar.DoubleClick += OnFooterBarDoubleClick;
 
             //Utils.CenterControl(lFooterBar);
             Utils.CenterControl(panelLegend);
@@ -191,6 +192,13 @@ namespace MRK
         private void OnScreenshotClick(object? sender, EventArgs e)
         {
             _screenshotHandler?.Invoke();
+        }
+
+        private void OnFooterBarDoubleClick(object? sender, EventArgs e)
+        {
+            // NativeCourseHandler.Test(CourseManager.Instance.GetSelectedCourseRecords());
+
+            Clipboard.SetText(lFooterBar.Text.Replace("", "-"));
         }
 
         private async void OnUpdateFound(UpdateData? update)

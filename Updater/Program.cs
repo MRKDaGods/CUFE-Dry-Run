@@ -186,7 +186,7 @@ static void ScheduleDeletion(string directoryPath)
         writer.WriteLine("@echo off");
         writer.WriteLine("timeout /t 2 > nul");
         writer.WriteLine($"rmdir /s /q \"{directoryPath}\"");
-        writer.WriteLine($"del \"%~f0\"");
+        writer.WriteLine("del \"%~f0\"");
     }
 
     Process.Start(new ProcessStartInfo

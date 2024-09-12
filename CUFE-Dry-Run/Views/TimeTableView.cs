@@ -451,7 +451,7 @@ namespace MRK.Views
                 string lec = pair.Value.Item1?.Group.ToString() ?? "NA";
                 string tut = pair.Value.Item2?.Group.ToString() ?? "NA";
 
-                str += $"{pair.Key.Name} ({lec}{(pair.Value.Item1?.Course.IsGen ?? false ? "" : $"/{tut}")})";
+                str += $"{pair.Key.Name} ({lec}{(pair.Value.Item1?.Course.HasNoTutorial ?? false ? "" : $"/{tut}")})";
 
                 flag = true;
             }

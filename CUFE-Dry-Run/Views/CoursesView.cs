@@ -82,7 +82,7 @@ namespace MRK.Views
                 SortByCheckedState();
             }
 
-            MainWindow.SetFooterBarText("Double click on course to toggle its checked state");
+            MainWindow.SetFooterBarText("Double click on a course to toggle its checked state");
         }
 
         public void OnViewHide()
