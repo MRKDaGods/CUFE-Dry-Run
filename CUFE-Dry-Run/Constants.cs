@@ -4,6 +4,6 @@ namespace MRK
 {
     public static class Constants
     {
-        public static readonly Version Version = new("2.4.6.2");
+        public static readonly Version Version = new("2.4.6.3");
     }
 }

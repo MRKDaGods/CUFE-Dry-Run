@@ -40,7 +40,7 @@ namespace MRK
                 // irregular format detection
                 var hasIrregularFormat = code is "LECS000" or "TUTS000";
 
-                var name = m.Groups[2].Value.Trim();
+                var name = m.Groups[2].Value.Trim().Replace("&amp;", "&");
 
                 // group
                 var groupString = m.Groups[3].Value;
@@ -161,7 +161,7 @@ namespace MRK
             //sort courses
             Courses.Sort((x, y) => x.Code.CompareTo(y.Code));
 
-            CourseRecords = [..CourseRecords.OrderBy(x => x.Day).ThenBy(x => x.From)];
+            CourseRecords = [.. CourseRecords.OrderBy(x => x.Day).ThenBy(x => x.From)];
 
             //set some flags for Courses Defs
             foreach (var def in Courses)

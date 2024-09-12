@@ -117,11 +117,11 @@ namespace MRK
             // 
             lTitle.AutoSize = true;
             lTitle.BackColor = System.Drawing.Color.Transparent;
-            lTitle.Font = new System.Drawing.Font("Segoe UI", 9F);
+            lTitle.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 9F);
             lTitle.ForeColor = System.Drawing.Color.White;
             lTitle.Location = new System.Drawing.Point(12, 16);
             lTitle.Name = "lTitle";
-            lTitle.Size = new System.Drawing.Size(32, 15);
+            lTitle.Size = new System.Drawing.Size(34, 16);
             lTitle.TabIndex = 9;
             lTitle.Text = "Cryn";
             // 

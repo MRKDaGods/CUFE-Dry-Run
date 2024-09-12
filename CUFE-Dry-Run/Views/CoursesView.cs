@@ -81,6 +81,8 @@ namespace MRK.Views
                 // sort them by checked
                 SortByCheckedState();
             }
+
+            MainWindow.SetFooterBarText("Double click on course to toggle its checked state");
         }
 
         public void OnViewHide()
@@ -96,6 +98,8 @@ namespace MRK.Views
                 // notify timetable
                 MainWindow.GetView<TimeTableView>()!.RequestRebuild();
             }
+
+            MainWindow.SetFooterBarText(string.Empty);
         }
 
         public bool CanHideView()
@@ -126,12 +130,22 @@ namespace MRK.Views
             listViewCourses.Resize += OnListViewResize;
             listViewCourses.ColumnWidthChanged += OnListViewColumnResized;
             listViewCourses.ItemChecked += OnListViewChecked;
+            listViewCourses.DoubleClick += OnListViewDoubleClick;
 
             listViewCourses.AfterSorting += OnListViewAfterSort;
 
             listViewCourses.Items.Clear();
 
             listViewCourses.UseFiltering = true;
+        }
+
+        private void OnListViewDoubleClick(object? sender, EventArgs e)
+        {
+            var item = listViewCourses.SelectedItem;
+            if (item != null)
+            {
+                item.Checked = !item.Checked;
+            }
         }
 
         private void OnListViewAfterSort(object? sender, AfterSortingEventArgs e)
@@ -298,7 +312,7 @@ namespace MRK.Views
                 headerStyle.SetForeColor(listViewCourses.ForeColor);
                 listViewCourses.HeaderFormatStyle = headerStyle;
             }
-            
+
             headerStyle.SetBackColor(transparent ? Color.Black : listViewCourses.BackColor);
         }
     }

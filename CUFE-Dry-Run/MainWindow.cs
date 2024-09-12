@@ -18,6 +18,7 @@ namespace MRK
         private IView? _currentView;
         private event Action? _transparencyChanged;
         private Action? _screenshotHandler;
+        private bool _transparencyForceRefresh;
 
         public Config Config => _config;
 
@@ -65,6 +66,8 @@ namespace MRK
             {
                 _config = new();
             }
+
+            _transparencyForceRefresh = _config.TransparencyEnabled;
 
             // update form transparency
             UpdateTransparency();
@@ -224,8 +227,12 @@ namespace MRK
 
         private void UpdateTransparency(bool? newValue = null)
         {
+            bool forceRefresh = false;
+
             if (newValue.HasValue)
             {
+                forceRefresh = !_transparencyForceRefresh && newValue.Value && !_config.TransparencyEnabled;
+
                 _config.TransparencyEnabled = newValue.Value;
 
                 // raise event
@@ -241,6 +248,14 @@ namespace MRK
             {
                 BackColor = Color.FromArgb(255, 31, 31, 31);
                 DisableBlur();
+            }
+
+            if (forceRefresh)
+            {
+                _transparencyForceRefresh = true;
+
+                WindowState = FormWindowState.Maximized;
+                WindowState = FormWindowState.Normal;
             }
         }
 
