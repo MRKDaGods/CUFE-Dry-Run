@@ -195,7 +195,7 @@ namespace MRK
             if (update == null) return;
 
             var res = MessageBox.Show(this,
-                $"A new update ({update.Value.Semester} {update.Value.LastUpdated:G}) was found!\nDownload it?",
+                $"A new update ({update}) was found!\nDownload it?",
                 "New Update Available",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
