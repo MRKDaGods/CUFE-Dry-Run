@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,12 +11,14 @@ namespace MRK.Views
 {
     public partial class TimeTableView : UserControl, IView
     {
-        private enum CoursesInitializationState
+        public enum CoursesInitializationState
         {
             None,
             Initializing,
             Initialized
         }
+
+        private const string ImportCourseListFooterText = "Right click the footer bar to import course list";
 
         private const int HorizontalSpacing = 0;
         private const int VerticalSpacing = 10;
@@ -37,6 +38,7 @@ namespace MRK.Views
         public string ViewName => "Time Table";
 
         public List<CourseButton> CourseButtons => _courseButtons;
+        public CoursesInitializationState InitializationState => _initializationState;
 
         private static MainWindow MainWindow => MainWindow.Instance;
         private static CourseManager CourseManager => CourseManager.Instance;
@@ -113,7 +115,7 @@ namespace MRK.Views
                 }
 
                 lLoading.Visible = false;
-                MainWindow.SetFooterBarText("Courses loaded");
+                MainWindow.SetFooterBarText(ImportCourseListFooterText);
 
                 LayoutTimeTable();
                 CheckEmptyCoursesLabel();
@@ -286,7 +288,7 @@ namespace MRK.Views
                                 Anchor = coursePrefab.Anchor,
                                 Text = $"{(Config.ShowCode ? crs.Course.Code : crs.Course.Name)}\n{crs.Type.ToString()[..3].ToUpper()} " +
                                 $"G{crs.Group} " +
-                                $"({crs.Enrolled}/{crs.ClassSize}) ",
+                                $"({crs.Enrolled}/{crs.ClassSize})",
                                 Location = new Point(dx + coursePrefab.Size.Width * i, dy + cdy + coursePrefab.Location.Y),
                                 AutoSize = coursePrefab.AutoSize,
                                 TextAlign = coursePrefab.TextAlign,
@@ -389,6 +391,12 @@ namespace MRK.Views
             if (!Config.ShowCode)
             {
                 statusBarText = string.Join(' ', $"[{sender.Record.Course.Code}]", statusBarText);
+
+                var crsName = sender.Record.Course.Name;
+                if (crsName.Length > 40)
+                {
+                    statusBarText = statusBarText.Replace(crsName, crsName[..37] + "...");
+                }
             }
 
             MainWindow.SetStatusBarText(statusBarText);
@@ -423,51 +431,61 @@ namespace MRK.Views
         {
             Dictionary<Course, BoxedTuple<CourseRecord?, CourseRecord?>> list = [];
 
+            string footerText = string.Empty;
+
             var selectedRecs = CourseManager.Instance.GetSelectedCourseRecords();
-            foreach (var rec in selectedRecs)
+            if (selectedRecs.Count > 0)
             {
-                if (!list.TryGetValue(rec.Course, out var value))
+                foreach (var rec in selectedRecs)
                 {
-                    value = new BoxedTuple<CourseRecord?, CourseRecord?>(null, null);
-                    list[rec.Course] = value;
+                    if (!list.TryGetValue(rec.Course, out var value))
+                    {
+                        value = new BoxedTuple<CourseRecord?, CourseRecord?>(null, null);
+                        list[rec.Course] = value;
+                    }
+
+                    if (rec.Type == CourseRecordType.Lecture)
+                    {
+                        value.Item1 = rec;
+                    }
+                    else
+                    {
+                        value.Item2 = rec;
+                    }
                 }
 
-                if (rec.Type == CourseRecordType.Lecture)
+                bool flag = false;
+                foreach (var pair in list)
                 {
-                    value.Item1 = rec;
-                }
-                else
-                {
-                    value.Item2 = rec;
+                    if (flag) footerText += "  ";
+
+                    string lec = pair.Value.Item1?.Group.ToString() ?? "NA";
+                    string tut = pair.Value.Item2?.Group.ToString() ?? "NA";
+
+                    footerText += $"{pair.Key.Name} ({lec}{(pair.Value.Item1?.Course.HasNoTutorial ?? false ? "" : $"/{tut}")})";
+
+                    flag = true;
                 }
             }
-
-            string str = "";
-            bool flag = false;
-            foreach (var pair in list)
+            else if (_initializationState == CoursesInitializationState.Initialized)
             {
-                if (flag) str += "  ";
-
-                string lec = pair.Value.Item1?.Group.ToString() ?? "NA";
-                string tut = pair.Value.Item2?.Group.ToString() ?? "NA";
-
-                str += $"{pair.Key.Name} ({lec}{(pair.Value.Item1?.Course.HasNoTutorial ?? false ? "" : $"/{tut}")})";
-
-                flag = true;
+                footerText = ImportCourseListFooterText;
             }
 
-            MainWindow.SetFooterBarText(str);
+            MainWindow.SetFooterBarText(footerText);
         }
 
         private async void OnScreenshotClick()
         {
-            courseContPrefab.BackColor = Color.FromArgb(31, 31, 31);
-            courseContPrefab.Dock = DockStyle.None;
-            courseContPrefab.Size = courseContPrefab.DisplayRectangle.Size;
+            if (_courseContainer == null) return;
 
-            var bmp = new Bitmap(courseContPrefab.Width, courseContPrefab.Height);
+            _courseContainer.BackColor = Color.FromArgb(31, 31, 31);
+            _courseContainer.Dock = DockStyle.None;
+            _courseContainer.Size = _courseContainer.DisplayRectangle.Size;
 
-            courseContPrefab.DrawToBitmap(bmp, new Rectangle(0, 0, courseContPrefab.Width, courseContPrefab.Height));
+            var bmp = new Bitmap(_courseContainer.Width, _courseContainer.Height);
+
+            _courseContainer.DrawToBitmap(bmp, new Rectangle(0, 0, _courseContainer.Width, _courseContainer.Height));
 
             var imgName = string.Join("_",
                 $"TimeTable-{UpdateManager.Instance.UpdateData?.Semester}-{DateTime.Now:g}.png"
@@ -479,8 +497,8 @@ namespace MRK.Views
             Clipboard.SetImage(bmp);
             bmp.Dispose();
 
-            courseContPrefab.BackColor = Color.Transparent;
-            courseContPrefab.Dock = DockStyle.Fill;
+            _courseContainer.BackColor = Color.Transparent;
+            _courseContainer.Dock = DockStyle.Fill;
 
             MainWindow.SetFooterBarText($"Saved timetable to {imgName}");
 

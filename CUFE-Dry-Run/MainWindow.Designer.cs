@@ -103,13 +103,13 @@ namespace MRK
             // 
             // lStatusBar
             // 
-            lStatusBar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lStatusBar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             lStatusBar.BackColor = System.Drawing.Color.Transparent;
             lStatusBar.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 10.75F);
             lStatusBar.ForeColor = System.Drawing.Color.White;
-            lStatusBar.Location = new System.Drawing.Point(851, 59);
+            lStatusBar.Location = new System.Drawing.Point(896, 59);
             lStatusBar.Name = "lStatusBar";
-            lStatusBar.Size = new System.Drawing.Size(409, 32);
+            lStatusBar.Size = new System.Drawing.Size(364, 32);
             lStatusBar.TabIndex = 8;
             lStatusBar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 

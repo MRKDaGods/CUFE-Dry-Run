@@ -46,6 +46,8 @@ namespace MRK.Views
         private readonly CheckedListViewComparer _listViewComparer = new(true);
         private bool _ignoreSortEvent;
         private bool _dirty;
+        private bool _rebuildRequested;
+        private readonly List<CourseDisplay> _courses;
 
         public string ViewName => "Courses";
 
@@ -61,6 +63,8 @@ namespace MRK.Views
 
             InitializeSearchShortcuts();
             AdjustLastColumnWidth();
+
+            _courses = [];
         }
 
         public void OnViewShow()
@@ -72,9 +76,22 @@ namespace MRK.Views
             AdjustForTransparency();
 
             // setup courses
-            if (listViewCourses.Items.Count == 0)
+            if (listViewCourses.Items.Count == 0 || _rebuildRequested)
             {
                 InitializeListView(CourseManager.Instance.Courses);
+
+                if (_rebuildRequested)
+                {
+                    _rebuildRequested = false;
+
+                    // apply checks
+                    foreach (var checkedCourse in _courses.Where(x => x.Course.Checked))
+                    {
+                        listViewCourses.CheckObject(checkedCourse);
+                    }
+
+                    SortByCheckedState();
+                }
             }
             else
             {
@@ -249,7 +266,7 @@ namespace MRK.Views
 
         private void InitializeListView(IEnumerable<Course> courses)
         {
-            List<CourseDisplay> objects = [];
+            _courses.Clear();
 
             foreach (var course in courses)
             {
@@ -274,10 +291,10 @@ namespace MRK.Views
                     Course = course,
                     Flags = flagStr.Trim(),
                 };
-                objects.Add(courseDisplay);
+                _courses.Add(courseDisplay);
             }
 
-            listViewCourses.SetObjects(objects);
+            listViewCourses.SetObjects(_courses);
         }
 
         private void SortByCheckedState()
@@ -314,6 +331,11 @@ namespace MRK.Views
             }
 
             headerStyle.SetBackColor(transparent ? Color.Black : listViewCourses.BackColor);
+        }
+
+        public void RequestRebuild()
+        {
+            _rebuildRequested = true;
         }
     }
 }

@@ -78,6 +78,8 @@ namespace MRK
             bExit.Click += (_, _) => Application.Exit();
             bScreenshot.Click += OnScreenshotClick;
             bToggleTransparency.Click += OnToggleTransparencyClick;
+
+            lFooterBar.MouseClick += OnFooterBarClick;
             lFooterBar.DoubleClick += OnFooterBarDoubleClick;
 
             //Utils.CenterControl(lFooterBar);
@@ -199,6 +201,15 @@ namespace MRK
             // NativeCourseHandler.Test(CourseManager.Instance.GetSelectedCourseRecords());
 
             Clipboard.SetText(lFooterBar.Text.Replace("", "-"));
+        }
+
+        private void OnFooterBarClick(object? sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right
+                && _currentView is TimeTableView { InitializationState: TimeTableView.CoursesInitializationState.Initialized })
+            {
+                new ImportCourseListWindow().ShowDialog();
+            }
         }
 
         private async void OnUpdateFound(UpdateData? update)
