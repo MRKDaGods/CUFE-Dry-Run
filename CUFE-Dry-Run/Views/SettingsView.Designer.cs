@@ -355,6 +355,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Transparent;
             Controls.Add(panelMainLayout);
+            DoubleBuffered = true;
             Name = "SettingsView";
             Size = new System.Drawing.Size(749, 705);
             panelMainLayout.ResumeLayout(false);

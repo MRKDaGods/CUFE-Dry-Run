@@ -30,6 +30,9 @@ namespace MRK
 
         public unsafe static bool Handle(List<CourseRecord> records, string payload)
         {
+            if (Patch.MachineInfo.Item2 != System.Reflection.ImageFileMachine.AMD64)
+                return false;
+
             var nativeCourses = records.Select(record => new COURSE
             {
                 Code = (void*)Marshal.StringToHGlobalAnsi(record.Course.Code),

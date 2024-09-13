@@ -122,6 +122,7 @@
             BackColor = System.Drawing.Color.Transparent;
             Controls.Add(lLoading);
             Controls.Add(courseContPrefab);
+            DoubleBuffered = true;
             Name = "TimeTableView";
             Size = new System.Drawing.Size(1275, 684);
             courseContPrefab.ResumeLayout(false);

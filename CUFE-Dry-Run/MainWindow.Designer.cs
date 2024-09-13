@@ -455,6 +455,7 @@ namespace MRK
             Controls.Add(lStatusBar);
             Controls.Add(bExit);
             Controls.Add(lViewTitle);
+            DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             Location = new System.Drawing.Point(0, 0);
             Name = "MainWindow";

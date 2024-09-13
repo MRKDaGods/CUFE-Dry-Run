@@ -25,14 +25,23 @@ namespace MRK
 
     public partial class Patch
     {
+        public static (PortableExecutableKinds, ImageFileMachine) MachineInfo
+        {
+            get
+            {
+                Assembly.GetExecutingAssembly().ManifestModule.GetPEKind(out var kind, out var machine);
+                return (kind, machine);
+            }
+        }
+
         public static void PatchButtonFocusCues()
         {
             Console.WriteLine("Patching button focus cues");
 
-            Assembly.GetExecutingAssembly().ManifestModule.GetPEKind(out var kind, out var machine);
-            Console.WriteLine($"Machine={machine} PEKind={kind}");
+            var mach = MachineInfo;
+            Console.WriteLine($"Machine={mach.Item2} PEKind={mach.Item1}");
 
-            if (machine != ImageFileMachine.AMD64)
+            if (mach.Item2 != ImageFileMachine.AMD64)
             {
                 Console.WriteLine("Machine not x64, not patching!");
                 return;

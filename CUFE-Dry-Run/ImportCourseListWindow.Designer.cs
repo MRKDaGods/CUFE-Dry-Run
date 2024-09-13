@@ -115,6 +115,7 @@
             Controls.Add(flowLayoutPanel1);
             Controls.Add(tbList);
             Controls.Add(label1);
+            DoubleBuffered = true;
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             Location = new System.Drawing.Point(0, 0);
             Name = "ImportCourseListWindow";
