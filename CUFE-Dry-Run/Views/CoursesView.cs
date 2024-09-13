@@ -50,6 +50,7 @@ namespace MRK.Views
         private readonly List<CourseDisplay> _courses;
 
         public string ViewName => "Courses";
+        public string SearchText => tbSearch.Text;
 
         private static MainWindow MainWindow => MainWindow.Instance;
 

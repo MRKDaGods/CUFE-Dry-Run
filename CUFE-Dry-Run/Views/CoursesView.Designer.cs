@@ -188,7 +188,6 @@
             // 
             tbSearch.BackColor = System.Drawing.Color.FromArgb(31, 31, 31);
             tbSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            tbSearch.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             tbSearch.Font = new System.Drawing.Font("Segoe UI", 12F);
             tbSearch.ForeColor = System.Drawing.Color.White;
             tbSearch.Location = new System.Drawing.Point(0, 0);

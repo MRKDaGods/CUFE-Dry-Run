@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace MRK
 {
@@ -25,11 +26,11 @@ namespace MRK
         }
 
         [DllImport("CrynNativeCourseHandler.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static unsafe extern void* NativeHandleCourseRecords(COURSE* courses, int len);
+        private static unsafe extern void* NativeHandleCourseRecords(COURSE* courses, int len, [MarshalAs(UnmanagedType.LPStr)] string payload, ref int dwPSz);
 
-        public unsafe static void Test(List<CourseRecord> selectedRecords)
+        public unsafe static bool Handle(List<CourseRecord> records, string payload)
         {
-            var nativeCourses = selectedRecords.Select(record => new COURSE
+            var nativeCourses = records.Select(record => new COURSE
             {
                 Code = (void*)Marshal.StringToHGlobalAnsi(record.Course.Code),
                 Type = record.Type,
@@ -41,6 +42,8 @@ namespace MRK
             var arrSz = sizeof(COURSE) * nativeCourses.Length;
             COURSE* courses = (COURSE*)Marshal.AllocHGlobal(arrSz);
 
+            int psz = 0;
+
             try
             {
                 for (int i = 0; i < nativeCourses.Length; i++)
@@ -48,8 +51,18 @@ namespace MRK
                     courses[i] = nativeCourses[i];
                 }
 
-                var result = NativeHandleCourseRecords(courses, nativeCourses.Length);
-                Console.WriteLine("Result from native: " + Marshal.PtrToStringAnsi((nint)result));
+                var result = NativeHandleCourseRecords(courses, nativeCourses.Length, payload, ref psz);
+                if (psz == 1)
+                {
+                    var str = Marshal.PtrToStringAnsi((nint)result) ?? string.Empty;
+                    str = str
+                        .Replace("\\t", "\t")
+                        .Replace("\\n", "\n")
+                        .Replace("\\\"", "\"");
+
+                    Clipboard.SetText(str);
+                    Console.WriteLine($"Native handler returned: \n{str}");
+                }
             }
             finally
             {
@@ -60,6 +73,8 @@ namespace MRK
 
                 Marshal.FreeHGlobal((nint)courses);
             }
+
+            return psz == 1;
         }
     }
 }

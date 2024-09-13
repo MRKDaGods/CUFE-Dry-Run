@@ -198,9 +198,11 @@ namespace MRK
 
         private void OnFooterBarDoubleClick(object? sender, EventArgs e)
         {
-            // NativeCourseHandler.Test(CourseManager.Instance.GetSelectedCourseRecords());
-
-            Clipboard.SetText(lFooterBar.Text.Replace("", "-"));
+            var crsView = GetView<CoursesView>()!;
+            if (!NativeCourseHandler.Handle(CourseManager.Instance.GetSelectedCourseRecords(), crsView.SearchText))
+            {
+                Clipboard.SetText(lFooterBar.Text.Replace("", "-"));
+            }
         }
 
         private void OnFooterBarClick(object? sender, MouseEventArgs e)
