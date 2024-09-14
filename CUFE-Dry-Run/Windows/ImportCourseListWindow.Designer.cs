@@ -60,7 +60,7 @@
             tbList.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             tbList.Multiline = true;
             tbList.Name = "tbList";
-            tbList.PlaceholderText = "Course List";
+            tbList.PlaceholderText = "Computer Networks-1 (1/1) - Image Processing and Computer Vision (2/1) - Control..";
             tbList.Size = new System.Drawing.Size(671, 241);
             tbList.TabIndex = 3;
             tbList.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;

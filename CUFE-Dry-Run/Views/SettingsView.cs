@@ -1,5 +1,6 @@
 ﻿using MRK.Models;
 using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace MRK.Views
@@ -54,6 +55,9 @@ namespace MRK.Views
             bUpdateAction.Click += OnUpdateActionClick;
             cbWrap.CheckedChanged += OnWrapCheckedChanged;
             cbChannel.SelectedIndexChanged += OnChannelSelectedIndexChanged;
+
+            lMrk.Click += (o, e) => Utils.OpenURL("https://www.mrkdagods.tech/");
+            lRepo.Click += (o, e) => Utils.OpenURL("https://github.com/MRKDaGods/CUFE-Dry-Run/");
 
             _lastChannel = -1;
             cbChannel.SelectedIndex = 0;

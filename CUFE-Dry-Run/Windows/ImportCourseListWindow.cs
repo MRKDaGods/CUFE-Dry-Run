@@ -36,8 +36,12 @@ namespace MRK
             {
                 var wholeMatch = match.Groups[0].Value;
                 var name = match.Groups[1].Value.Trim();
-                var lecGroup = int.Parse(match.Groups[2].Value);
-                var tutGroup = int.TryParse(match.Groups[3].Value, out int tutVal) ? tutVal : -1;
+
+                var lecGroupText = match.Groups[2].Value.Trim();
+                var lecGroup = lecGroupText == "NA" ? -1 : int.Parse(lecGroupText);
+
+                var tutGroupText = match.Groups[3].Value.Trim();
+                var tutGroup = tutGroupText == "NA" || !int.TryParse(tutGroupText, out int tutVal) ? -1 : tutVal;
 
                 var courses = courseManager.Courses.Where(
                     course => course.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
@@ -54,6 +58,7 @@ namespace MRK
                 if (courses.Count > 1)
                 {
                     MessageBox.Show(this, "Course conflict found, check console for more details!", "Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Utils.BringConsoleToFront();
 
                     Console.WriteLine($"More than one course found for {wholeMatch}\nChoose the appropriate one:");
 
@@ -108,7 +113,7 @@ namespace MRK
             Close();
         }
 
-        [GeneratedRegex("([a-zA-Z][^\\(]+)\\((\\d+)[/]?(\\d+)?\\)")]
+        [GeneratedRegex("([a-zA-Z][^\\(]+)\\((\\d+|NA)[/]?(\\d+|NA)?\\)")]
         private static partial Regex CourseListRegex();
     }
 }

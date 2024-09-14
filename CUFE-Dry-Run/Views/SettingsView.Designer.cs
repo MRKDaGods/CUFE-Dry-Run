@@ -51,6 +51,9 @@
             label7 = new System.Windows.Forms.Label();
             label9 = new System.Windows.Forms.Label();
             label10 = new System.Windows.Forms.Label();
+            label11 = new System.Windows.Forms.Label();
+            lMrk = new System.Windows.Forms.Label();
+            lRepo = new System.Windows.Forms.Label();
             panelMainLayout.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -76,11 +79,14 @@
             panelMainLayout.Controls.Add(label7);
             panelMainLayout.Controls.Add(label9);
             panelMainLayout.Controls.Add(label10);
+            panelMainLayout.Controls.Add(label11);
+            panelMainLayout.Controls.Add(lMrk);
+            panelMainLayout.Controls.Add(lRepo);
             panelMainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             panelMainLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             panelMainLayout.Location = new System.Drawing.Point(0, 0);
             panelMainLayout.Name = "panelMainLayout";
-            panelMainLayout.Size = new System.Drawing.Size(749, 705);
+            panelMainLayout.Size = new System.Drawing.Size(749, 871);
             panelMainLayout.TabIndex = 0;
             panelMainLayout.WrapContents = false;
             // 
@@ -349,6 +355,44 @@
             label10.TabIndex = 14;
             label10.Text = "Winforms limit transparency support, tearing and lagging may occur";
             // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new System.Drawing.Font("Segoe UI Variable Small Semibol", 16F);
+            label11.ForeColor = System.Drawing.Color.White;
+            label11.Location = new System.Drawing.Point(3, 724);
+            label11.Margin = new System.Windows.Forms.Padding(3, 32, 3, 16);
+            label11.Name = "label11";
+            label11.Size = new System.Drawing.Size(86, 30);
+            label11.TabIndex = 15;
+            label11.Text = "Credits";
+            // 
+            // lMrk
+            // 
+            lMrk.AutoSize = true;
+            lMrk.Cursor = System.Windows.Forms.Cursors.Hand;
+            lMrk.Font = new System.Drawing.Font("Segoe UI Semibold", 12F);
+            lMrk.ForeColor = System.Drawing.Color.White;
+            lMrk.Location = new System.Drawing.Point(5, 770);
+            lMrk.Margin = new System.Windows.Forms.Padding(5, 0, 3, 10);
+            lMrk.Name = "lMrk";
+            lMrk.Size = new System.Drawing.Size(142, 21);
+            lMrk.TabIndex = 16;
+            lMrk.Text = "Mohamed Ammar";
+            // 
+            // lRepo
+            // 
+            lRepo.AutoSize = true;
+            lRepo.Cursor = System.Windows.Forms.Cursors.Hand;
+            lRepo.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Underline);
+            lRepo.ForeColor = System.Drawing.Color.White;
+            lRepo.Location = new System.Drawing.Point(5, 833);
+            lRepo.Margin = new System.Windows.Forms.Padding(5, 32, 3, 16);
+            lRepo.Name = "lRepo";
+            lRepo.Size = new System.Drawing.Size(119, 17);
+            lRepo.TabIndex = 16;
+            lRepo.Text = "Github Repository";
+            // 
             // SettingsView
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -357,7 +401,7 @@
             Controls.Add(panelMainLayout);
             DoubleBuffered = true;
             Name = "SettingsView";
-            Size = new System.Drawing.Size(749, 705);
+            Size = new System.Drawing.Size(749, 871);
             panelMainLayout.ResumeLayout(false);
             panelMainLayout.PerformLayout();
             panel3.ResumeLayout(false);
@@ -394,5 +438,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lMrk;
+        private System.Windows.Forms.Label lRepo;
     }
 }

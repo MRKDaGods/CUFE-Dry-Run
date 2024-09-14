@@ -10,7 +10,7 @@ namespace MRK
     public class NativeCourseHandler
     {
         [StructLayout(LayoutKind.Sequential)]
-        unsafe struct COURSE
+        private unsafe struct COURSE
         {
             public void* Code;
 
