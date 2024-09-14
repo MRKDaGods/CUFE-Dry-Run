@@ -107,9 +107,9 @@ namespace MRK
             lStatusBar.BackColor = System.Drawing.Color.Transparent;
             lStatusBar.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 10.75F);
             lStatusBar.ForeColor = System.Drawing.Color.White;
-            lStatusBar.Location = new System.Drawing.Point(896, 59);
+            lStatusBar.Location = new System.Drawing.Point(826, 59);
             lStatusBar.Name = "lStatusBar";
-            lStatusBar.Size = new System.Drawing.Size(364, 32);
+            lStatusBar.Size = new System.Drawing.Size(434, 32);
             lStatusBar.TabIndex = 8;
             lStatusBar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -275,7 +275,7 @@ namespace MRK
             panelLegend.Controls.Add(panel3);
             panelLegend.Controls.Add(panel4);
             panelLegend.Controls.Add(panel5);
-            panelLegend.Location = new System.Drawing.Point(395, 59);
+            panelLegend.Location = new System.Drawing.Point(370, 59);
             panelLegend.Name = "panelLegend";
             panelLegend.Size = new System.Drawing.Size(450, 41);
             panelLegend.TabIndex = 17;

@@ -68,6 +68,6 @@ namespace MRK.Models
         public bool Selected { get; set; } = false;
         public int MultipleLectureIndex { get; set; } = 0;
 
-        public bool IsOpen => ClassSize > Enrolled;
+        public bool IsOpen => Status == "Opened";
     }
 }

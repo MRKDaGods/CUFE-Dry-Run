@@ -25,6 +25,7 @@ namespace MRK.Views
 
         private readonly static Color LectureColor = Color.FromArgb(52, 73, 94);
         private readonly static Color TutorialColor = Color.FromArgb(44, 120, 115);
+        private static readonly Color ClosedColor = Color.FromArgb(8, 8, 8);
 
         private CoursesInitializationState _initializationState;
         private bool _rebuildRequested;
@@ -280,7 +281,7 @@ namespace MRK.Views
 
                             var button = new Button
                             {
-                                BackColor = crs.Type == CourseRecordType.Lecture ? LectureColor : TutorialColor,
+                                BackColor = crs.IsOpen ? (crs.Type == CourseRecordType.Lecture ? LectureColor : TutorialColor) : ClosedColor,
                                 ForeColor = coursePrefab.ForeColor,
                                 FlatStyle = coursePrefab.FlatStyle,
                                 Font = coursePrefab.Font,
@@ -307,7 +308,7 @@ namespace MRK.Views
                             container.Controls.Add(button);
 
                             // set tooltip
-                            var tooltipText = $"[{crs.Course.Code}]\n{button.Text}\n{crs.Location}";
+                            var tooltipText = $"[{crs.Course.Code}]\n{button.Text}\n{crs.Location}\n\n{crs.Status.ToUpper()}";
                             tooltip.SetToolTip(button, tooltipText);
 
                             cdy += coursePrefab.Size.Height;
