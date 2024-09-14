@@ -44,7 +44,8 @@ namespace MRK
 
         public MainWindow() : base(true)
         {
-            AllocConsole();
+            // enable console
+            Utils.InitializeConsole();
 
             // apply patch
             Patch.PatchButtonFocusCues();
@@ -305,9 +306,5 @@ namespace MRK
         {
             panelLegend.Visible = visible;
         }
-
-        [LibraryImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static partial bool AllocConsole();
     }
 }
