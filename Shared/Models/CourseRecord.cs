@@ -28,7 +28,8 @@ namespace MRK.Models
         IrregularWithoutNameGroupPostFixed,
         IrregularWithoutName,
         IrregularWithNameNoGroup,
-        IrregularWithName
+        IrregularWithName,
+        Excel
     }
 
     public class CourseDayComparer : IComparer<CourseRecordDay>

@@ -79,7 +79,7 @@ namespace MRK.Views
             // setup courses
             if (listViewCourses.Items.Count == 0 || _rebuildRequested)
             {
-                InitializeListView(CourseManager.Instance.Courses);
+                InitializeListView(CourseManager.Courses);
 
                 if (_rebuildRequested)
                 {
@@ -271,6 +271,12 @@ namespace MRK.Views
 
             foreach (var course in courses)
             {
+                // check if course atleast has one lecture or tutorial
+                if (course.LectureCount == 0 && course.TutorialCount == 0)
+                {
+                    continue;
+                }
+
                 var flagStr = string.Empty;
                 if (course.Flags != CourseFlags.None)
                 {

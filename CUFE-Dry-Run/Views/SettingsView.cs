@@ -1,6 +1,8 @@
-﻿using MRK.Models;
+﻿using Microsoft.VisualBasic;
+using MRK.Models;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MRK.Views
@@ -61,6 +63,9 @@ namespace MRK.Views
 
             _lastChannel = -1;
             cbChannel.SelectedIndex = 0;
+
+            // set features text
+            lFeatures.Text = Utils.GetFeaturesString(Constants.FeatureSet);
         }
 
         public void OnViewShow()
@@ -74,6 +79,13 @@ namespace MRK.Views
 
             RefreshUpdateState();
             UpdateDaysPerRowState();
+
+            // get feature set string
+            var features = "";
+            foreach (var v in Enum.GetValues<UpdateFeatures>())
+            {
+                features += $"- {v}\n";
+            }
 
             MainWindow.SetStatusBarText($"v{Constants.Version}");
         }
@@ -151,6 +163,30 @@ namespace MRK.Views
         {
             if (updateData == null)
             {
+                // check if ctrl is pressed
+                // if so, prompt user to choose file
+                if (ModifierKeys.HasFlag(Keys.Control))
+                {
+                    // prompt user to choose file
+                    var ofd = new OpenFileDialog
+                    {
+                        Filter = "Update files (*.dryupd)|*.dryupd",
+                        Title = "Select update file"
+                    };
+
+                    if (ofd.ShowDialog() == DialogResult.OK)
+                    {
+                        var res = UpdateManager.Instance.LoadUpdate(ofd.FileName, true);
+                        if (!res)
+                        {
+                            CurrentUpdateState = UpdateState.Error;
+                            return;
+                        }
+                    }
+
+                    return;
+                }
+
                 updateData = await UpdateManager.Instance.CheckForUpdates(SelectedChannel);
                 if (updateData == null)
                 {

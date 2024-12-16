@@ -61,7 +61,7 @@
             tbList.Multiline = true;
             tbList.Name = "tbList";
             tbList.PlaceholderText = "Computer Networks-1 (1/1) - Image Processing and Computer Vision (2/1) - Control..";
-            tbList.Size = new System.Drawing.Size(671, 241);
+            tbList.Size = new System.Drawing.Size(671, 264);
             tbList.TabIndex = 3;
             tbList.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -71,7 +71,7 @@
             flowLayoutPanel1.Controls.Add(bCancel);
             flowLayoutPanel1.Controls.Add(bImport);
             flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            flowLayoutPanel1.Location = new System.Drawing.Point(474, 389);
+            flowLayoutPanel1.Location = new System.Drawing.Point(532, 412);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new System.Drawing.Size(267, 35);
             flowLayoutPanel1.TabIndex = 4;
@@ -111,7 +111,7 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(31, 31, 31);
-            ClientSize = new System.Drawing.Size(811, 436);
+            ClientSize = new System.Drawing.Size(811, 459);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(tbList);
             Controls.Add(label1);

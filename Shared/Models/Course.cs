@@ -34,7 +34,7 @@ namespace MRK.Models
             Code = code;
             Name = name;
 
-            IsNewSystem = Code.Where(x => char.IsLetter(x)).Last() == 'S';
+            IsNewSystem = Code.Last(char.IsLetter) == 'S';
             Flags = CourseFlags.None;
 
             Checked = false;

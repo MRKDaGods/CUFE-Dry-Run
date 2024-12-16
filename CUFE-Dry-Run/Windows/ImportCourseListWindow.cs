@@ -23,7 +23,7 @@ namespace MRK
         private void OnImportClick(object? sender, EventArgs e)
         {
             var courseManager = CourseManager.Instance;
-            if (courseManager.Courses.Count == 0)
+            if (CourseManager.Courses.Count == 0)
             {
                 Close();
                 return;
@@ -43,7 +43,7 @@ namespace MRK
                 var tutGroupText = match.Groups[3].Value.Trim();
                 var tutGroup = tutGroupText == "NA" || !int.TryParse(tutGroupText, out int tutVal) ? -1 : tutVal;
 
-                var courses = courseManager.Courses.Where(
+                var courses = CourseManager.Courses.Where(
                     course => course.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
                               && course.LectureCount >= lecGroup
                               && course.TutorialCount >= tutGroup).ToList();
@@ -92,7 +92,7 @@ namespace MRK
             }
 
             // update course selection
-            foreach (var course in courseManager.Courses)
+            foreach (var course in CourseManager.Courses)
             {
                 course.Checked = toSelect.Find(x => x.Course == course) != null;
             }

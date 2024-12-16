@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MRK.Models;
+using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -47,6 +49,17 @@ namespace MRK
                 FileName = url,
                 UseShellExecute = true,
             });
+        }
+
+        public static string GetFeaturesString(UpdateFeatures features)
+        {
+            return string.Join(" | ", [
+                ..Enum.GetValues<UpdateFeatures>()
+                .Skip(1)
+                .Where(x => features.HasFlag(x))
+                .Select(x => x.ToString())
+                .ToArray(),
+            ]);
         }
 
         [LibraryImport("kernel32.dll")]

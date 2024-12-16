@@ -2,6 +2,14 @@
 
 namespace MRK.Models
 {
+    [Flags]
+    public enum UpdateFeatures : uint
+    {
+        None = 0,
+        XLSX = 1 << 0,
+        Regex = 1 << 1
+    }
+
     public struct UpdateData
     {
         public bool IsAppUpdate { get; set; }
@@ -9,6 +17,8 @@ namespace MRK.Models
         public string Resource { get; set; }
         public string Semester { get; set; }
         public string Version { get; set; }
+        public UpdateFeatures Features { get; set; } // 4 bytes
+        public string Extra { get; set; }
 
         public override readonly string ToString()
         {

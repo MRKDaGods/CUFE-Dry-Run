@@ -54,6 +54,7 @@
             label11 = new System.Windows.Forms.Label();
             lMrk = new System.Windows.Forms.Label();
             lRepo = new System.Windows.Forms.Label();
+            lFeatures = new System.Windows.Forms.Label();
             panelMainLayout.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -81,6 +82,7 @@
             panelMainLayout.Controls.Add(label10);
             panelMainLayout.Controls.Add(label11);
             panelMainLayout.Controls.Add(lMrk);
+            panelMainLayout.Controls.Add(lFeatures);
             panelMainLayout.Controls.Add(lRepo);
             panelMainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             panelMainLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
@@ -386,12 +388,25 @@
             lRepo.Cursor = System.Windows.Forms.Cursors.Hand;
             lRepo.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Underline);
             lRepo.ForeColor = System.Drawing.Color.White;
-            lRepo.Location = new System.Drawing.Point(5, 833);
-            lRepo.Margin = new System.Windows.Forms.Padding(5, 32, 3, 16);
+            lRepo.Location = new System.Drawing.Point(5, 844);
+            lRepo.Margin = new System.Windows.Forms.Padding(5, 0, 3, 16);
             lRepo.Name = "lRepo";
             lRepo.Size = new System.Drawing.Size(119, 17);
             lRepo.TabIndex = 16;
             lRepo.Text = "Github Repository";
+            // 
+            // lFeatures
+            // 
+            lFeatures.AutoSize = true;
+            lFeatures.Cursor = System.Windows.Forms.Cursors.Hand;
+            lFeatures.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F);
+            lFeatures.ForeColor = System.Drawing.Color.White;
+            lFeatures.Location = new System.Drawing.Point(5, 817);
+            lFeatures.Margin = new System.Windows.Forms.Padding(5, 16, 3, 10);
+            lFeatures.Name = "lFeatures";
+            lFeatures.Size = new System.Drawing.Size(45, 17);
+            lFeatures.TabIndex = 17;
+            lFeatures.Text = "[XLSX]";
             // 
             // SettingsView
             // 
@@ -441,5 +456,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lMrk;
         private System.Windows.Forms.Label lRepo;
+        private System.Windows.Forms.Label lFeatures;
     }
 }

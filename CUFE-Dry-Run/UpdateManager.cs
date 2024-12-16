@@ -44,6 +44,20 @@ namespace MRK
                 var semester = reader.ReadString();
                 var version = reader.ReadString();
 
+                // try read UpdateFeature
+                var features = UpdateFeatures.None;
+                var extraResources = string.Empty;
+
+                try
+                {
+                    features = (UpdateFeatures)reader.ReadUInt32();
+                    extraResources = reader.ReadString();
+                }
+                catch
+                {
+                    // ignored
+                }
+
                 UpdateData = new()
                 {
                     IsAppUpdate = isAppUpdate,
@@ -51,6 +65,8 @@ namespace MRK
                     Resource = isAppUpdate ? string.Empty : Encoding.UTF8.GetString(resourceBytes),
                     Semester = semester,
                     Version = version,
+                    Features = features,
+                    Extra = extraResources
                 };
 
                 if (!isAppUpdate)
@@ -67,6 +83,8 @@ namespace MRK
                         writer.Write(data);
                         writer.Write(semester);
                         writer.Write(version);
+                        writer.Write((uint)features);
+                        writer.Write(extraResources);
                         writer.Close();
 
                         Task.Delay(2000)
@@ -162,6 +180,16 @@ namespace MRK
                     var lastUpdated = reader.ReadInt64();
                     var semester = reader.ReadString();
                     var version = reader.ReadString();
+                    var features = UpdateFeatures.None;
+
+                    try
+                    {
+                        features = (UpdateFeatures)reader.ReadUInt32();
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
 
                     var needsUpdate = isAppUpdate ? (Version.TryParse(version, out var v) && v > Constants.Version) 
                         : (UpdateData == null || lastUpdated > UpdateData.Value.LastUpdated.Ticks);
@@ -175,7 +203,16 @@ namespace MRK
                             LastUpdated = date,
                             Semester = semester,
                             Version = version,
+                            Features = features
                         };
+
+                        // check if all features are supported
+                        if (!Constants.FeatureSet.HasFlag(features))
+                        {
+                            // error
+                            Console.WriteLine($"Update features ({features}) are not supported!\nTry updating the app.");
+                            return null;
+                        }
 
                         Console.WriteLine($"New update found: {newData}");
                         return newData;

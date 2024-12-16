@@ -100,7 +100,7 @@ namespace MRK.Views
 
             try
             {
-                CourseManager.Instance.ParseCourses(updateData?.Resource ?? string.Empty);
+                CourseManager.Instance.ParseCourses(updateData);
             }
             catch (Exception ex)
             {
