@@ -44,7 +44,7 @@
             // 
             lLoading.BackColor = System.Drawing.Color.Transparent;
             lLoading.Dock = System.Windows.Forms.DockStyle.Fill;
-            lLoading.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 18F);
+            lLoading.Font = Utils.GetFontFallbacked("Segoe UI Variable Display Semib", 18F, System.Drawing.FontStyle.Bold);
             lLoading.ForeColor = System.Drawing.Color.White;
             lLoading.Location = new System.Drawing.Point(0, 0);
             lLoading.Name = "lLoading";
@@ -80,7 +80,7 @@
             // dayPrefab
             // 
             dayPrefab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            dayPrefab.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            dayPrefab.Font = Utils.GetFontFallbacked("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             dayPrefab.ForeColor = System.Drawing.Color.White;
             dayPrefab.Location = new System.Drawing.Point(3, 0);
             dayPrefab.Name = "dayPrefab";
@@ -92,7 +92,7 @@
             // timePrefab
             // 
             timePrefab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            timePrefab.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 9F);
+            timePrefab.Font = Utils.GetFontFallbacked("Segoe UI Variable Display Semib", 9F, System.Drawing.FontStyle.Bold);
             timePrefab.ForeColor = System.Drawing.Color.White;
             timePrefab.Location = new System.Drawing.Point(3, 42);
             timePrefab.Name = "timePrefab";
@@ -106,7 +106,7 @@
             coursePrefab.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
             coursePrefab.FlatAppearance.BorderColor = System.Drawing.Color.White;
             coursePrefab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            coursePrefab.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 9F);
+            coursePrefab.Font = Utils.GetFontFallbacked("Segoe UI Variable Text Semibold", 9F, System.Drawing.FontStyle.Bold);
             coursePrefab.ForeColor = System.Drawing.Color.White;
             coursePrefab.Location = new System.Drawing.Point(3, 88);
             coursePrefab.Name = "coursePrefab";

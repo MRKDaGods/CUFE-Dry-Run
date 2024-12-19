@@ -62,6 +62,24 @@ namespace MRK
             ]);
         }
 
+        public static Font GetFontFallbacked(string fontName, float emSize, FontStyle style = FontStyle.Regular)
+        {
+            string[] fontNames = [fontName, "Segoe UI", "Arial"];
+
+            foreach (var name in fontNames)
+            {
+                var font = new Font(name, emSize, style);
+                if (font.Name == name)
+                {
+                    return font;
+                }
+
+                font.Dispose();
+            }
+
+            return new Font(FontFamily.GenericSansSerif, emSize, style);
+        }
+
         [LibraryImport("kernel32.dll")]
         private static partial nint GetConsoleWindow();
 

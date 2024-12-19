@@ -95,7 +95,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new System.Drawing.Font("Segoe UI Variable Small Semibol", 16F);
+            label1.Font = Utils.GetFontFallbacked("Segoe UI Variable Small Semibol", 16F, System.Drawing.FontStyle.Bold);
             label1.ForeColor = System.Drawing.Color.White;
             label1.Location = new System.Drawing.Point(3, 0);
             label1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 16);
@@ -218,7 +218,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new System.Drawing.Font("Segoe UI Variable Small Semibol", 16F);
+            label3.Font = Utils.GetFontFallbacked("Segoe UI Variable Small Semibol", 16F, System.Drawing.FontStyle.Bold);
             label3.ForeColor = System.Drawing.Color.White;
             label3.Location = new System.Drawing.Point(3, 0);
             label3.Margin = new System.Windows.Forms.Padding(3, 0, 3, 16);
@@ -288,7 +288,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new System.Drawing.Font("Segoe UI Variable Small Semibol", 16F);
+            label5.Font = Utils.GetFontFallbacked("Segoe UI Variable Small Semibol", 16F, System.Drawing.FontStyle.Bold);
             label5.ForeColor = System.Drawing.Color.White;
             label5.Location = new System.Drawing.Point(3, 501);
             label5.Margin = new System.Windows.Forms.Padding(3, 48, 3, 16);
@@ -360,7 +360,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Font = new System.Drawing.Font("Segoe UI Variable Small Semibol", 16F);
+            label11.Font = Utils.GetFontFallbacked("Segoe UI Variable Small Semibol", 16F, System.Drawing.FontStyle.Bold);
             label11.ForeColor = System.Drawing.Color.White;
             label11.Location = new System.Drawing.Point(3, 724);
             label11.Margin = new System.Windows.Forms.Padding(3, 32, 3, 16);

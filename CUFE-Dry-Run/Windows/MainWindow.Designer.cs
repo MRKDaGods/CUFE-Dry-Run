@@ -75,7 +75,7 @@ namespace MRK
             // 
             lViewTitle.AutoSize = true;
             lViewTitle.BackColor = System.Drawing.Color.Transparent;
-            lViewTitle.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 21F);
+            lViewTitle.Font = Utils.GetFontFallbacked("Segoe UI Variable Display Semib", 21F, System.Drawing.FontStyle.Bold);
             lViewTitle.ForeColor = System.Drawing.Color.White;
             lViewTitle.Location = new System.Drawing.Point(40, 50);
             lViewTitle.Name = "lViewTitle";
@@ -105,7 +105,7 @@ namespace MRK
             // 
             lStatusBar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             lStatusBar.BackColor = System.Drawing.Color.Transparent;
-            lStatusBar.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 10.75F);
+            lStatusBar.Font = Utils.GetFontFallbacked("Segoe UI Variable Display Semib", 10.75F, System.Drawing.FontStyle.Bold);
             lStatusBar.ForeColor = System.Drawing.Color.White;
             lStatusBar.Location = new System.Drawing.Point(826, 59);
             lStatusBar.Name = "lStatusBar";
@@ -117,7 +117,7 @@ namespace MRK
             // 
             lTitle.AutoSize = true;
             lTitle.BackColor = System.Drawing.Color.Transparent;
-            lTitle.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 9F);
+            lTitle.Font = Utils.GetFontFallbacked("Segoe UI Variable Display Semib", 9F, System.Drawing.FontStyle.Bold);
             lTitle.ForeColor = System.Drawing.Color.White;
             lTitle.Location = new System.Drawing.Point(12, 16);
             lTitle.Name = "lTitle";

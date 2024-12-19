@@ -40,7 +40,7 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = System.Drawing.Color.Transparent;
-            label1.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 21F);
+            label1.Font = Utils.GetFontFallbacked("Segoe UI Variable Display Semib", 21F, System.Drawing.FontStyle.Bold);
             label1.ForeColor = System.Drawing.Color.White;
             label1.Location = new System.Drawing.Point(40, 50);
             label1.Name = "label1";
@@ -61,7 +61,7 @@
             tbList.Multiline = true;
             tbList.Name = "tbList";
             tbList.PlaceholderText = "Computer Networks-1 (1/1) - Image Processing and Computer Vision (2/1) - Control..";
-            tbList.Size = new System.Drawing.Size(671, 264);
+            tbList.Size = new System.Drawing.Size(671, 279);
             tbList.TabIndex = 3;
             tbList.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -71,7 +71,7 @@
             flowLayoutPanel1.Controls.Add(bCancel);
             flowLayoutPanel1.Controls.Add(bImport);
             flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            flowLayoutPanel1.Location = new System.Drawing.Point(532, 412);
+            flowLayoutPanel1.Location = new System.Drawing.Point(532, 425);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new System.Drawing.Size(267, 35);
             flowLayoutPanel1.TabIndex = 4;
@@ -111,7 +111,7 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(31, 31, 31);
-            ClientSize = new System.Drawing.Size(811, 459);
+            ClientSize = new System.Drawing.Size(811, 474);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(tbList);
             Controls.Add(label1);

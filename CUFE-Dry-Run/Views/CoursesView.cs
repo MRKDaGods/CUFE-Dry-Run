@@ -42,7 +42,7 @@ namespace MRK.Views
             }
         }
 
-        private readonly Font _headerFont = new("Segoe UI Semibold", 10f);
+        private readonly Font _headerFont = Utils.GetFontFallbacked("Segoe UI Semibold", 10f, FontStyle.Bold);
         private readonly CheckedListViewComparer _listViewComparer = new(true);
         private bool _ignoreSortEvent;
         private bool _dirty;
@@ -88,6 +88,7 @@ namespace MRK.Views
                     // apply checks
                     foreach (var checkedCourse in _courses.Where(x => x.Course.Checked))
                     {
+                        Console.WriteLine($"Checked course: {checkedCourse.Code}");
                         listViewCourses.CheckObject(checkedCourse);
                     }
 
@@ -267,6 +268,13 @@ namespace MRK.Views
 
         private void InitializeListView(IEnumerable<Course> courses)
         {
+            // uncheck all items
+            foreach (var item in listViewCourses.CheckedItems)
+            {
+                ((OLVListItem)item).Checked = false;
+            }
+
+            // clear existing course cache
             _courses.Clear();
 
             foreach (var course in courses)

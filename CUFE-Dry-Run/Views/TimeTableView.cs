@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -23,8 +24,8 @@ namespace MRK.Views
         private const int HorizontalSpacing = 0;
         private const int VerticalSpacing = 10;
 
-        private readonly static Color LectureColor = Color.FromArgb(52, 73, 94);
-        private readonly static Color TutorialColor = Color.FromArgb(44, 120, 115);
+        private static readonly Color LectureColor = Color.FromArgb(52, 73, 94);
+        private static readonly Color TutorialColor = Color.FromArgb(44, 120, 115);
         private static readonly Color ClosedColor = Color.FromArgb(8, 8, 8);
 
         private CoursesInitializationState _initializationState;
@@ -430,9 +431,8 @@ namespace MRK.Views
 
         public void UpdateCourseList()
         {
-            Dictionary<Course, BoxedTuple<CourseRecord?, CourseRecord?>> list = [];
-
             string footerText = string.Empty;
+            Dictionary<Course, BoxedTuple<CourseRecord?, CourseRecord?>> list = [];
 
             var selectedRecs = CourseManager.Instance.GetSelectedCourseRecords();
             if (selectedRecs.Count > 0)
@@ -455,18 +455,15 @@ namespace MRK.Views
                     }
                 }
 
-                bool flag = false;
-                foreach (var pair in list)
-                {
-                    if (flag) footerText += "  ";
+                footerText = string.Join("  ",
+                    list.Select(x =>
+                    {
+                        var lec = x.Value.Item1?.Group.ToString() ?? "NA";
+                        var tut = x.Value.Item2?.Group.ToString() ?? "NA";
 
-                    string lec = pair.Value.Item1?.Group.ToString() ?? "NA";
-                    string tut = pair.Value.Item2?.Group.ToString() ?? "NA";
-
-                    footerText += $"{pair.Key.Name} ({lec}{(pair.Value.Item1?.Course.HasNoTutorial ?? false ? "" : $"/{tut}")})";
-
-                    flag = true;
-                }
+                        return $"{x.Key.Name} ({lec}{(x.Value.Item1?.Course.HasNoTutorial ?? false ? "" : $"/{tut}")})";
+                    })
+                );
             }
             else if (_initializationState == CoursesInitializationState.Initialized)
             {

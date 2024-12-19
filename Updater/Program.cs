@@ -83,7 +83,7 @@ if (!cmdOptions.TryGetValue("proxy", out var proxy) || proxy == "false")
 
     WriteLine("Starting proxy updater...");
 
-    // run proxy executable with --nocopy=true
+    // run proxy executable with --proxy
     Process.Start(new ProcessStartInfo
     {
         FileName = tmpExecutablePath,
