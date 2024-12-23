@@ -7,6 +7,7 @@ namespace MRK.Models
     {
         None = 0,
         MultipleLectures = 1 << 0,
+        MultipleTutorials = 1 << 1
     }
 
     public class Course

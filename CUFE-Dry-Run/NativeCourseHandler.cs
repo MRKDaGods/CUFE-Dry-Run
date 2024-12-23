@@ -23,6 +23,7 @@ namespace MRK
             public CourseFlags Flags;
 
             public int MultipleLectureIndex;
+            public int MultipleTutorialIndex;
         }
 
         [DllImport("CrynNativeCourseHandler.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
@@ -39,7 +40,8 @@ namespace MRK
                 Type = record.Type,
                 Group = record.Group,
                 Flags = record.Course.Flags,
-                MultipleLectureIndex = record.MultipleLectureIndex
+                MultipleLectureIndex = record.MultipleLectureIndex,
+                MultipleTutorialIndex = record.MultipleTutorialIndex
             }).ToArray();
 
             var arrSz = sizeof(COURSE) * nativeCourses.Length;

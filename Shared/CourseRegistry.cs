@@ -82,23 +82,43 @@ namespace MRK
                 // clear flags
                 def.Flags = CourseFlags.None;
 
-                var map = new Dictionary<int, int>();
+                var lectureGroupMap = new Dictionary<int, int>();
 
                 foreach (var lecture in parser.CourseRecords.Where(x => x.Course.Code == def.Code
                                                                  && x.Type == CourseRecordType.Lecture))
                 {
-                    if (!map.ContainsKey(lecture.Group))
+                    if (!lectureGroupMap.ContainsKey(lecture.Group))
                     {
-                        map[lecture.Group] = 0;
+                        lectureGroupMap[lecture.Group] = 0;
                     }
 
-                    lecture.MultipleLectureIndex = map[lecture.Group]++;
+                    lecture.MultipleLectureIndex = lectureGroupMap[lecture.Group]++;
                 }
 
-                if (map.Any(x => x.Value >= 2))
+                if (lectureGroupMap.Any(x => x.Value >= 2))
                 {
                     //multiple lectures
                     def.Flags |= CourseFlags.MultipleLectures;
+                }
+
+                // check for multiple tutorials
+                var tutorialGroupMap = new Dictionary<int, int>();
+
+                foreach (var tutorial in parser.CourseRecords.Where(x => x.Course.Code == def.Code
+                                                                  && x.Type == CourseRecordType.Tutorial))
+                {
+                    if (!tutorialGroupMap.ContainsKey(tutorial.Group))
+                    {
+                        tutorialGroupMap[tutorial.Group] = 0;
+                    }
+
+                    tutorial.MultipleTutorialIndex = tutorialGroupMap[tutorial.Group]++;
+                }
+
+                if (tutorialGroupMap.Any(x => x.Value >= 2))
+                {
+                    //multiple tutorials
+                    def.Flags |= CourseFlags.MultipleTutorials;
                 }
             }
         }

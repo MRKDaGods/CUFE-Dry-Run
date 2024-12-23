@@ -68,6 +68,7 @@ namespace MRK.Models
         public CourseParseFormat ParseFormat { get; init; } = parseFormat;
         public bool Selected { get; set; } = false;
         public int MultipleLectureIndex { get; set; } = 0;
+        public int MultipleTutorialIndex { get; set; } = 0;
 
         public bool IsOpen => Status == "Opened";
     }
