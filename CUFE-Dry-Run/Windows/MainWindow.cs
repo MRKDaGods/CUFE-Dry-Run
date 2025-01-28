@@ -290,10 +290,13 @@ namespace MRK
             lStatusBar.Text = text;
         }
 
-        public void SetFooterBarText(string text)
+        public void SetFooterBarText(string text, Color? col = null, string? tooltipPrefix = null)
         {
             lFooterBar.Text = text;
-            tooltip.SetToolTip(lFooterBar, text.Replace(" ", "\n"));
+            lFooterBar.ForeColor = col ?? Color.White;
+
+            tooltip.SetToolTip(lFooterBar, 
+                string.Concat(!string.IsNullOrEmpty(tooltipPrefix) ? $"{tooltipPrefix}\n" : string.Empty, text.Replace(" ", "\n")));
         }
 
         public void SetScreenshotButtonState(bool visible, Action? handler)
