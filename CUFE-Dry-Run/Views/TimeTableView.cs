@@ -19,6 +19,13 @@ namespace MRK.Views
             Initialized
         }
 
+        private enum TimetableState
+        {
+            None = 1 << 0,
+            Clashing = 1 << 1,
+            Closed = 1 << 2
+        }
+
         private const string ImportCourseListFooterText = "Right click the footer bar to import course list";
 
         private const int HorizontalSpacing = 0;
@@ -36,6 +43,7 @@ namespace MRK.Views
         private bool _legendState;
 
         private Panel? _courseContainer;
+        private TimetableState _timetableState;
 
         public string ViewName => "Time Table";
 
@@ -52,6 +60,8 @@ namespace MRK.Views
 
             _prefabs = [dayPrefab, timePrefab, coursePrefab, containerPrefab, courseContPrefab];
             _courseButtons = [];
+
+            _timetableState = TimetableState.None;
         }
 
         public void OnViewShow()
@@ -63,7 +73,7 @@ namespace MRK.Views
                 _rebuildRequested = false;
 
                 LayoutTimeTable();
-                CheckClashes();
+                UpdateCourseState();
                 CheckEmptyCoursesLabel();
             }
 
@@ -411,20 +421,32 @@ namespace MRK.Views
             });
         }
 
-        public void CheckClashes()
+        public void UpdateCourseState()
         {
+            _timetableState = TimetableState.None;
+
             var selectedRecs = CourseManager.GetSelectedCourseRecords();
             foreach (var rec in selectedRecs)
             {
                 var cb = _courseButtons.Find(x => x.Record == rec);
                 if (cb == null) continue;
 
-                var clashes = CourseManager.FindClashingCourseRecords(rec);
-                cb.SetClashing(clashes.Count > 0);
-
-                if (clashes.Count > 0)
+                // check if closed
+                if (!rec.IsOpen)
                 {
-                    clashes.ForEach(x => _courseButtons.Find(y => y.Record == x)?.SetClashing(true));
+                    _timetableState |= TimetableState.Closed;
+                }
+
+                var clashes = CourseManager.FindClashingCourseRecords(rec);
+                var isClashing = clashes.Count > 0;
+                cb.UpdateCourseState(isClashing);
+
+                if (isClashing)
+                {
+                    clashes.ForEach(x => _courseButtons.Find(y => y.Record == x)?.UpdateCourseState(true));
+
+                    // set clashing
+                    _timetableState |= TimetableState.Clashing;
                 }
             }
         }
@@ -432,6 +454,8 @@ namespace MRK.Views
         public void UpdateCourseList()
         {
             string footerText = string.Empty;
+            Color? col = null;
+            string? tooltipPrefix = null;
             Dictionary<Course, BoxedTuple<CourseRecord?, CourseRecord?>> list = [];
 
             var selectedRecs = CourseManager.Instance.GetSelectedCourseRecords();
@@ -464,13 +488,24 @@ namespace MRK.Views
                         return $"{x.Key.Name} ({lec}{(x.Value.Item1?.Course.HasNoTutorial ?? false ? "" : $"/{tut}")})";
                     })
                 );
+
+                if (_timetableState.HasFlag(TimetableState.Clashing))
+                {
+                    col = Color.Red;
+                    tooltipPrefix = "CLASHING COURSES";
+                }
+                else if (_timetableState.HasFlag(TimetableState.Closed))
+                {
+                    tooltipPrefix = "CLOSED COURSES";
+                    col = Color.Black;
+                }
             }
             else if (_initializationState == CoursesInitializationState.Initialized)
             {
                 footerText = ImportCourseListFooterText;
             }
 
-            MainWindow.SetFooterBarText(footerText);
+            MainWindow.SetFooterBarText(footerText, col, tooltipPrefix);
         }
 
         private async void OnScreenshotClick()

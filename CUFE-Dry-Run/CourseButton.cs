@@ -65,19 +65,21 @@ namespace MRK
                 SetSelected(true);
             }
 
-            Owner.CheckClashes();
+            Owner.UpdateCourseState();
             Owner.UpdateCourseList();
         }
 
-        public void SetClashing(bool clashing)
+        public void UpdateCourseState(bool clashing)
         {
             _clashing = clashing;
 
-            if (_clashing)
+            if (_clashing || !Record.IsOpen)
             {
-                _button.FlatAppearance.BorderColor = Color.Red;
+                var col = _clashing ? Color.Red : Color.Black;
+
+                _button.FlatAppearance.BorderColor = col;
                 _button.Font = new Font(_button.Font, FontStyle.Bold | FontStyle.Strikeout);
-                _button.ForeColor = Color.Red;
+                _button.ForeColor = col;
             }
             else
             {

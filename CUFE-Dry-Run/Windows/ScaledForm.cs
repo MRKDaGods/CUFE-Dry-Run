@@ -73,6 +73,12 @@ namespace MRK
             base.OnLoad(e);
         }
 
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+            SetRoundedCorners(WindowState != FormWindowState.Maximized);
+        }
+
         protected void RegisterForTransparency(Control container)
         {
             foreach (Control c in container.Controls)
@@ -124,11 +130,16 @@ namespace MRK
             base.WndProc(ref m);
         }
 
+        private void SetRoundedCorners(bool enabled)
+        {
+            int roundedCorners = enabled ? 2 : 1;
+            DwmSetWindowAttribute(Handle, 33, ref roundedCorners, Marshal.SizeOf(typeof(int)));
+        }
+
         private void SetupWindow()
         {
             // rounded corners
-            int roundedCorners = 2;
-            DwmSetWindowAttribute(Handle, 33, ref roundedCorners, Marshal.SizeOf(typeof(int)));
+            SetRoundedCorners(WindowState != FormWindowState.Maximized);
 
             if (_useTransparency)
             {
