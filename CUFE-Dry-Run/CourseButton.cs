@@ -80,6 +80,9 @@ namespace MRK
                 _button.FlatAppearance.BorderColor = col;
                 _button.Font = new Font(_button.Font, FontStyle.Bold | FontStyle.Strikeout);
                 _button.ForeColor = col;
+
+                if (Record.Selected)
+                    _button.BackColor = SelectedColor;
             }
             else
             {
