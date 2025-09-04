@@ -15,7 +15,7 @@ namespace MRK.Models
     {
         private static readonly HashSet<string> CoursesWithoutTutorial = [
             "CMPS425", // consultation
-            "CCESS481" // gp1 cce
+            "CCES481" // gp1 cce
         ];
 
         public string Code { get; init; }
