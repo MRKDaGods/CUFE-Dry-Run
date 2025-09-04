@@ -19,7 +19,7 @@ namespace MRK.Models
         ];
 
         public string Code { get; init; }
-        public string Name { get; init; }
+        public string Name { get; set; }
         public bool Checked { get; set; }
         public bool IsNewSystem { get; init; }
         public int LectureCount { get; set; }
@@ -57,6 +57,11 @@ namespace MRK.Models
         public override int GetHashCode()
         {
             return HashCode.Combine(Code, Name);
+        }
+
+        public override string ToString()
+        {
+            return $"{Code} - {Name}";
         }
     }
 }

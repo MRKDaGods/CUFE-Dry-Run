@@ -8,7 +8,7 @@ namespace MRK
         /// <summary>
         /// Current app version
         /// </summary>
-        public static readonly Version Version = new("2.5.0.4");
+        public static readonly Version Version = new("2.6.0.0");
 
         /// <summary>
         /// Supported features

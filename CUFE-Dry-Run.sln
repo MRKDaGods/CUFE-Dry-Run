@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{15E9DA5B-90D8-4675-B0D6-D7B42A3BC500}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseManipulator", "CourseManipulator\CourseManipulator.csproj", "{42327990-3635-44B2-8D8B-99CD7699A3A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{15E9DA5B-90D8-4675-B0D6-D7B42A3BC500}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15E9DA5B-90D8-4675-B0D6-D7B42A3BC500}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15E9DA5B-90D8-4675-B0D6-D7B42A3BC500}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42327990-3635-44B2-8D8B-99CD7699A3A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42327990-3635-44B2-8D8B-99CD7699A3A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42327990-3635-44B2-8D8B-99CD7699A3A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42327990-3635-44B2-8D8B-99CD7699A3A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
