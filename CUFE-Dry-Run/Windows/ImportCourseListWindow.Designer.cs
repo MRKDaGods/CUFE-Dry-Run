@@ -40,7 +40,7 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = System.Drawing.Color.Transparent;
-            label1.Font = Utils.GetFontFallbacked("Segoe UI Variable Display Semib", 21F, System.Drawing.FontStyle.Bold);
+            label1.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 21F, System.Drawing.FontStyle.Bold);
             label1.ForeColor = System.Drawing.Color.White;
             label1.Location = new System.Drawing.Point(40, 50);
             label1.Name = "label1";
@@ -51,7 +51,7 @@
             // tbList
             // 
             tbList.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbList.BackColor = System.Drawing.Color.FromArgb(31, 31, 31);
+            tbList.BackColor = System.Drawing.Color.FromArgb(24, 24, 24);
             tbList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             tbList.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             tbList.Font = new System.Drawing.Font("Segoe UI", 12F);
@@ -110,14 +110,13 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.Color.FromArgb(31, 31, 31);
+            BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
             ClientSize = new System.Drawing.Size(811, 474);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(tbList);
             Controls.Add(label1);
             DoubleBuffered = true;
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            Location = new System.Drawing.Point(0, 0);
             Name = "ImportCourseListWindow";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "ImportCourseListWindow";

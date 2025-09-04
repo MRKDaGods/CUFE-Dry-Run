@@ -49,7 +49,7 @@ namespace MRK.Views
         private bool _rebuildRequested;
         private readonly List<CourseDisplay> _courses;
 
-        public string ViewName => "Courses";
+        public string ViewName => $"Courses ({CourseManager.Courses.Count})";
         public string SearchText => tbSearch.Text;
 
         private static MainWindow MainWindow => MainWindow.Instance;
@@ -70,12 +70,6 @@ namespace MRK.Views
 
         public void OnViewShow()
         {
-            // attach handler
-            MainWindow.TransparencyChanged += AdjustForTransparency;
-
-            // adjust back colors
-            AdjustForTransparency();
-
             // setup courses
             if (listViewCourses.Items.Count == 0 || _rebuildRequested)
             {
@@ -94,6 +88,9 @@ namespace MRK.Views
 
                     SortByCheckedState();
                 }
+
+                // Update scrollbar
+                listViewCourses.LowLevelScroll(0, 0);
             }
             else
             {
@@ -106,8 +103,6 @@ namespace MRK.Views
 
         public void OnViewHide()
         {
-            MainWindow.TransparencyChanged -= AdjustForTransparency;
-
             if (_dirty)
             {
                 _dirty = false;
@@ -222,20 +217,6 @@ namespace MRK.Views
                 // search
                 OnSearchClick(null, EventArgs.Empty);
             }
-        }
-
-        private void AdjustForTransparency()
-        {
-            var enabled = MainWindow.Instance.Config.TransparencyEnabled;
-            UpdateListViewHeaderStyle(enabled);
-
-            tbSearch.BackColor = enabled ? Color.Black : Color.FromArgb(24, 24, 24);
-
-            var buttonOpaqueColor = Color.FromArgb(45, 45, 45);
-            List<Button> buttons = [bSearch, .. panelShortcuts.Controls.OfType<Button>()];
-            buttons.ForEach(button => button.BackColor = enabled ? Color.Black : buttonOpaqueColor);
-
-            listViewCourses.BuildList(true);
         }
 
         private void AdjustLastColumnWidth()

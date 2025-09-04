@@ -42,7 +42,6 @@ namespace MRK
             panelFooterItems = new FlowLayoutPanel();
             bNavSettings = new Button();
             bScreenshot = new Button();
-            bToggleTransparency = new Button();
             panelViewContainer = new Panel();
             lFooterBar = new Label();
             panelLegend = new FlowLayoutPanel();
@@ -75,7 +74,7 @@ namespace MRK
             // 
             lViewTitle.AutoSize = true;
             lViewTitle.BackColor = System.Drawing.Color.Transparent;
-            lViewTitle.Font = Utils.GetFontFallbacked("Segoe UI Variable Display Semib", 21F, System.Drawing.FontStyle.Bold);
+            lViewTitle.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 21F, System.Drawing.FontStyle.Bold);
             lViewTitle.ForeColor = System.Drawing.Color.White;
             lViewTitle.Location = new System.Drawing.Point(40, 50);
             lViewTitle.Name = "lViewTitle";
@@ -93,10 +92,9 @@ namespace MRK
             bExit.FlatStyle = FlatStyle.Flat;
             bExit.Font = new System.Drawing.Font("Segoe MDL2 Assets", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             bExit.ForeColor = System.Drawing.Color.White;
-            bExit.Location = new System.Drawing.Point(1247, 0);
+            bExit.Location = new System.Drawing.Point(1259, 0);
             bExit.Name = "bExit";
-            bExit.Padding = new Padding(8, 0, 0, 0);
-            bExit.Size = new System.Drawing.Size(53, 32);
+            bExit.Size = new System.Drawing.Size(41, 32);
             bExit.TabIndex = 3;
             bExit.Text = "";
             bExit.UseVisualStyleBackColor = false;
@@ -105,7 +103,7 @@ namespace MRK
             // 
             lStatusBar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             lStatusBar.BackColor = System.Drawing.Color.Transparent;
-            lStatusBar.Font = Utils.GetFontFallbacked("Segoe UI Variable Display Semib", 10.75F, System.Drawing.FontStyle.Bold);
+            lStatusBar.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 10.75F, System.Drawing.FontStyle.Bold);
             lStatusBar.ForeColor = System.Drawing.Color.White;
             lStatusBar.Location = new System.Drawing.Point(826, 59);
             lStatusBar.Name = "lStatusBar";
@@ -117,7 +115,7 @@ namespace MRK
             // 
             lTitle.AutoSize = true;
             lTitle.BackColor = System.Drawing.Color.Transparent;
-            lTitle.Font = Utils.GetFontFallbacked("Segoe UI Variable Display Semib", 9F, System.Drawing.FontStyle.Bold);
+            lTitle.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 9F, System.Drawing.FontStyle.Bold);
             lTitle.ForeColor = System.Drawing.Color.White;
             lTitle.Location = new System.Drawing.Point(12, 16);
             lTitle.Name = "lTitle";
@@ -181,11 +179,10 @@ namespace MRK
             panelFooterItems.BackColor = System.Drawing.Color.Transparent;
             panelFooterItems.Controls.Add(bNavSettings);
             panelFooterItems.Controls.Add(bScreenshot);
-            panelFooterItems.Controls.Add(bToggleTransparency);
             panelFooterItems.FlowDirection = FlowDirection.RightToLeft;
-            panelFooterItems.Location = new System.Drawing.Point(950, 719);
+            panelFooterItems.Location = new System.Drawing.Point(1080, 719);
             panelFooterItems.Name = "panelFooterItems";
-            panelFooterItems.Size = new System.Drawing.Size(350, 38);
+            panelFooterItems.Size = new System.Drawing.Size(220, 38);
             panelFooterItems.TabIndex = 15;
             // 
             // bNavSettings
@@ -199,7 +196,7 @@ namespace MRK
             bNavSettings.FlatStyle = FlatStyle.Flat;
             bNavSettings.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             bNavSettings.ForeColor = System.Drawing.Color.White;
-            bNavSettings.Location = new System.Drawing.Point(240, 0);
+            bNavSettings.Location = new System.Drawing.Point(110, 0);
             bNavSettings.Margin = new Padding(0);
             bNavSettings.Name = "bNavSettings";
             bNavSettings.Size = new System.Drawing.Size(110, 35);
@@ -217,31 +214,13 @@ namespace MRK
             bScreenshot.FlatStyle = FlatStyle.Flat;
             bScreenshot.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             bScreenshot.ForeColor = System.Drawing.Color.White;
-            bScreenshot.Location = new System.Drawing.Point(130, 0);
+            bScreenshot.Location = new System.Drawing.Point(0, 0);
             bScreenshot.Margin = new Padding(0);
             bScreenshot.Name = "bScreenshot";
             bScreenshot.Size = new System.Drawing.Size(110, 35);
             bScreenshot.TabIndex = 1;
             bScreenshot.Text = "  Screenshot";
             bScreenshot.UseVisualStyleBackColor = false;
-            // 
-            // bToggleTransparency
-            // 
-            bToggleTransparency.BackColor = System.Drawing.Color.Transparent;
-            bToggleTransparency.Cursor = Cursors.Hand;
-            bToggleTransparency.FlatAppearance.BorderSize = 0;
-            bToggleTransparency.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            bToggleTransparency.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            bToggleTransparency.FlatStyle = FlatStyle.Flat;
-            bToggleTransparency.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            bToggleTransparency.ForeColor = System.Drawing.Color.White;
-            bToggleTransparency.Location = new System.Drawing.Point(0, 0);
-            bToggleTransparency.Margin = new Padding(0);
-            bToggleTransparency.Name = "bToggleTransparency";
-            bToggleTransparency.Size = new System.Drawing.Size(130, 35);
-            bToggleTransparency.TabIndex = 2;
-            bToggleTransparency.Text = "  Transparency";
-            bToggleTransparency.UseVisualStyleBackColor = false;
             // 
             // panelViewContainer
             // 
@@ -261,7 +240,7 @@ namespace MRK
             lFooterBar.ForeColor = System.Drawing.Color.White;
             lFooterBar.Location = new System.Drawing.Point(238, 716);
             lFooterBar.Name = "lFooterBar";
-            lFooterBar.Size = new System.Drawing.Size(697, 41);
+            lFooterBar.Size = new System.Drawing.Size(836, 41);
             lFooterBar.TabIndex = 8;
             lFooterBar.Text = "footer";
             lFooterBar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -330,7 +309,7 @@ namespace MRK
             label2.ForeColor = System.Drawing.Color.White;
             label2.Location = new System.Drawing.Point(31, 12);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(47, 13);
+            label2.Size = new System.Drawing.Size(46, 13);
             label2.TabIndex = 1;
             label2.Text = "Tutorial";
             // 
@@ -444,7 +423,7 @@ namespace MRK
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            BackColor = System.Drawing.Color.Black;
+            BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
             ClientSize = new System.Drawing.Size(1300, 760);
             Controls.Add(panelLegend);
             Controls.Add(lFooterBar);
@@ -457,7 +436,6 @@ namespace MRK
             Controls.Add(lViewTitle);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
-            Location = new System.Drawing.Point(0, 0);
             Name = "MainWindow";
             Text = "CUFE Dry Run";
             panelMenuItems.ResumeLayout(false);
@@ -491,7 +469,6 @@ namespace MRK
         private Button bNavSettings;
         private Button bScreenshot;
         private Panel panelViewContainer;
-        private Button bToggleTransparency;
         private Label lFooterBar;
         private FlowLayoutPanel panelLegend;
         private Panel panel1;

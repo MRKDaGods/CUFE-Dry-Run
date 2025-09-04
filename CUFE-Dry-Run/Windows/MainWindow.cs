@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,9 +15,7 @@ namespace MRK
 
         private readonly Dictionary<Type, IView> _views;
         private IView? _currentView;
-        private event Action? _transparencyChanged;
         private Action? _screenshotHandler;
-        private bool _transparencyForceRefresh;
 
         public Config Config => _config;
 
@@ -30,19 +27,13 @@ namespace MRK
             }
         }
 
-        public event Action TransparencyChanged
-        {
-            add => _transparencyChanged += value;
-            remove => _transparencyChanged -= value;
-        }
-
         public IView? CurrentView => _currentView;
 
 #nullable disable
         public static MainWindow Instance { get; set; }
 #nullable enable
 
-        public MainWindow() : base(true)
+        public MainWindow()
         {
             // enable console
             Utils.InitializeConsole();
@@ -68,17 +59,11 @@ namespace MRK
                 _config = new();
             }
 
-            _transparencyForceRefresh = _config.TransparencyEnabled;
-
-            // update form transparency
-            UpdateTransparency();
-
-            //load update if exists
+            // Load update if exists
             UpdateManager.Instance.LoadUpdate(string.Empty);
 
             bExit.Click += (_, _) => Application.Exit();
             bScreenshot.Click += OnScreenshotClick;
-            bToggleTransparency.Click += OnToggleTransparencyClick;
 
             lFooterBar.MouseClick += OnFooterBarClick;
             lFooterBar.DoubleClick += OnFooterBarDoubleClick;
@@ -178,20 +163,6 @@ namespace MRK
             return _views.TryGetValue(typeof(T), out var view) ? (T)view : default;
         }
 
-        private void OnToggleTransparencyClick(object? sender, EventArgs e)
-        {
-            if (!_config.TransparencyEnabled && _config.DisplayTransparencyWarning)
-            {
-                MessageBox.Show(this, "This project is built using winforms.\n" +
-                    "Tearing and lag may occur due to winform limitations supporting the background acrylic effect!\n\n" +
-                    "Should be fixed by Fall/Spring25 isa", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                _config.DisplayTransparencyWarning = false;
-            }
-
-            UpdateTransparency(!_config.TransparencyEnabled);
-        }
-
         private void OnScreenshotClick(object? sender, EventArgs e)
         {
             _screenshotHandler?.Invoke();
@@ -251,40 +222,6 @@ namespace MRK
             }
         }
 
-        private void UpdateTransparency(bool? newValue = null)
-        {
-            bool forceRefresh = false;
-
-            if (newValue.HasValue)
-            {
-                forceRefresh = !_transparencyForceRefresh && newValue.Value && !_config.TransparencyEnabled;
-
-                _config.TransparencyEnabled = newValue.Value;
-
-                // raise event
-                _transparencyChanged?.Invoke();
-            }
-
-            if (_config.TransparencyEnabled)
-            {
-                BackColor = Color.Black;
-                EnableBlur();
-            }
-            else
-            {
-                BackColor = Color.FromArgb(255, 31, 31, 31);
-                DisableBlur();
-            }
-
-            if (forceRefresh)
-            {
-                _transparencyForceRefresh = true;
-
-                WindowState = FormWindowState.Maximized;
-                WindowState = FormWindowState.Normal;
-            }
-        }
-
         public void SetStatusBarText(string text)
         {
             lStatusBar.Text = text;
@@ -295,7 +232,7 @@ namespace MRK
             lFooterBar.Text = text;
             lFooterBar.ForeColor = col ?? Color.White;
 
-            tooltip.SetToolTip(lFooterBar, 
+            tooltip.SetToolTip(lFooterBar,
                 string.Concat(!string.IsNullOrEmpty(tooltipPrefix) ? $"{tooltipPrefix}\n" : string.Empty, text.Replace(" ", "\n")));
         }
 

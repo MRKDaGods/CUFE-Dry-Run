@@ -64,7 +64,7 @@
             // 
             listViewCourses.AlternateRowBackColor = System.Drawing.Color.FromArgb(42, 42, 42);
             listViewCourses.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            listViewCourses.BackColor = System.Drawing.Color.FromArgb(31, 31, 31);
+            listViewCourses.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
             listViewCourses.BorderStyle = System.Windows.Forms.BorderStyle.None;
             listViewCourses.CellEditUseWholeCell = false;
             listViewCourses.CheckBoxes = true;
@@ -111,7 +111,7 @@
             // 
             // button2
             // 
-            button2.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+            button2.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
             button2.FlatAppearance.BorderSize = 0;
             button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             button2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
@@ -126,7 +126,7 @@
             // 
             // button1
             // 
-            button1.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+            button1.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             button1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
@@ -141,7 +141,7 @@
             // 
             // button5
             // 
-            button5.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+            button5.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
             button5.FlatAppearance.BorderSize = 0;
             button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             button5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
@@ -156,7 +156,7 @@
             // 
             // button3
             // 
-            button3.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+            button3.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
             button3.FlatAppearance.BorderSize = 0;
             button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             button3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
@@ -171,7 +171,7 @@
             // 
             // button4
             // 
-            button4.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+            button4.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
             button4.FlatAppearance.BorderSize = 0;
             button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             button4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);
@@ -186,9 +186,9 @@
             // 
             // tbSearch
             // 
-            tbSearch.BackColor = System.Drawing.Color.FromArgb(31, 31, 31);
-            tbSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            tbSearch.Font = new System.Drawing.Font("Segoe UI", 12F);
+            tbSearch.BackColor = System.Drawing.Color.FromArgb(24, 24, 24);
+            tbSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            tbSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 12F);
             tbSearch.ForeColor = System.Drawing.Color.White;
             tbSearch.Location = new System.Drawing.Point(0, 0);
             tbSearch.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
@@ -201,7 +201,7 @@
             // bSearch
             // 
             bSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            bSearch.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+            bSearch.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
             bSearch.FlatAppearance.BorderSize = 0;
             bSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             bSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 9F);

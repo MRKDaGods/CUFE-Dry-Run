@@ -47,14 +47,11 @@
             pbarUpdate = new System.Windows.Forms.ProgressBar();
             label5 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
-            label8 = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
-            label9 = new System.Windows.Forms.Label();
-            label10 = new System.Windows.Forms.Label();
             label11 = new System.Windows.Forms.Label();
             lMrk = new System.Windows.Forms.Label();
-            lRepo = new System.Windows.Forms.Label();
             lFeatures = new System.Windows.Forms.Label();
+            lRepo = new System.Windows.Forms.Label();
             panelMainLayout.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -76,10 +73,7 @@
             panelMainLayout.Controls.Add(pbarUpdate);
             panelMainLayout.Controls.Add(label5);
             panelMainLayout.Controls.Add(label6);
-            panelMainLayout.Controls.Add(label8);
             panelMainLayout.Controls.Add(label7);
-            panelMainLayout.Controls.Add(label9);
-            panelMainLayout.Controls.Add(label10);
             panelMainLayout.Controls.Add(label11);
             panelMainLayout.Controls.Add(lMrk);
             panelMainLayout.Controls.Add(lFeatures);
@@ -95,7 +89,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = Utils.GetFontFallbacked("Segoe UI Variable Small Semibol", 16F, System.Drawing.FontStyle.Bold);
+            label1.Font = new System.Drawing.Font("Segoe UI Variable Small Semibol", 16F, System.Drawing.FontStyle.Bold);
             label1.ForeColor = System.Drawing.Color.White;
             label1.Location = new System.Drawing.Point(3, 0);
             label1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 16);
@@ -218,7 +212,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = Utils.GetFontFallbacked("Segoe UI Variable Small Semibol", 16F, System.Drawing.FontStyle.Bold);
+            label3.Font = new System.Drawing.Font("Segoe UI Variable Small Semibol", 16F, System.Drawing.FontStyle.Bold);
             label3.ForeColor = System.Drawing.Color.White;
             label3.Location = new System.Drawing.Point(3, 0);
             label3.Margin = new System.Windows.Forms.Padding(3, 0, 3, 16);
@@ -288,7 +282,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = Utils.GetFontFallbacked("Segoe UI Variable Small Semibol", 16F, System.Drawing.FontStyle.Bold);
+            label5.Font = new System.Drawing.Font("Segoe UI Variable Small Semibol", 16F, System.Drawing.FontStyle.Bold);
             label5.ForeColor = System.Drawing.Color.White;
             label5.Location = new System.Drawing.Point(3, 501);
             label5.Margin = new System.Windows.Forms.Padding(3, 48, 3, 16);
@@ -309,60 +303,24 @@
             label6.TabIndex = 12;
             label6.Text = "Window can be maximized/minimized by double clicking on the title bar";
             // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
-            label8.ForeColor = System.Drawing.Color.White;
-            label8.Location = new System.Drawing.Point(5, 576);
-            label8.Margin = new System.Windows.Forms.Padding(5, 0, 3, 10);
-            label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(453, 19);
-            label8.TabIndex = 12;
-            label8.Text = "Window resize handle can be found at the bottom right of the window";
-            // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
             label7.ForeColor = System.Drawing.Color.White;
-            label7.Location = new System.Drawing.Point(5, 605);
+            label7.Location = new System.Drawing.Point(5, 576);
             label7.Margin = new System.Windows.Forms.Padding(5, 0, 3, 10);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(627, 19);
             label7.TabIndex = 13;
             label7.Text = "Double clicking the status bar in the timetable view will copy the selected courses to the clipboard";
             // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
-            label9.ForeColor = System.Drawing.Color.White;
-            label9.Location = new System.Drawing.Point(5, 634);
-            label9.Margin = new System.Windows.Forms.Padding(5, 0, 3, 10);
-            label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(529, 19);
-            label9.TabIndex = 13;
-            label9.Text = "If transparency effect is enabled, controls may not look well on bright backgrounds";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
-            label10.ForeColor = System.Drawing.Color.White;
-            label10.Location = new System.Drawing.Point(5, 663);
-            label10.Margin = new System.Windows.Forms.Padding(5, 0, 3, 10);
-            label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(438, 19);
-            label10.TabIndex = 14;
-            label10.Text = "Winforms limit transparency support, tearing and lagging may occur";
-            // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Font = Utils.GetFontFallbacked("Segoe UI Variable Small Semibol", 16F, System.Drawing.FontStyle.Bold);
+            label11.Font = new System.Drawing.Font("Segoe UI Variable Small Semibol", 16F, System.Drawing.FontStyle.Bold);
             label11.ForeColor = System.Drawing.Color.White;
-            label11.Location = new System.Drawing.Point(3, 724);
+            label11.Location = new System.Drawing.Point(3, 637);
             label11.Margin = new System.Windows.Forms.Padding(3, 32, 3, 16);
             label11.Name = "label11";
             label11.Size = new System.Drawing.Size(86, 30);
@@ -375,25 +333,12 @@
             lMrk.Cursor = System.Windows.Forms.Cursors.Hand;
             lMrk.Font = new System.Drawing.Font("Segoe UI Semibold", 12F);
             lMrk.ForeColor = System.Drawing.Color.White;
-            lMrk.Location = new System.Drawing.Point(5, 770);
+            lMrk.Location = new System.Drawing.Point(5, 683);
             lMrk.Margin = new System.Windows.Forms.Padding(5, 0, 3, 10);
             lMrk.Name = "lMrk";
             lMrk.Size = new System.Drawing.Size(142, 21);
             lMrk.TabIndex = 16;
             lMrk.Text = "Mohamed Ammar";
-            // 
-            // lRepo
-            // 
-            lRepo.AutoSize = true;
-            lRepo.Cursor = System.Windows.Forms.Cursors.Hand;
-            lRepo.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Underline);
-            lRepo.ForeColor = System.Drawing.Color.White;
-            lRepo.Location = new System.Drawing.Point(5, 844);
-            lRepo.Margin = new System.Windows.Forms.Padding(5, 0, 3, 16);
-            lRepo.Name = "lRepo";
-            lRepo.Size = new System.Drawing.Size(119, 17);
-            lRepo.TabIndex = 16;
-            lRepo.Text = "Github Repository";
             // 
             // lFeatures
             // 
@@ -401,12 +346,25 @@
             lFeatures.Cursor = System.Windows.Forms.Cursors.Hand;
             lFeatures.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F);
             lFeatures.ForeColor = System.Drawing.Color.White;
-            lFeatures.Location = new System.Drawing.Point(5, 817);
+            lFeatures.Location = new System.Drawing.Point(5, 730);
             lFeatures.Margin = new System.Windows.Forms.Padding(5, 16, 3, 10);
             lFeatures.Name = "lFeatures";
             lFeatures.Size = new System.Drawing.Size(45, 17);
             lFeatures.TabIndex = 17;
             lFeatures.Text = "[XLSX]";
+            // 
+            // lRepo
+            // 
+            lRepo.AutoSize = true;
+            lRepo.Cursor = System.Windows.Forms.Cursors.Hand;
+            lRepo.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Underline);
+            lRepo.ForeColor = System.Drawing.Color.White;
+            lRepo.Location = new System.Drawing.Point(5, 757);
+            lRepo.Margin = new System.Windows.Forms.Padding(5, 0, 3, 16);
+            lRepo.Name = "lRepo";
+            lRepo.Size = new System.Drawing.Size(119, 17);
+            lRepo.TabIndex = 16;
+            lRepo.Text = "Github Repository";
             // 
             // SettingsView
             // 
@@ -450,9 +408,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lMrk;
         private System.Windows.Forms.Label lRepo;

@@ -11,8 +11,7 @@ namespace MRK
 {
     public partial class ImportCourseListWindow : ScaledForm
     {
-
-        public ImportCourseListWindow() : base(false)
+        public ImportCourseListWindow()
         {
             InitializeComponent();
 

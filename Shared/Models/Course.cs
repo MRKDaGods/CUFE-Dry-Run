@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MRK.Models
@@ -12,6 +13,11 @@ namespace MRK.Models
 
     public class Course
     {
+        private static readonly HashSet<string> CoursesWithoutTutorial = [
+            "CMPS425", // consultation
+            "CCESS481" // gp1 cce
+        ];
+
         public string Code { get; init; }
         public string Name { get; init; }
         public bool Checked { get; set; }
@@ -28,7 +34,7 @@ namespace MRK.Models
             }
         }
 
-        public bool HasNoTutorial => IsGen || Code == "CMPS425"; // consultation
+        public bool HasNoTutorial => IsGen || CoursesWithoutTutorial.Contains(Code);
 
         public Course(string code, string name)
         {
