@@ -150,6 +150,7 @@ namespace MRK.Views
             listViewCourses.ColumnWidthChanged += OnListViewColumnResized;
             listViewCourses.ItemChecked += OnListViewChecked;
             listViewCourses.DoubleClick += OnListViewDoubleClick;
+            listViewCourses.KeyDown += OnListViewKeyPress;
 
             listViewCourses.AfterSorting += OnListViewAfterSort;
 
@@ -164,6 +165,15 @@ namespace MRK.Views
             if (item != null)
             {
                 item.Checked = !item.Checked;
+            }
+        }
+
+        private void OnListViewKeyPress(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Return)
+            {
+                OnListViewDoubleClick(sender, EventArgs.Empty);
+                e.Handled = true;
             }
         }
 
