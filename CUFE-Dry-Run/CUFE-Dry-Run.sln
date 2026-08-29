@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUFE-Dry-Run", "CUFE-Dry-Run.csproj", "{AD708109-909B-52AF-DCBE-4DD288A5EDF7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD708109-909B-52AF-DCBE-4DD288A5EDF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD708109-909B-52AF-DCBE-4DD288A5EDF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD708109-909B-52AF-DCBE-4DD288A5EDF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD708109-909B-52AF-DCBE-4DD288A5EDF7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {20E35F69-1785-4332-8341-046D52EDE776}
+	EndGlobalSection
+EndGlobal
